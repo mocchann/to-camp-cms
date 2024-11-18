@@ -9,4 +9,6 @@ COPY 000-default.conf /etc/apache2/conf-available/000-default.conf
 
 WORKDIR /var/www/html
 
+RUN a2enconf 000-default
+
 EXPOSE 80
