@@ -2,6 +2,8 @@
 
 namespace App\Domain\Users;
 
+use App\Domain\Models\Users\UserId;
+
 class User
 {
     public function __construct(
