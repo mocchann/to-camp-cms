@@ -3,6 +3,7 @@
 namespace App\Domain\Users;
 
 use App\Domain\Models\Users\UserId;
+use App\Domain\Models\Users\UserName;
 
 class User
 {
