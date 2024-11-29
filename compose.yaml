@@ -16,8 +16,6 @@ services:
       MYSQL_DATABASE: to-camp
       MYSQL_USER: user
       MYSQL_PASSWORD: password
-    # volumes:
-    #   - to-camp-db-volume:/var/lib/mysql
   mysql_test:
     image: mysql:8.0
     ports:
