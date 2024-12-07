@@ -50,7 +50,7 @@
             "@php artisan migrate --ansi"
         ],
         "test": [
-            "phpunit tests"
+            "@php artisan test"
         ]
     },
     "extra": {
