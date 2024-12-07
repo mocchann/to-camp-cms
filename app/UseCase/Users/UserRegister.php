@@ -28,7 +28,7 @@ class UserRegister
         $user_id = new UserId($id);
         $user = $this->repository->findById($user_id);
 
-        if ($this->user_service->exists($user)) {
+        if ($user !== null && $this->user_service->exists($user)) {
             Log::info('User already exists');
             return;
         }
