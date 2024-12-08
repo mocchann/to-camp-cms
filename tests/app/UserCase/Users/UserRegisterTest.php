@@ -24,21 +24,16 @@ class UserRegisterTest extends TestCase
     public function ユーザーを登録できる(): void
     {
         $repository = Mockery::mock(IUserRepository::class);
-        $repository->shouldReceive('findById')
-            ->andReturn(null, new User(
-                new UserId(1),
-                new UserName('test_user'),
-                new UserEmail('test_user@example.com'),
-                new UserPassword('password')
-            ));
+        $repository->shouldReceive('findByEmail')
+            ->andReturn(null);
 
-        $repository->shouldReceive('register')
-            ->andReturnUsing(function (UserId $id, UserName $name, UserEmail $email, UserPassword $password) {
+        $repository->shouldReceive('save')
+            ->andReturnUsing(function (User $user) {
                 ModelsUser::create([
-                    'id' => $id->getId(),
-                    'name' => $name->getName(),
-                    'email' => $email->getEmail(),
-                    'password' => $password->getPassword()
+                    'id' => $user->getId()->getValue(),
+                    'name' => $user->getName()->getValue(),
+                    'email' => $user->getEmail()->getValue(),
+                    'password' => $user->getPassword()->getValue()
                 ]);
             });
 
@@ -56,5 +51,33 @@ class UserRegisterTest extends TestCase
         $use_case->execute($id, $name, $email, $password);
 
         $this->assertDatabaseCount('users', 1);
+    }
+
+    #[Test]
+    public function 同じユーザーは登録できない(): void
+    {
+        $repository = Mockery::mock(IUserRepository::class);
+        $repository->shouldReceive('findByEmail')
+            ->andReturn(new User(
+                new UserId(1),
+                new UserName('test_user'),
+                new UserEmail('test_user@example.com'),
+                new UserPassword('password')
+            ));
+
+        /**
+         * @var IUserRepository $repository
+         */
+        $service = new UserService($repository);
+        $use_case = new UserRegister($service, $repository);
+
+        $id = 2;
+        $name = 'test_user';
+        $email = 'test_user@example.com';
+        $password = 'password';
+
+        $use_case->execute($id, $name, $email, $password);
+
+        $this->assertDatabaseCount('users', 0);
     }
 }
