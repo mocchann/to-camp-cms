@@ -3,6 +3,7 @@
 namespace App\UseCase\Users;
 
 use App\Domain\Models\Users\IUserRepository;
+use App\Domain\Models\Users\User;
 use App\Domain\Models\Users\UserEmail;
 use App\Domain\Models\Users\UserId;
 use App\Domain\Models\Users\UserName;
@@ -26,17 +27,16 @@ class UserRegister
         string $password
     ): void {
         $user_id = new UserId($id);
-        $user = $this->repository->findById($user_id);
+        $user_name = new UserName($name);
+        $user_email = new UserEmail($email);
+        $user_password = new UserPassword($password);
+        $user = new User($user_id, $user_name, $user_email, $user_password);
 
-        if ($user !== null && $this->user_service->exists($user)) {
+        if ($this->user_service->exists($user)) {
             Log::info('User already exists');
             return;
         }
 
-        $user_name = new UserName($name);
-        $user_email = new UserEmail($email);
-        $user_password = new UserPassword($password);
-
-        $this->repository->register($user_id, $user_name, $user_email, $user_password);
+        $this->repository->save($user);
     }
 }
