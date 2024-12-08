@@ -11,6 +11,6 @@ class UserService
 
     public function exists(User $user): bool
     {
-        return $this->repository->findById($user->getId()) !== null;
+        return $this->repository->findByEmail($user->getEmail()) !== null;
     }
 }
