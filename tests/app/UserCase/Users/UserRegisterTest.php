@@ -64,6 +64,15 @@ class UserRegisterTest extends TestCase
                 new UserEmail('test_user@example.com'),
                 new UserPassword('password')
             ));
+        $repository->shouldReceive('save')
+            ->andReturnUsing(function (User $user) {
+                ModelsUser::create([
+                    'id' => $user->getId()->getValue(),
+                    'name' => $user->getName()->getValue(),
+                    'email' => $user->getEmail()->getValue(),
+                    'password' => $user->getPassword()->getValue()
+                ]);
+            });
 
         /**
          * @var IUserRepository $repository
