@@ -10,7 +10,7 @@ class UserPassword
         $this->password = $password;
     }
 
-    public function getPassword(): string
+    public function getValue(): string
     {
         return $this->password;
     }
