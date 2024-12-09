@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Users;
+namespace App\Domain\Models\Users;
 
 use App\Domain\Models\Users\UserEmail;
 use App\Domain\Models\Users\UserId;
@@ -10,7 +10,7 @@ use App\Domain\Models\Users\UserPassword;
 class User
 {
     public function __construct(
-        private readonly UserId $id,
+        private UserId $id,
         private UserName $name,
         private UserEmail $email,
         private UserPassword $password
@@ -34,5 +34,10 @@ class User
     public function getEmail(): UserEmail
     {
         return $this->email;
+    }
+
+    public function getPassword(): UserPassword
+    {
+        return $this->password;
     }
 }
