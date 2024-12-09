@@ -3,10 +3,6 @@
 namespace Tests\App\UseCase\Users;
 
 use App\Domain\Models\Users\IUserRepository;
-use App\Domain\Models\Users\UserEmail;
-use App\Domain\Models\Users\UserId;
-use App\Domain\Models\Users\UserName;
-use App\Domain\Models\Users\UserPassword;
 use App\Domain\Models\Users\UserService;
 use App\Domain\Models\Users\User;
 use App\Models\User as ModelsUser;
