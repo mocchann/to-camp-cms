@@ -11,8 +11,13 @@ class UserRepository implements IUserRepository
         // TODO: Implement findById() method.
     }
 
-    public function register(UserId $id, UserName $name, UserEmail $email, UserPassword $password): void
+    public function findByEmail(UserEmail $id): ?User
     {
-        // TODO: Implement register() method.
+        // TODO: Implement findByEmail() method.
+    }
+
+    public function save(User $user): void
+    {
+        // TODO: Implement save() method.
     }
 }
