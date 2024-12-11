@@ -32,6 +32,9 @@ jobs:
       - name: setup composer
         run: composer install
 
+      - name: Copy environment file
+        run: cp .env.example .env
+
       - name: Generate app key
         run: php artisan key:generate
 
