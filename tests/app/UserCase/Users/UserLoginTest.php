@@ -18,23 +18,23 @@ class UserLoginTest extends TestCase
     #[Test]
     public function ユーザーがログインできる(): void
     {
-        $email = 'test_user@example.com';
-        $password = 'password';
+        $user = new User(
+            new UserId(1),
+            new UserName('test_user'),
+            new UserEmail('test_user@example.com'),
+            new UserPassword('password')
+        );
+
         $repository = Mockery::mock(IUserRepository::class);
         $repository->shouldReceive('findByEmail')
-            ->andReturnUsing(function () {
-                return new User(
-                    new UserId(1),
-                    new UserName('test_user'),
-                    new UserEmail('test_user@example.com'),
-                    new UserPassword('password')
-                );
+            ->andReturnUsing(function () use ($user) {
+                return $user;
             });
         /**
          * @var IUserRepository $repository
          */
         $use_case = new UserLogin($repository);
 
-        $this->assertTrue($use_case->execute($email, $password));
+        $this->assertTrue($use_case->execute('test_user@example.com', 'password'));
     }
 }
