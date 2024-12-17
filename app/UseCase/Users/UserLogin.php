@@ -5,6 +5,8 @@ namespace App\UseCase\Users;
 use App\Domain\Models\Users\IUserRepository;
 use App\Domain\Models\Users\UserEmail;
 use App\Domain\Models\Users\UserPassword;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserLogin
 {
@@ -26,7 +28,10 @@ class UserLogin
             return false;
         }
 
-        if ($user->getEmail()->getValue() === $user_email->getValue() && $user->getPassword()->getValue() === $user_password->getValue()) {
+        if (
+            $user->getEmail()->getValue() === $user_email->getValue()
+            && Hash::check($user_password->getValue(), $user->getPassword()->getValue())
+        ) {
             return true;
         }
 
