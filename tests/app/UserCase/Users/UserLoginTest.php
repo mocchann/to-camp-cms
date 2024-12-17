@@ -9,6 +9,7 @@ use App\Domain\Models\Users\UserId;
 use App\Domain\Models\Users\UserName;
 use App\Domain\Models\Users\UserPassword;
 use App\UseCase\Users\UserLogin;
+use Illuminate\Support\Facades\Hash;
 use Mockery;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -22,7 +23,7 @@ class UserLoginTest extends TestCase
             new UserId(1),
             new UserName('test_user'),
             new UserEmail('test_user@example.com'),
-            new UserPassword('password')
+            new UserPassword(Hash::make('password'))
         );
 
         $repository = Mockery::mock(IUserRepository::class);
