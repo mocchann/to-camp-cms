@@ -2,6 +2,8 @@
 
 namespace App\UseCase\CampGrounds;
 
+use App\Domain\Models\CampGrounds\ICampGroundRepository;
+
 class GetCampGrounds
 {
     public function __construct(private ICampGroundRepository $repository)
