@@ -5,7 +5,7 @@ namespace App\Domain\Models\CampGrounds;
 class CampGround
 {
     public function __construct(
-        private readonly CampGroundId $id,
+        private CampGroundId $id,
         private CampGroundName $name,
         private CampGroundAddress $address,
         private CampGroundPrice $price,
