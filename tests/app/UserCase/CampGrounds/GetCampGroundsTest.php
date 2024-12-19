@@ -9,7 +9,9 @@ use App\Domain\Models\CampGrounds\CampGroundImage;
 use App\Domain\Models\CampGrounds\CampGroundName;
 use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
+use App\Domain\Models\CampGrounds\ICampGroundRepository;
 use App\UseCase\CampGrounds\GetCampGrounds;
+use Mockery;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -37,7 +39,11 @@ class GetCampGroundsTest extends TestCase
             ),
         ];
 
-        $use_case = new GetCampGrounds();
+        $repository = Mockery::mock(ICampGroundRepository::class);
+        $repository->shouldReceive('findAll')->andReturn($camp_grounds);
+
+        /** @var ICampGroundRepository $repository */
+        $use_case = new GetCampGrounds($repository);
 
         $this->assertEquals($camp_grounds, $use_case->execute());
     }
