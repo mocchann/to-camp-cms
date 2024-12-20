@@ -40,11 +40,42 @@ class GetCampGroundsTest extends TestCase
         ];
 
         $repository = Mockery::mock(ICampGroundRepository::class);
-        $repository->shouldReceive('findAll')->andReturn($camp_grounds);
+        $repository->shouldReceive('get')->andReturn($camp_grounds);
 
         /** @var ICampGroundRepository $repository */
         $use_case = new GetCampGrounds($repository);
 
-        $this->assertEquals($camp_grounds, $use_case->execute());
+        $result = $use_case->execute();
+
+        $this->assertEquals(
+            [
+                [
+                    'id' => 1,
+                    'name' => 'テストオートキャンプ場',
+                    'address' => '沖縄県晴海町1-12-89',
+                    'price' => 3000,
+                    'image' => 'https://example.com/image.jpg',
+                    'status' => 'open',
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'テストキャンプ場',
+                    'address' => '北海道青天町807',
+                    'price' => 5000,
+                    'image' => 'https://example.com/image.jpg',
+                    'status' => 'open',
+                ],
+            ],
+            array_map(function (CampGround $camp_ground) {
+                return [
+                    'id' => $camp_ground->getId()->getValue(),
+                    'name' => $camp_ground->getName()->getValue(),
+                    'address' => $camp_ground->getAddress()->getValue(),
+                    'price' => $camp_ground->getPrice()->getValue(),
+                    'image' => $camp_ground->getImage()->getValue(),
+                    'status' => $camp_ground->getStatus()->getValue(),
+                ];
+            }, $result)
+        );
     }
 }
