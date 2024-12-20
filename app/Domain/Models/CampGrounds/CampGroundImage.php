@@ -10,7 +10,7 @@ class CampGroundImage
         $this->image = $image;
     }
 
-    public function getImage(): string
+    public function getValue(): string
     {
         return $this->image;
     }
