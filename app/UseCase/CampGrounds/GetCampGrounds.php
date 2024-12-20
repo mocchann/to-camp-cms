@@ -11,9 +11,24 @@ class GetCampGrounds
         $this->repository = $repository;
     }
 
-    public function execute(): array
-    {
-        $camp_grounds = $this->repository->findAll();
+    public function execute(
+        ?int $id = null,
+        ?string $name = null,
+        ?string $address = null,
+        ?int $price = null,
+        ?string $image = null,
+        ?string $status = null
+    ): array {
+        $command = new GetCampGroundsCommand(
+            $id,
+            $name,
+            $address,
+            $price,
+            $image,
+            $status
+        );
+
+        $camp_grounds = $this->repository->get($command);
 
         return $camp_grounds;
     }
