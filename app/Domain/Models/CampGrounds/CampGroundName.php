@@ -10,7 +10,7 @@ class CampGroundName
         $this->name = $name;
     }
 
-    public function getName(): string
+    public function getValue(): string
     {
         return $this->name;
     }
