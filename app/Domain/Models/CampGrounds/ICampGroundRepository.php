@@ -2,7 +2,9 @@
 
 namespace App\Domain\Models\CampGrounds;
 
+use App\UseCase\CampGrounds\GetCampGroundsCommand;
+
 interface ICampGroundRepository
 {
-    public function findAll(): array;
+    public function get(GetCampGroundsCommand $command): array;
 }

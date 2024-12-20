@@ -10,7 +10,7 @@ class CampGroundAddress
         $this->address = $address;
     }
 
-    public function getAddress(): string
+    public function getValue(): string
     {
         return $this->address;
     }

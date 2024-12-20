@@ -10,7 +10,7 @@ class CampGroundPrice
         $this->price = $price;
     }
 
-    public function getPrice(): int
+    public function getValue(): int
     {
         return $this->price;
     }

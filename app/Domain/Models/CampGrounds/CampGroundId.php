@@ -10,7 +10,7 @@ class CampGroundId
         $this->id = $id;
     }
 
-    public function getId(): string
+    public function getValue(): string
     {
         return $this->id;
     }

@@ -10,7 +10,7 @@ class CampGroundStatus
         $this->status = $status;
     }
 
-    public function getStatus(): string
+    public function getValue(): string
     {
         return $this->status;
     }
