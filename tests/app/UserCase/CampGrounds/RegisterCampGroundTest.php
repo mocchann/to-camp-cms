@@ -44,7 +44,6 @@ class RegisterCampGroundTest extends TestCase
             'open'
         );
 
-
         $this->assertEquals($expected, $actual);
     }
 }
