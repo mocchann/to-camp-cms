@@ -12,6 +12,7 @@ use App\Domain\Models\CampGrounds\CampGroundStatus;
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
 use App\UseCase\CampGrounds\RegisterCampGround;
 use App\UseCase\CampGrounds\RegisterCampGroundCommand;
+use App\UseCase\CampGrounds\UpdateCampGround;
 use Mockery;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
