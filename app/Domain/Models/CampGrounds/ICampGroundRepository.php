@@ -9,4 +9,5 @@ interface ICampGroundRepository
 {
     public function get(GetCampGroundsCommand $command): array;
     public function save(RegisterCampGroundCommand $command): CampGround;
+    public function update(UpdateCampGroundCommand $command): CampGround;
 }
