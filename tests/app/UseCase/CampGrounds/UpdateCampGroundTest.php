@@ -21,7 +21,16 @@ class UpdateCampGroundTest extends TestCase
     #[Test]
     public function キャンプ場情報を更新できる(): void
     {
-        $expected = new CampGround(
+        $initial_camp_ground = new CampGround(
+            new CampGroundId(1),
+            new CampGroundName('テストオートキャンプ場'),
+            new CampGroundAddress('沖縄県晴海町1-12-89'),
+            new CampGroundPrice(3000),
+            new CampGroundImage('https://example.com/image.jpg'),
+            new CampGroundStatus('close')
+        );
+
+        $updated_camp_ground = new CampGround(
             new CampGroundId(1),
             new CampGroundName('テストオートキャンプ場'),
             new CampGroundAddress('沖縄県晴海町1-12-89'),
@@ -31,18 +40,30 @@ class UpdateCampGroundTest extends TestCase
         );
 
         $repository = Mockery::mock(ICampGroundRepository::class);
-        $repository->shouldReceive('save')->andReturn($expected);
-        $repository->shouldReceive('update')->andReturn($expected);
+        $repository->shouldReceive('save')->andReturn($initial_camp_ground);
+        $repository->shouldReceive('update')->andReturn($updated_camp_ground);
 
         /** @var ICampGroundRepository $repository */
         $register_use_case = new RegisterCampGround($repository);
-
-        /** @var ICampGroundRepository $repository */
         $update_use_case = new UpdateCampGround($repository);
 
         $register_use_case->execute(1, 'テストオートキャンプ場', '沖縄県晴海町1-12-89', 3000, 'https://example.com/image.jpg', 'close');
-        $actual = $update_use_case->execute(1, 'テストオートキャンプ場', '沖縄県晴海町1-12-89', 2000, 'https://example.com/image.jpg', 'open');
+        $result = $update_use_case->execute(1, 'テストオートキャンプ場', '沖縄県晴海町1-12-89', 2000, 'https://example.com/image.jpg', 'open');
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals([
+            'id' => 1,
+            'name' => 'テストオートキャンプ場',
+            'address' => '沖縄県晴海町1-12-89',
+            'price' => 2000,
+            'image' => 'https://example.com/image.jpg',
+            'status' => 'open',
+        ], [
+            'id' => $result->getId()->getValue(),
+            'name' => $result->getName()->getValue(),
+            'address' => $result->getAddress()->getValue(),
+            'price' => $result->getPrice()->getValue(),
+            'image' => $result->getImage()->getValue(),
+            'status' => $result->getStatus()->getValue(),
+        ]);
     }
 }
