@@ -66,16 +66,15 @@ class GetCampGroundsTest extends TestCase
                     'status' => 'open',
                 ],
             ],
-            array_map(function (CampGround $camp_ground) {
-                return [
-                    'id' => $camp_ground->getId()->getValue(),
-                    'name' => $camp_ground->getName()->getValue(),
-                    'address' => $camp_ground->getAddress()->getValue(),
-                    'price' => $camp_ground->getPrice()->getValue(),
-                    'image' => $camp_ground->getImage()->getValue(),
-                    'status' => $camp_ground->getStatus()->getValue(),
-                ];
-            }, $result)
+            array_map(fn(CampGround $camp_ground) =>
+            [
+                'id' => $camp_ground->getId()->getValue(),
+                'name' => $camp_ground->getName()->getValue(),
+                'address' => $camp_ground->getAddress()->getValue(),
+                'price' => $camp_ground->getPrice()->getValue(),
+                'image' => $camp_ground->getImage()->getValue(),
+                'status' => $camp_ground->getStatus()->getValue(),
+            ], $result)
         );
     }
 }
