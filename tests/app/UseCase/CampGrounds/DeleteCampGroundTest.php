@@ -11,6 +11,7 @@ use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
 use App\UseCase\CampGrounds\DeleteCampGround;
+use App\UseCase\CampGrounds\GetCampGround;
 use Mockery;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -28,7 +29,6 @@ class DeleteCampGroundTest extends TestCase
             new CampGroundImage('https://example.com/image.jpg'),
             new CampGroundStatus('open'),
         );
-
         $repository = Mockery::mock(ICampGroundRepository::class);
         $repository->shouldReceive('save')->andReturn($camp_ground);
         $repository->shouldReceive('delete')->andReturnUndefined();
@@ -39,6 +39,6 @@ class DeleteCampGroundTest extends TestCase
         $delete_use_case->execute(1);
         $get_use_case = new GetCampGround($repository);
 
-        $$this->assertNull($get_use_case->execute(1));
+        $this->assertNull($get_use_case->execute(1));
     }
 }
