@@ -10,15 +10,15 @@ use App\Domain\Models\CampGrounds\CampGroundName;
 use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
-use App\UseCase\CampGrounds\RegisterCampGround;
+use App\UseCase\CampGrounds\GetCampGround;
 use Mockery;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class RegisterCampGroundTest extends TestCase
+class GetCampGroundTest extends TestCase
 {
     #[Test]
-    public function キャンプ場情報を新規登録できる(): void
+    public function キャンプ場情報を取得できる()
     {
         $camp_ground = new CampGround(
             new CampGroundId(1),
@@ -26,23 +26,14 @@ class RegisterCampGroundTest extends TestCase
             new CampGroundAddress('沖縄県晴海町1-12-89'),
             new CampGroundPrice(3000),
             new CampGroundImage('https://example.com/image.jpg'),
-            new CampGroundStatus('open')
+            new CampGroundStatus('open'),
         );
-
         $repository = Mockery::mock(ICampGroundRepository::class);
-        $repository->shouldReceive('save')->andReturn($camp_ground);
-
+        $repository->shouldReceive('find')->andReturn($camp_ground);
         /** @var ICampGroundRepository $repository */
-        $use_case = new RegisterCampGround($repository);
+        $use_case = new GetCampGround($repository);
 
-        $result = $use_case->execute(
-            1,
-            'テストオートキャンプ場',
-            '沖縄県晴海町1-12-89',
-            3000,
-            'https://example.com/image.jpg',
-            'open'
-        );
+        $result = $use_case->execute(1);
 
         $this->assertEquals(
             [
@@ -54,13 +45,13 @@ class RegisterCampGroundTest extends TestCase
                 'status' => 'open',
             ],
             [
-                'id' => $camp_ground->getId()->getValue(),
-                'name' => $camp_ground->getName()->getValue(),
-                'address' => $camp_ground->getAddress()->getValue(),
-                'price' => $camp_ground->getPrice()->getValue(),
-                'image' => $camp_ground->getImage()->getValue(),
-                'status' => $camp_ground->getStatus()->getValue(),
-            ],
+                'id' => $result->getId()->getValue(),
+                'name' => $result->getName()->getValue(),
+                'address' => $result->getAddress()->getValue(),
+                'price' => $result->getPrice()->getValue(),
+                'image' => $result->getImage()->getValue(),
+                'status' => $result->getStatus()->getValue(),
+            ]
         );
     }
 }
