@@ -2,6 +2,7 @@
 
 namespace App\UseCase\CampGrounds;
 
+use App\Domain\Models\CampGrounds\GetCampGroundsFilter;
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
 
 class GetCampGrounds
@@ -11,25 +12,17 @@ class GetCampGrounds
         $this->repository = $repository;
     }
 
-    public function execute(
-        ?int $id = null,
-        ?string $name = null,
-        ?string $address = null,
-        ?int $price = null,
-        ?string $image = null,
-        ?string $status = null
-    ): array {
-        $command = new GetCampGroundsCommand(
-            $id,
-            $name,
-            $address,
-            $price,
-            $image,
-            $status
+    public function execute(GetCampGroundsCommand $command): array
+    {
+        $filter = new GetCampGroundsFilter(
+            $command->getId(),
+            $command->getName(),
+            $command->getAddress(),
+            $command->getPrice(),
+            $command->getImage(),
+            $command->getStatus()
         );
 
-        $camp_grounds = $this->repository->get($command);
-
-        return $camp_grounds;
+        return $this->repository->get($filter);
     }
 }
