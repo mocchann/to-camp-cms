@@ -11,6 +11,7 @@ use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
 use App\UseCase\CampGrounds\RegisterCampGround;
+use App\UseCase\CampGrounds\RegisterCampGroundCommand;
 use Mockery;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -28,14 +29,11 @@ class RegisterCampGroundTest extends TestCase
             new CampGroundImage('https://example.com/image.jpg'),
             new CampGroundStatus('open')
         );
-
         $repository = Mockery::mock(ICampGroundRepository::class);
         $repository->shouldReceive('save')->andReturn($camp_ground);
-
         /** @var ICampGroundRepository $repository */
         $use_case = new RegisterCampGround($repository);
-
-        $result = $use_case->execute(
+        $command = new RegisterCampGroundCommand(
             1,
             'テストオートキャンプ場',
             '沖縄県晴海町1-12-89',
@@ -43,6 +41,8 @@ class RegisterCampGroundTest extends TestCase
             'https://example.com/image.jpg',
             'open'
         );
+
+        $result = $use_case->execute($command);
 
         $this->assertEquals(
             [
