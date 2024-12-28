@@ -54,12 +54,12 @@ class RegisterCampGroundTest extends TestCase
                 'status' => 'open',
             ],
             [
-                'id' => $camp_ground->getId()->getValue(),
-                'name' => $camp_ground->getName()->getValue(),
-                'address' => $camp_ground->getAddress()->getValue(),
-                'price' => $camp_ground->getPrice()->getValue(),
-                'image' => $camp_ground->getImage()->getValue(),
-                'status' => $camp_ground->getStatus()->getValue(),
+                'id' => $result->getId()->getValue(),
+                'name' => $result->getName()->getValue(),
+                'address' => $result->getAddress()->getValue(),
+                'price' => $result->getPrice()->getValue(),
+                'image' => $result->getImage()->getValue(),
+                'status' => $result->getStatus()->getValue(),
             ],
         );
     }
