@@ -2,6 +2,7 @@
 
 namespace App\UseCase\CampGrounds;
 
+use App\Domain\Models\CampGrounds\CampGroundId;
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
 
 class DeleteCampGround
@@ -13,6 +14,8 @@ class DeleteCampGround
 
     public function execute(int $id): void
     {
-        $this->repository->delete($id);
+        $camp_ground_id = new CampGroundId($id);
+
+        $this->repository->delete($camp_ground_id);
     }
 }
