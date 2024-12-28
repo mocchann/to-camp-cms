@@ -18,6 +18,6 @@ class GetCampGround
     {
         $camp_ground_id = new CampGroundId($id);
 
-        return $this->repository->find($camp_ground_id);
+        return $this->repository->findById($camp_ground_id);
     }
 }
