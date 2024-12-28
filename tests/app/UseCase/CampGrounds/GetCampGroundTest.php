@@ -29,7 +29,7 @@ class GetCampGroundTest extends TestCase
             new CampGroundStatus('open'),
         );
         $repository = Mockery::mock(ICampGroundRepository::class);
-        $repository->shouldReceive('find')->andReturn($camp_ground);
+        $repository->shouldReceive('findById')->andReturn($camp_ground);
         /** @var ICampGroundRepository $repository */
         $use_case = new GetCampGround($repository);
 

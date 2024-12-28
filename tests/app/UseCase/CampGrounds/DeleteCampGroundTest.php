@@ -32,7 +32,7 @@ class DeleteCampGroundTest extends TestCase
         $repository = Mockery::mock(ICampGroundRepository::class);
         $repository->shouldReceive('save')->andReturn($camp_ground);
         $repository->shouldReceive('delete')->andReturnUndefined();
-        $repository->shouldReceive('find')->andReturn(null);
+        $repository->shouldReceive('findById')->andReturn(null);
 
         /** @var ICampGroundRepository $repository */
         $delete_use_case = new DeleteCampGround($repository);

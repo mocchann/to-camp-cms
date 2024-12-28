@@ -11,6 +11,7 @@ use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
 use App\UseCase\CampGrounds\GetCampGrounds;
+use App\UseCase\CampGrounds\GetCampGroundsCommand;
 use Mockery;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -38,14 +39,20 @@ class GetCampGroundsTest extends TestCase
                 new CampGroundStatus('open'),
             ),
         ];
-
+        $command = new GetCampGroundsCommand(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        );
         $repository = Mockery::mock(ICampGroundRepository::class);
         $repository->shouldReceive('get')->andReturn($camp_grounds);
-
         /** @var ICampGroundRepository $repository */
         $use_case = new GetCampGrounds($repository);
 
-        $result = $use_case->execute();
+        $result = $use_case->execute($command);
 
         $this->assertEquals(
             [
