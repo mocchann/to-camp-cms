@@ -2,15 +2,17 @@
 
 namespace App\Domain\Models\CampGrounds;
 
+use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
+
 class CampGroundStatus
 {
     public function __construct(
-        private string $status
+        private EnumsCampGroundStatus $status
     ) {
         $this->status = $status;
     }
 
-    public function getValue(): string
+    public function getValue(): EnumsCampGroundStatus
     {
         return $this->status;
     }

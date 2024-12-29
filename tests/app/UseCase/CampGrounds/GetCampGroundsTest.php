@@ -2,6 +2,7 @@
 
 namespace Tests\App\UseCase\CampGrounds;
 
+use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
 use App\Domain\Models\CampGrounds\CampGroundId;
@@ -28,7 +29,7 @@ class GetCampGroundsTest extends TestCase
                 new CampGroundAddress('沖縄県晴海町1-12-89'),
                 new CampGroundPrice(3000),
                 new CampGroundImage('https://example.com/image.jpg'),
-                new CampGroundStatus('open'),
+                new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
             ),
             new CampGround(
                 new CampGroundId(2),
@@ -36,7 +37,7 @@ class GetCampGroundsTest extends TestCase
                 new CampGroundAddress('北海道青天町807'),
                 new CampGroundPrice(5000),
                 new CampGroundImage('https://example.com/image.jpg'),
-                new CampGroundStatus('open'),
+                new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
             ),
         ];
         $command = new GetCampGroundsCommand(
@@ -62,7 +63,7 @@ class GetCampGroundsTest extends TestCase
                     'address' => '沖縄県晴海町1-12-89',
                     'price' => 3000,
                     'image' => 'https://example.com/image.jpg',
-                    'status' => 'open',
+                    'status' => '公開',
                 ],
                 [
                     'id' => 2,
@@ -70,7 +71,7 @@ class GetCampGroundsTest extends TestCase
                     'address' => '北海道青天町807',
                     'price' => 5000,
                     'image' => 'https://example.com/image.jpg',
-                    'status' => 'open',
+                    'status' => '公開',
                 ],
             ],
             array_map(fn(CampGround $camp_ground) =>
@@ -80,7 +81,7 @@ class GetCampGroundsTest extends TestCase
                 'address' => $camp_ground->getAddress()->getValue(),
                 'price' => $camp_ground->getPrice()->getValue(),
                 'image' => $camp_ground->getImage()->getValue(),
-                'status' => $camp_ground->getStatus()->getValue(),
+                'status' => $camp_ground->getStatus()->getValue()->status(),
             ], $result)
         );
     }

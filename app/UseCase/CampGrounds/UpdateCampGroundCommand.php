@@ -2,6 +2,8 @@
 
 namespace App\UseCase\CampGrounds;
 
+use App\Domain\Enums\CampGroundStatus;
+
 class UpdateCampGroundCommand
 {
     public function __construct(
@@ -10,7 +12,7 @@ class UpdateCampGroundCommand
         private string $address,
         private int $price,
         private string $image,
-        private string $status
+        private CampGroundStatus $status
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -45,7 +47,7 @@ class UpdateCampGroundCommand
         return $this->image;
     }
 
-    public function getStatus(): string
+    public function getStatus(): CampGroundStatus
     {
         return $this->status;
     }

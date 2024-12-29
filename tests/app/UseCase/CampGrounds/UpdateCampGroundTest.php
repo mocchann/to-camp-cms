@@ -2,6 +2,7 @@
 
 namespace Tests\App\UseCase\CampGrounds;
 
+use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
 use App\Domain\Models\CampGrounds\CampGroundId;
@@ -10,7 +11,6 @@ use App\Domain\Models\CampGrounds\CampGroundName;
 use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
-use App\UseCase\CampGrounds\RegisterCampGround;
 use App\UseCase\CampGrounds\UpdateCampGround;
 use App\UseCase\CampGrounds\UpdateCampGroundCommand;
 use Mockery;
@@ -28,7 +28,7 @@ class UpdateCampGroundTest extends TestCase
             new CampGroundAddress('沖縄県晴海町1-12-89'),
             new CampGroundPrice(3000),
             new CampGroundImage('https://example.com/image.jpg'),
-            new CampGroundStatus('close')
+            new CampGroundStatus(EnumsCampGroundStatus::DRAFT)
         );
         $repository = Mockery::mock(ICampGroundRepository::class);
         $repository->shouldReceive('update')->andReturn($camp_ground);
@@ -40,7 +40,7 @@ class UpdateCampGroundTest extends TestCase
             '沖縄県晴海町1-12-89',
             3000,
             'https://example.com/image.jpg',
-            'close'
+            EnumsCampGroundStatus::DRAFT
         );
         $result = $use_case->execute($command);
 
@@ -50,14 +50,14 @@ class UpdateCampGroundTest extends TestCase
             'address' => '沖縄県晴海町1-12-89',
             'price' => 3000,
             'image' => 'https://example.com/image.jpg',
-            'status' => 'close',
+            'status' => '下書き',
         ], [
             'id' => $result->getId()->getValue(),
             'name' => $result->getName()->getValue(),
             'address' => $result->getAddress()->getValue(),
             'price' => $result->getPrice()->getValue(),
             'image' => $result->getImage()->getValue(),
-            'status' => $result->getStatus()->getValue(),
+            'status' => $result->getStatus()->getValue()->status(),
         ]);
     }
 
@@ -70,7 +70,7 @@ class UpdateCampGroundTest extends TestCase
             new CampGroundAddress('沖縄県晴海町1-12-89'),
             new CampGroundPrice(3000),
             new CampGroundImage('https://example.com/image.jpg'),
-            new CampGroundStatus('close')
+            new CampGroundStatus(EnumsCampGroundStatus::DRAFT)
         );
         $updated_camp_ground = new CampGround(
             new CampGroundId(1),
@@ -78,7 +78,7 @@ class UpdateCampGroundTest extends TestCase
             new CampGroundAddress('沖縄県晴海町1-12-89'),
             new CampGroundPrice(2000),
             new CampGroundImage('https://example.com/image.jpg'),
-            new CampGroundStatus('open')
+            new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED)
         );
         $repository = Mockery::mock(ICampGroundRepository::class);
         $repository->shouldReceive('save')->andReturn($initial_camp_ground);
@@ -91,7 +91,7 @@ class UpdateCampGroundTest extends TestCase
             '沖縄県晴海町1-12-89',
             3000,
             'https://example.com/image.jpg',
-            'close'
+            EnumsCampGroundStatus::DRAFT
         );
         $update_command = new UpdateCampGroundCommand(
             1,
@@ -99,7 +99,7 @@ class UpdateCampGroundTest extends TestCase
             '沖縄県晴海町1-12-89',
             2000,
             'https://example.com/image.jpg',
-            'open'
+            EnumsCampGroundStatus::PUBLISHED
         );
         $use_case->execute($initial_command);
         $result = $use_case->execute($update_command);
@@ -110,14 +110,14 @@ class UpdateCampGroundTest extends TestCase
             'address' => '沖縄県晴海町1-12-89',
             'price' => 2000,
             'image' => 'https://example.com/image.jpg',
-            'status' => 'open',
+            'status' => '公開',
         ], [
             'id' => $result->getId()->getValue(),
             'name' => $result->getName()->getValue(),
             'address' => $result->getAddress()->getValue(),
             'price' => $result->getPrice()->getValue(),
             'image' => $result->getImage()->getValue(),
-            'status' => $result->getStatus()->getValue(),
+            'status' => $result->getStatus()->getValue()->status(),
         ]);
     }
 }
