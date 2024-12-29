@@ -2,6 +2,8 @@
 
 namespace App\Domain\Models\CampGrounds;
 
+use App\Domain\Enums\CampGroundStatus;
+
 /**
  * 検索条件を表現する値オブジェクト
  */
@@ -13,7 +15,7 @@ class GetCampGroundsFilter
         private ?string $address = null,
         private ?int $price = null,
         private ?string $image = null,
-        private ?string $status = null
+        private ?CampGroundStatus $status = null
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -48,7 +50,7 @@ class GetCampGroundsFilter
         return $this->image;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?CampGroundStatus
     {
         return $this->status;
     }
