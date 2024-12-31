@@ -2,11 +2,14 @@
 
 namespace Tests\App\UseCase\CampGrounds;
 
+use App\Domain\Enums\CampGroundLocations;
 use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
+use App\Domain\Models\CampGrounds\CampGroundElevation;
 use App\Domain\Models\CampGrounds\CampGroundId;
 use App\Domain\Models\CampGrounds\CampGroundImage;
+use App\Domain\Models\CampGrounds\CampGroundLocation;
 use App\Domain\Models\CampGrounds\CampGroundName;
 use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
@@ -29,6 +32,8 @@ class DeleteCampGroundTest extends TestCase
             new CampGroundPrice(3000),
             new CampGroundImage('https://example.com/image.jpg'),
             new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
+            new CampGroundLocation(CampGroundLocations::SEA),
+            new CampGroundElevation(100)
         );
         $repository = Mockery::mock(ICampGroundRepository::class);
         $repository->shouldReceive('save')->andReturn($camp_ground);
