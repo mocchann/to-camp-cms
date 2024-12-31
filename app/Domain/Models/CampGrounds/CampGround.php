@@ -10,7 +10,9 @@ class CampGround
         private CampGroundAddress $address,
         private CampGroundPrice $price,
         private CampGroundImage $image,
-        private CampGroundStatus $status
+        private CampGroundStatus $status,
+        private CampGroundLocation $location,
+        private CampGroundElevation $elevation
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -18,6 +20,8 @@ class CampGround
         $this->price = $price;
         $this->image = $image;
         $this->status = $status;
+        $this->location = $location;
+        $this->elevation = $elevation;
     }
 
     public function getId(): CampGroundId
@@ -48,5 +52,15 @@ class CampGround
     public function getStatus(): CampGroundStatus
     {
         return $this->status;
+    }
+
+    public function getLocation(): CampGroundLocation
+    {
+        return $this->location;
+    }
+
+    public function elevation(): CampGroundElevation
+    {
+        return $this->elevation();
     }
 }
