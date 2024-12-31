@@ -59,8 +59,8 @@ class CampGround
         return $this->location;
     }
 
-    public function elevation(): CampGroundElevation
+    public function getElevation(): CampGroundElevation
     {
-        return $this->elevation();
+        return $this->elevation;
     }
 }

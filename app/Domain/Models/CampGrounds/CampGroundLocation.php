@@ -12,7 +12,7 @@ class CampGroundLocation
         $this->locations = $locations;
     }
 
-    public function getLocations(): CampGroundLocations
+    public function getValue(): CampGroundLocations
     {
         return $this->locations;
     }

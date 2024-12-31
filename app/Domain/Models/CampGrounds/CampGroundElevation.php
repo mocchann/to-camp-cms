@@ -10,7 +10,7 @@ class CampGroundElevation
         $this->elevation = $elevation;
     }
 
-    public function getElevation(): int
+    public function getValue(): int
     {
         return $this->elevation;
     }

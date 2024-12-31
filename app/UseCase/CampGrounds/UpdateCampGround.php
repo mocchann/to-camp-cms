@@ -4,8 +4,10 @@ namespace App\UseCase\CampGrounds;
 
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
+use App\Domain\Models\CampGrounds\CampGroundElevation;
 use App\Domain\Models\CampGrounds\CampGroundId;
 use App\Domain\Models\CampGrounds\CampGroundImage;
+use App\Domain\Models\CampGrounds\CampGroundLocation;
 use App\Domain\Models\CampGrounds\CampGroundName;
 use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
@@ -27,7 +29,9 @@ class UpdateCampGround
             new CampGroundAddress($command->getAddress()),
             new CampGroundPrice($command->getPrice()),
             new CampGroundImage($command->getImage()),
-            new CampGroundStatus($command->getStatus())
+            new CampGroundStatus($command->getStatus()),
+            new CampGroundLocation($command->getLocation()),
+            new CampGroundElevation($command->getElevation())
         );
 
         return $this->repository->update($camp_ground);

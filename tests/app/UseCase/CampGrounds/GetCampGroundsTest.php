@@ -2,11 +2,14 @@
 
 namespace Tests\App\UseCase\CampGrounds;
 
+use App\Domain\Enums\CampGroundLocations;
 use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
+use App\Domain\Models\CampGrounds\CampGroundElevation;
 use App\Domain\Models\CampGrounds\CampGroundId;
 use App\Domain\Models\CampGrounds\CampGroundImage;
+use App\Domain\Models\CampGrounds\CampGroundLocation;
 use App\Domain\Models\CampGrounds\CampGroundName;
 use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
@@ -30,6 +33,8 @@ class GetCampGroundsTest extends TestCase
                 new CampGroundPrice(3000),
                 new CampGroundImage('https://example.com/image.jpg'),
                 new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
+                new CampGroundLocation(CampGroundLocations::SEA),
+                new CampGroundElevation(100)
             ),
             new CampGround(
                 new CampGroundId(2),
@@ -38,9 +43,13 @@ class GetCampGroundsTest extends TestCase
                 new CampGroundPrice(5000),
                 new CampGroundImage('https://example.com/image.jpg'),
                 new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
+                new CampGroundLocation(CampGroundLocations::MOUNTAIN),
+                new CampGroundElevation(1000)
             ),
         ];
         $command = new GetCampGroundsCommand(
+            null,
+            null,
             null,
             null,
             null,
@@ -64,6 +73,8 @@ class GetCampGroundsTest extends TestCase
                     'price' => 3000,
                     'image' => 'https://example.com/image.jpg',
                     'status' => '公開',
+                    'location' => '海',
+                    'elevation' => 100,
                 ],
                 [
                     'id' => 2,
@@ -72,6 +83,8 @@ class GetCampGroundsTest extends TestCase
                     'price' => 5000,
                     'image' => 'https://example.com/image.jpg',
                     'status' => '公開',
+                    'location' => '山',
+                    'elevation' => 1000,
                 ],
             ],
             array_map(fn(CampGround $camp_ground) =>
@@ -82,6 +95,8 @@ class GetCampGroundsTest extends TestCase
                 'price' => $camp_ground->getPrice()->getValue(),
                 'image' => $camp_ground->getImage()->getValue(),
                 'status' => $camp_ground->getStatus()->getValue()->status(),
+                'location' => $camp_ground->getLocation()->getValue()->location(),
+                'elevation' => $camp_ground->getElevation()->getValue(),
             ], $result)
         );
     }

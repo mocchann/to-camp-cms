@@ -2,7 +2,9 @@
 
 namespace App\UseCase\CampGrounds;
 
+use App\Domain\Enums\CampGroundLocations;
 use App\Domain\Enums\CampGroundStatus;
+use App\Domain\Models\CampGrounds\CampGroundElevation;
 
 class GetCampGroundsCommand
 {
@@ -12,7 +14,9 @@ class GetCampGroundsCommand
         private ?string $address = null,
         private ?int $price = null,
         private ?string $image = null,
-        private ?CampGroundStatus $status = null
+        private ?CampGroundStatus $status = null,
+        private ?CampGroundLocations $locations = null,
+        private ?CampGroundElevation $elevation = null
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -20,6 +24,8 @@ class GetCampGroundsCommand
         $this->price = $price;
         $this->image = $image;
         $this->status = $status;
+        $this->locations = $locations;
+        $this->elevation = $elevation;
     }
 
     public function getId(): ?int
@@ -50,5 +56,15 @@ class GetCampGroundsCommand
     public function getStatus(): ?CampGroundStatus
     {
         return $this->status;
+    }
+
+    public function getLocations(): ?CampGroundLocations
+    {
+        return $this->locations;
+    }
+
+    public function getElevation(): ?CampGroundElevation
+    {
+        return $this->elevation;
     }
 }

@@ -2,11 +2,14 @@
 
 namespace Tests\App\UseCase\CampGrounds;
 
+use App\Domain\Enums\CampGroundLocations;
 use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
+use App\Domain\Models\CampGrounds\CampGroundElevation;
 use App\Domain\Models\CampGrounds\CampGroundId;
 use App\Domain\Models\CampGrounds\CampGroundImage;
+use App\Domain\Models\CampGrounds\CampGroundLocation;
 use App\Domain\Models\CampGrounds\CampGroundName;
 use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
@@ -28,6 +31,8 @@ class GetCampGroundTest extends TestCase
             new CampGroundPrice(3000),
             new CampGroundImage('https://example.com/image.jpg'),
             new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
+            new CampGroundLocation(CampGroundLocations::SEA),
+            new CampGroundElevation(100)
         );
         $repository = Mockery::mock(ICampGroundRepository::class);
         $repository->shouldReceive('findById')->andReturn($camp_ground);
@@ -44,6 +49,8 @@ class GetCampGroundTest extends TestCase
                 'price' => 3000,
                 'image' => 'https://example.com/image.jpg',
                 'status' => '公開',
+                'location' => '海',
+                'elevation' => 100,
             ],
             [
                 'id' => $result->getId()->getValue(),
@@ -52,6 +59,8 @@ class GetCampGroundTest extends TestCase
                 'price' => $result->getPrice()->getValue(),
                 'image' => $result->getImage()->getValue(),
                 'status' => $result->getStatus()->getValue()->status(),
+                'location' => $result->getLocation()->getValue()->location(),
+                'elevation' => $result->getElevation()->getValue(),
             ]
         );
     }
