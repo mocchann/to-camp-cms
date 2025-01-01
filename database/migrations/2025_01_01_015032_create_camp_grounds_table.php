@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('camp_grounds', function (Blueprint $table) {
-            $table->ulid();
-            $table->string('name', 255)->comment('キャンプ場名');
+            $table->ulid('id')->primary();
+            $table->string('name', 255)->unique()->comment('キャンプ場名');
             $table->string('address', 255)->comment('住所');
             $table->unsignedInteger('price')->comment('施設利用料');
-            $table->text('image_url')->comment('キャンプ場Top画像');
+            $table->text('image_url')->nullable()->comment('キャンプ場Top画像');
             $table->integer('elevation')->comment('標高');
             $table->timestamps();
         });
