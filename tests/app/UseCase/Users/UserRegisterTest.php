@@ -27,7 +27,6 @@ class UserRegisterTest extends TestCase
         $repository = Mockery::mock(IUserRepository::class);
         $repository->shouldReceive('findByEmail')
             ->andReturn(null);
-
         $repository->shouldReceive('save')
             ->andReturnUsing(function (User $user) {
                 ModelsUser::create([
@@ -37,13 +36,11 @@ class UserRegisterTest extends TestCase
                     'password' => Hash::make($user->getPassword()->getValue())
                 ]);
             });
-
         /**
          * @var IUserRepository $repository
          */
         $service = new UserService($repository);
         $use_case = new UserRegister($service, $repository);
-
         $id = 1;
         $name = 'test_user';
         $email = 'test_user@example.com';
@@ -82,13 +79,11 @@ class UserRegisterTest extends TestCase
                     'password' => Hash::make($user->getPassword()->getValue())
                 ]);
             });
-
         /**
          * @var IUserRepository $repository
          */
         $service = new UserService($repository);
         $use_case = new UserRegister($service, $repository);
-
         $id = 2;
         $name = 'test_user2';
         $email = 'test_user@example.com';
