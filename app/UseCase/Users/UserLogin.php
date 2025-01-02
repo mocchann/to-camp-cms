@@ -5,7 +5,6 @@ namespace App\UseCase\Users;
 use App\Domain\Models\Users\IUserRepository;
 use App\Domain\Models\Users\UserEmail;
 use App\Domain\Models\Users\UserPassword;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UserLogin
