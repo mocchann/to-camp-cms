@@ -11,7 +11,6 @@ use App\EF\Users\UserRepository;
 use App\Models\User as ModelsUser;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Expr\AssignOp\Mod;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
