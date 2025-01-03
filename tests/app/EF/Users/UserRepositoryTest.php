@@ -64,5 +64,23 @@ class UserRepositoryTest extends TestCase
     }
 
     #[Test]
-    public function Save(): void {}
+    public function save__ユーザーを登録できる(): void
+    {
+        $password = Hash::make('password');
+        $repository = new UserRepository();
+
+        $repository->save(new User(
+            new UserId(1),
+            new UserName('test_user'),
+            new UserEmail('test_user@example.com'),
+            new UserPassword($password)
+        ));
+
+        $this->assertDatabaseHas('users', [
+            'id' => 1,
+            'name' => 'test_user',
+            'email' => 'test_user@example.com',
+            'password' => $password
+        ]);
+    }
 }

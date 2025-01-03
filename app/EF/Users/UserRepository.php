@@ -42,5 +42,13 @@ class UserRepository implements IUserRepository
         );
     }
 
-    public function save(User $user): void {}
+    public function save(User $user): void
+    {
+        $models_user = new ModelsUser();
+        $models_user->id = $user->getId()->getValue();
+        $models_user->name = $user->getName()->getValue();
+        $models_user->email = $user->getEmail()->getValue();
+        $models_user->password = $user->getPassword()->getValue();
+        $models_user->save();
+    }
 }
