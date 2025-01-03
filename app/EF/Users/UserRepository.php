@@ -27,9 +27,19 @@ class UserRepository implements IUserRepository
         );
     }
 
-    public function findByEmail(UserEmail $id): ?User
+    public function findByEmail(UserEmail $email): ?User
     {
-        return null;
+        $user = ModelsUser::where('email', $email->getValue())->first();
+        if (is_null($user)) {
+            return null;
+        }
+
+        return new User(
+            new UserId($user->id),
+            new UserName($user->name),
+            new UserEmail($user->email),
+            new UserPassword($user->password)
+        );
     }
 
     public function save(User $user): void {}
