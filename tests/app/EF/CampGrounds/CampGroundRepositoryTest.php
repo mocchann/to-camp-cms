@@ -34,6 +34,7 @@ class CampGroundRepositoryTest extends TestCase
             'image_url' => 'https://example.com/test.jpg',
             'elevation' => 1000,
         ]);
+        // TODO: factoryを使って作成する
         $draft = Status::create(['name' => 'draft']);
         $published = Status::create(['name' => 'published']);
         $archived = Status::create(['name' => 'archived']);
