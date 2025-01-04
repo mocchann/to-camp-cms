@@ -5,12 +5,12 @@ namespace App\Domain\Models\CampGrounds;
 class CampGroundId
 {
     public function __construct(
-        private int $id
+        private string $id
     ) {
         $this->id = $id;
     }
 
-    public function getValue(): int
+    public function getValue(): string
     {
         return $this->id;
     }
