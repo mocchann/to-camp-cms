@@ -11,7 +11,7 @@ enum CampGroundLocations: string
     case WOODS = 'woods';
     case HIGHLAND = 'highland';
 
-    public function location(): string
+    public function label(): string
     {
         return match ($this) {
             self::SEA => '海',
