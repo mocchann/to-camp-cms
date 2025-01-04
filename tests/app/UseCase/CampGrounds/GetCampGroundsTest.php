@@ -3,7 +3,6 @@
 namespace Tests\App\UseCase\CampGrounds;
 
 use App\Domain\Enums\CampGroundLocations;
-use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
 use App\Domain\Models\CampGrounds\CampGroundElevation;
@@ -32,8 +31,8 @@ class GetCampGroundsTest extends TestCase
                 new CampGroundAddress('沖縄県晴海町1-12-89'),
                 new CampGroundPrice(3000),
                 new CampGroundImage('https://example.com/image.jpg'),
-                new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
-                new CampGroundLocation(CampGroundLocations::SEA),
+                new CampGroundStatus('published'),
+                new CampGroundLocation('sea'),
                 new CampGroundElevation(100)
             ),
             new CampGround(
@@ -42,8 +41,8 @@ class GetCampGroundsTest extends TestCase
                 new CampGroundAddress('北海道青天町807'),
                 new CampGroundPrice(5000),
                 new CampGroundImage('https://example.com/image.jpg'),
-                new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
-                new CampGroundLocation(CampGroundLocations::MOUNTAIN),
+                new CampGroundStatus('published'),
+                new CampGroundLocation('mountain'),
                 new CampGroundElevation(1000)
             ),
         ];
@@ -72,8 +71,8 @@ class GetCampGroundsTest extends TestCase
                     'address' => '沖縄県晴海町1-12-89',
                     'price' => 3000,
                     'image' => 'https://example.com/image.jpg',
-                    'status' => '公開',
-                    'location' => '海',
+                    'status' => 'published',
+                    'location' => 'sea',
                     'elevation' => 100,
                 ],
                 [
@@ -82,8 +81,8 @@ class GetCampGroundsTest extends TestCase
                     'address' => '北海道青天町807',
                     'price' => 5000,
                     'image' => 'https://example.com/image.jpg',
-                    'status' => '公開',
-                    'location' => '山',
+                    'status' => 'published',
+                    'location' => 'mountain',
                     'elevation' => 1000,
                 ],
             ],
@@ -94,8 +93,8 @@ class GetCampGroundsTest extends TestCase
                 'address' => $camp_ground->getAddress()->getValue(),
                 'price' => $camp_ground->getPrice()->getValue(),
                 'image' => $camp_ground->getImage()->getValue(),
-                'status' => $camp_ground->getStatus()->getValue()->status(),
-                'location' => $camp_ground->getLocation()->getValue()->location(),
+                'status' => $camp_ground->getStatus()->getValue()->value,
+                'location' => $camp_ground->getLocation()->getValue()->value,
                 'elevation' => $camp_ground->getElevation()->getValue(),
             ], $result)
         );
