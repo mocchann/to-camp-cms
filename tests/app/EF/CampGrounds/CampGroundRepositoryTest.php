@@ -34,18 +34,23 @@ class CampGroundRepositoryTest extends TestCase
             'image_url' => 'https://example.com/test.jpg',
             'elevation' => 1000,
         ]);
-        // TODO: factoryを使って作成する
-        $draft = Status::create(['name' => 'draft']);
-        $published = Status::create(['name' => 'published']);
-        $archived = Status::create(['name' => 'archived']);
-        $sea = Location::create(['name' => 'sea']);
-        $mountain = Location::create(['name' => 'mountain']);
-        $river = Location::create(['name' => 'river']);
-        $lake = Location::create(['name' => 'lake']);
-        $woods = Location::create(['name' => 'woods']);
-        $highland = Location::create(['name' => 'highland']);
-        $models_camp_ground->statuses()->attach($published->id);
-        $models_camp_ground->locations()->attach($mountain->id);
+        $statuses = Status::factory()
+            ->count(3)
+            ->sequence(
+                ['name' => 'draft'],
+                ['name' => 'published'],
+                ['name' => 'archived']
+            )->create();
+        $locations = Location::factory()->count(6)->sequence(
+            ['name' => 'sea'],
+            ['name' => 'mountain'],
+            ['name' => 'river'],
+            ['name' => 'lake'],
+            ['name' => 'woods'],
+            ['name' => 'highland']
+        )->create();
+        $models_camp_ground->statuses()->attach($statuses[1]->id);
+        $models_camp_ground->locations()->attach($locations[1]->id);
         $repository = new CampGroundRepository();
         $filter = new GetCampGroundsFilter();
 
