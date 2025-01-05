@@ -86,4 +86,12 @@ class CampGroundRepositoryTest extends TestCase
             $repository->findById(new CampGroundId($models_camp_ground->id))
         );
     }
+
+    #[Test]
+    public function findById__存在しないidの場合nullを返す(): void
+    {
+        $repository = new CampGroundRepository();
+
+        $this->assertNull($repository->findById(new CampGroundId(999999)));
+    }
 }
