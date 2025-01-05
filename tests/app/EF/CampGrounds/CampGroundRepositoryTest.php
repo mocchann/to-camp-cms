@@ -25,7 +25,7 @@ class CampGroundRepositoryTest extends TestCase
     use DatabaseTransactions;
 
     #[Test]
-    public function get__キャンプ場のエンティティのリストを取得できる(): void
+    public function get__キャンプ場のリストを取得できる(): void
     {
         $models_camp_ground = ModelsCampGround::create([
             'name' => 'テストオートキャンプ場',
@@ -68,6 +68,50 @@ class CampGroundRepositoryTest extends TestCase
                 ),
             ],
             $repository->get($filter)
+        );
+    }
+
+    #[Test]
+    public function findById__idからキャンプ場を取得できる(): void
+    {
+        $models_camp_ground = ModelsCampGround::create([
+            'name' => 'テストオートキャンプ場',
+            'address' => 'テスト県テスト市テスト町000',
+            'price' => 1000,
+            'image_url' => 'https://example.com/test.jpg',
+            'elevation' => 1000,
+        ]);
+        $statuses = Status::factory()
+            ->count(3)
+            ->sequence(
+                ['name' => 'draft'],
+                ['name' => 'published'],
+                ['name' => 'archived']
+            )->create();
+        $locations = Location::factory()->count(6)->sequence(
+            ['name' => 'sea'],
+            ['name' => 'mountain'],
+            ['name' => 'river'],
+            ['name' => 'lake'],
+            ['name' => 'woods'],
+            ['name' => 'highland']
+        )->create();
+        $models_camp_ground->statuses()->attach($statuses[1]->id);
+        $models_camp_ground->locations()->attach($locations[1]->id);
+        $repository = new CampGroundRepository();
+
+        $this->assertEquals(
+            new CampGround(
+                new CampGroundId($models_camp_ground->id),
+                new CampGroundName('テストオートキャンプ場'),
+                new CampGroundAddress('テスト県テスト市テスト町000'),
+                new CampGroundPrice(1000),
+                new CampGroundImage('https://example.com/test.jpg'),
+                new CampGroundStatus('published'),
+                new CampGroundLocation('mountain'),
+                new CampGroundElevation(1000)
+            ),
+            $repository->findById(new CampGroundId($models_camp_ground->id))
         );
     }
 }

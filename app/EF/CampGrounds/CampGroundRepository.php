@@ -80,7 +80,22 @@ class CampGroundRepository implements ICampGroundRepository
 
     public function findById(CampGroundId $id): ?CampGround
     {
-        return null;
+        $camp_ground = ModelsCampGround::with('statuses', 'locations')->find($id->getValue());
+
+        if (is_null($camp_ground)) {
+            return null;
+        }
+
+        return new CampGround(
+            new CampGroundId($camp_ground->id),
+            new CampGroundName($camp_ground->name),
+            new CampGroundAddress($camp_ground->address),
+            new CampGroundPrice($camp_ground->price),
+            new CampGroundImage($camp_ground->image_url),
+            new CampGroundStatus($camp_ground->statuses[0]->name),
+            new CampGroundLocation($camp_ground->locations[0]->name),
+            new CampGroundElevation($camp_ground->elevation)
+        );
     }
 
     public function update(CampGround $camp_ground): CampGround
