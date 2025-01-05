@@ -27,30 +27,16 @@ class CampGroundRepositoryTest extends TestCase
     #[Test]
     public function get__キャンプ場のリストを取得できる(): void
     {
-        $models_camp_ground = ModelsCampGround::create([
-            'name' => 'テストオートキャンプ場',
-            'address' => 'テスト県テスト市テスト町000',
-            'price' => 1000,
-            'image_url' => 'https://example.com/test.jpg',
-            'elevation' => 1000,
-        ]);
-        $statuses = Status::factory()
-            ->count(3)
-            ->sequence(
-                ['name' => 'draft'],
-                ['name' => 'published'],
-                ['name' => 'archived']
-            )->create();
-        $locations = Location::factory()->count(6)->sequence(
-            ['name' => 'sea'],
-            ['name' => 'mountain'],
-            ['name' => 'river'],
-            ['name' => 'lake'],
-            ['name' => 'woods'],
-            ['name' => 'highland']
-        )->create();
-        $models_camp_ground->statuses()->attach($statuses[1]->id);
-        $models_camp_ground->locations()->attach($locations[1]->id);
+        $models_camp_ground = ModelsCampGround::factory()
+            ->has(Status::factory()->state(['name' => 'published']))
+            ->has(Location::factory()->state(['name' => 'mountain']))
+            ->create([
+                'name' => 'テストオートキャンプ場',
+                'address' => 'テスト県テスト市テスト町000',
+                'price' => 1000,
+                'image_url' => 'https://example.com/test.jpg',
+                'elevation' => 1000,
+            ]);
         $repository = new CampGroundRepository();
         $filter = new GetCampGroundsFilter();
 
@@ -74,30 +60,16 @@ class CampGroundRepositoryTest extends TestCase
     #[Test]
     public function findById__idからキャンプ場を取得できる(): void
     {
-        $models_camp_ground = ModelsCampGround::create([
-            'name' => 'テストオートキャンプ場',
-            'address' => 'テスト県テスト市テスト町000',
-            'price' => 1000,
-            'image_url' => 'https://example.com/test.jpg',
-            'elevation' => 1000,
-        ]);
-        $statuses = Status::factory()
-            ->count(3)
-            ->sequence(
-                ['name' => 'draft'],
-                ['name' => 'published'],
-                ['name' => 'archived']
-            )->create();
-        $locations = Location::factory()->count(6)->sequence(
-            ['name' => 'sea'],
-            ['name' => 'mountain'],
-            ['name' => 'river'],
-            ['name' => 'lake'],
-            ['name' => 'woods'],
-            ['name' => 'highland']
-        )->create();
-        $models_camp_ground->statuses()->attach($statuses[1]->id);
-        $models_camp_ground->locations()->attach($locations[1]->id);
+        $models_camp_ground = ModelsCampGround::factory()
+            ->has(Status::factory()->state(['name' => 'published']))
+            ->has(Location::factory()->state(['name' => 'mountain']))
+            ->create([
+                'name' => 'テストオートキャンプ場',
+                'address' => 'テスト県テスト市テスト町000',
+                'price' => 1000,
+                'image_url' => 'https://example.com/test.jpg',
+                'elevation' => 1000,
+            ]);
         $repository = new CampGroundRepository();
 
         $this->assertEquals(
