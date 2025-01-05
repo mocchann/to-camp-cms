@@ -19,7 +19,7 @@ class CampGroundRepository implements ICampGroundRepository
 {
     /**
      * @param GetCampGroundsFilter $filter
-     * @return CampGround[]
+     * @return array<CampGround>
      */
     public function get(GetCampGroundsFilter $filter): array
     {
