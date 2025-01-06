@@ -14,6 +14,9 @@ use App\Domain\Models\CampGrounds\CampGroundStatus;
 use App\Domain\Models\CampGrounds\GetCampGroundsFilter;
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
 use App\Models\CampGround as ModelsCampGround;
+use App\Models\Status;
+use Illuminate\Support\Facades\DB;
+use RuntimeException;
 
 class CampGroundRepository implements ICampGroundRepository
 {
@@ -100,7 +103,58 @@ class CampGroundRepository implements ICampGroundRepository
 
     public function update(CampGround $camp_ground): CampGround
     {
-        return $camp_ground;
+        return DB::transaction(function () use ($camp_ground) {
+            $models_camp_ground = ModelsCampGround::with('statuses', 'locations')
+                ->find($camp_ground->getId()->getValue());
+
+            if (is_null($models_camp_ground)) {
+                throw new RuntimeException('CampGround not found.');
+            }
+
+            $status = $models_camp_ground->statuses->first();
+            dd($models_camp_ground->statuses());
+
+            if (!$status) {
+                throw new RuntimeException('Status not found.');
+            }
+
+            $camp_ground_status_value = $camp_ground->getStatus()->getValue()->value;
+            dd(Status::where('name', $camp_ground_status_value)->first());
+
+            if ($status->name !== $camp_ground_status_value) {
+                $status_id = Status::where('name', $camp_ground_status_value)->first()->id;
+                $models_camp_ground->statuses()->sync($status_id);
+            }
+
+            $location = $models_camp_ground->locations->first();
+
+            if (!$location) {
+                throw new RuntimeException('Location not found.');
+            }
+
+            if ($location->name !== $camp_ground->getLocation()->getValue()->value) {
+                $models_camp_ground->locations()->sync($location->id);
+            }
+
+            $models_camp_ground->update([
+                'name' => $camp_ground->getName()->getValue(),
+                'address' => $camp_ground->getAddress()->getValue(),
+                'price' => $camp_ground->getPrice()->getValue(),
+                'image_url' => $camp_ground->getImage()->getValue(),
+                'elevation' => $camp_ground->getElevation()->getValue(),
+            ]);
+
+            return new CampGround(
+                new CampGroundId($models_camp_ground->id),
+                new CampGroundName($models_camp_ground->name),
+                new CampGroundAddress($models_camp_ground->address),
+                new CampGroundPrice($models_camp_ground->price),
+                new CampGroundImage($models_camp_ground->image_url),
+                new CampGroundStatus($models_camp_ground->statuses[0]->name),
+                new CampGroundLocation($models_camp_ground->locations[0]->name),
+                new CampGroundElevation($models_camp_ground->elevation)
+            );
+        });
     }
 
     public function delete(CampGroundId $id): void {}
