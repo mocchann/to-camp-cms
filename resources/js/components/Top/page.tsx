@@ -72,7 +72,7 @@ export const Page = ({ campGrounds }: Props): JSX.Element => {
             <TextInput
               withAsterisk
               label="Name"
-              placeholder="Search CampGround"
+              placeholder="Search CampGround Name"
               key={form.key('name')}
               {...form.getInputProps('name')}
             />
