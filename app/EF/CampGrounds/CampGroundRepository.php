@@ -14,6 +14,7 @@ use App\Domain\Models\CampGrounds\CampGroundStatus;
 use App\Domain\Models\CampGrounds\GetCampGroundsFilter;
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
 use App\Models\CampGround as ModelsCampGround;
+use App\Models\Location;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
@@ -130,8 +131,11 @@ class CampGroundRepository implements ICampGroundRepository
                 throw new RuntimeException('Location not found.');
             }
 
-            if ($location->name !== $camp_ground->getLocation()->getValue()->value) {
-                $models_camp_ground->locations()->attach($location->id);
+            $camp_ground_location_value = $camp_ground->getLocation()->getValue()->value;
+
+            if ($location->name !== $camp_ground_location_value) {
+                $location_id = Location::where('name', $camp_ground_location_value)->first()->id;
+                $models_camp_ground->locations()->attach($location_id);
             }
 
             $models_camp_ground->update([
