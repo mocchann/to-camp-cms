@@ -113,10 +113,8 @@ class CampGroundRepositoryTest extends TestCase
                 ['name' => 'river']
             )->create();
         $models_camp_ground = ModelsCampGround::factory()
-            ->afterCreating(function ($camp_ground) use ($statuses) {
+            ->afterCreating(function ($camp_ground) use ($statuses, $locations) {
                 $camp_ground->statuses()->attach($statuses[0]);
-            })
-            ->afterCreating(function ($camp_ground) use ($locations) {
                 $camp_ground->locations()->attach($locations[0]);
             })
             ->create([
@@ -152,6 +150,10 @@ class CampGroundRepositoryTest extends TestCase
         $this->assertDatabaseHas('camp_ground_status', [
             'camp_ground_id' => $models_camp_ground->id,
             'status_id' => Status::where('name', 'published')->first()->id,
+        ]);
+        $this->assertDatabaseHas('camp_ground_location', [
+            'camp_ground_id' => $models_camp_ground->id,
+            'location_id' => Location::where('name', 'mountain')->first()->id,
         ]);
     }
 }
