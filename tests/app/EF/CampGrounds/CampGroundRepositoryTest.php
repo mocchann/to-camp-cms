@@ -98,18 +98,21 @@ class CampGroundRepositoryTest extends TestCase
     #[Test]
     public function update__キャンプ場情報を更新できる(): void
     {
-        $statuses = Status::factory()->sequence(
-            ['name' => 'draft'],
-            ['name' => 'published'],
-            ['name' => 'archived']
-        )->create();
-        $locations = Location::factory()->sequence(
-            ['name' => 'sea'],
-            ['name' => 'mountain'],
-            ['name' => 'river']
-        )->create();
+        $statuses = Status::factory()
+            ->count(3)
+            ->sequence(
+                ['name' => 'draft'],
+                ['name' => 'published'],
+                ['name' => 'archived']
+            )->create();
+        $locations = Location::factory()
+            ->count(3)
+            ->sequence(
+                ['name' => 'sea'],
+                ['name' => 'mountain'],
+                ['name' => 'river']
+            )->create();
         $models_camp_ground = ModelsCampGround::factory()
-        // todo: この処理でうまく中間テーブルを使ったリレーションが登録できてないので修正する
             ->afterCreating(function ($camp_ground) use ($statuses) {
                 $camp_ground->statuses()->attach($statuses[0]);
             })
