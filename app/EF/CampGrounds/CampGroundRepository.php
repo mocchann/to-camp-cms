@@ -112,18 +112,16 @@ class CampGroundRepository implements ICampGroundRepository
             }
 
             $status = $models_camp_ground->statuses->first();
-            dd($models_camp_ground->statuses());
 
             if (!$status) {
                 throw new RuntimeException('Status not found.');
             }
 
             $camp_ground_status_value = $camp_ground->getStatus()->getValue()->value;
-            dd(Status::where('name', $camp_ground_status_value)->first());
 
             if ($status->name !== $camp_ground_status_value) {
                 $status_id = Status::where('name', $camp_ground_status_value)->first()->id;
-                $models_camp_ground->statuses()->sync($status_id);
+                $models_camp_ground->statuses()->attach($status_id);
             }
 
             $location = $models_camp_ground->locations->first();
@@ -133,7 +131,7 @@ class CampGroundRepository implements ICampGroundRepository
             }
 
             if ($location->name !== $camp_ground->getLocation()->getValue()->value) {
-                $models_camp_ground->locations()->sync($location->id);
+                $models_camp_ground->locations()->attach($location->id);
             }
 
             $models_camp_ground->update([
