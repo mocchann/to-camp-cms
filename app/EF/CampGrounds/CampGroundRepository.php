@@ -122,7 +122,7 @@ class CampGroundRepository implements ICampGroundRepository
 
             if ($status->name !== $camp_ground_status_value) {
                 $status_id = Status::where('name', $camp_ground_status_value)->first()->id;
-                $models_camp_ground->statuses()->attach($status_id);
+                $models_camp_ground->statuses()->updateExistingPivot($status->id, ['status_id' => $status_id]);
             }
 
             $location = $models_camp_ground->locations->first();
@@ -135,7 +135,7 @@ class CampGroundRepository implements ICampGroundRepository
 
             if ($location->name !== $camp_ground_location_value) {
                 $location_id = Location::where('name', $camp_ground_location_value)->first()->id;
-                $models_camp_ground->locations()->attach($location_id);
+                $models_camp_ground->locations()->updateExistingPivot($location->id, ['location_id' => $location_id]);
             }
 
             $models_camp_ground->update([
