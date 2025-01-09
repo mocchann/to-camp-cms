@@ -152,12 +152,21 @@ class CampGroundRepository implements ICampGroundRepository
                 new CampGroundAddress($models_camp_ground->address),
                 new CampGroundPrice($models_camp_ground->price),
                 new CampGroundImage($models_camp_ground->image_url),
-                new CampGroundStatus($models_camp_ground->statuses[0]->name),
-                new CampGroundLocation($models_camp_ground->locations[0]->name),
+                new CampGroundStatus($models_camp_ground->statuses->first()->name),
+                new CampGroundLocation($models_camp_ground->locations->first()->name),
                 new CampGroundElevation($models_camp_ground->elevation)
             );
         });
     }
 
-    public function delete(CampGroundId $id): void {}
+    public function delete(CampGroundId $id): void
+    {
+        $models_camp_ground = ModelsCampGround::find($id->getValue());
+
+        if (is_null($models_camp_ground)) {
+            throw new RuntimeException('CampGround not found.');
+        }
+
+        $models_camp_ground->delete();
+    }
 }
