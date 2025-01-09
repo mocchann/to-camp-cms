@@ -24,6 +24,14 @@ class CampGroundRepositoryTest extends TestCase
 {
     use DatabaseTransactions;
 
+    private $repository;
+
+    public function setup(): void
+    {
+        parent::setUp();
+        $this->repository = new CampGroundRepository();
+    }
+
     #[Test]
     public function get__キャンプ場のリストを取得できる(): void
     {
@@ -37,7 +45,6 @@ class CampGroundRepositoryTest extends TestCase
                 'image_url' => 'https://example.com/test.jpg',
                 'elevation' => 1000,
             ]);
-        $repository = new CampGroundRepository();
         $filter = new GetCampGroundsFilter();
 
         $this->assertEquals(
@@ -53,7 +60,7 @@ class CampGroundRepositoryTest extends TestCase
                     new CampGroundElevation(1000)
                 ),
             ],
-            $repository->get($filter)
+            $this->repository->get($filter)
         );
     }
 
@@ -70,7 +77,7 @@ class CampGroundRepositoryTest extends TestCase
                 'image_url' => 'https://example.com/test.jpg',
                 'elevation' => 1000,
             ]);
-        $repository = new CampGroundRepository();
+
 
         $this->assertEquals(
             new CampGround(
@@ -83,20 +90,87 @@ class CampGroundRepositoryTest extends TestCase
                 new CampGroundLocation('mountain'),
                 new CampGroundElevation(1000)
             ),
-            $repository->findById(new CampGroundId($models_camp_ground->id))
+            $this->repository->findById(new CampGroundId($models_camp_ground->id))
         );
     }
 
     #[Test]
     public function findById__存在しないidの場合nullを返す(): void
     {
-        $repository = new CampGroundRepository();
-
-        $this->assertNull($repository->findById(new CampGroundId(999999)));
+        $this->assertNull($this->repository->findById(new CampGroundId(999999)));
     }
 
     #[Test]
-    public function update__キャンプ場情報を更新できる(): void
+    public function update__キャンプ場情報の更新テスト(): void
+    {
+        $models_camp_ground = $this->createUpdateTestData();
+
+        $this->repository->update(
+            new CampGround(
+                new CampGroundId($models_camp_ground->id),
+                new CampGroundName('更新後オートキャンプ場'),
+                new CampGroundAddress('更新後県更新後市更新後町000'),
+                new CampGroundPrice(2000),
+                new CampGroundImage('https://example.com/update.jpg'),
+                new CampGroundStatus('published'),
+                new CampGroundLocation('mountain'),
+                new CampGroundElevation(2000)
+            )
+        );
+
+        $this->assertDatabaseHas('camp_grounds', [
+            'id' => $models_camp_ground->id,
+            'name' => '更新後オートキャンプ場',
+            'address' => '更新後県更新後市更新後町000',
+            'price' => 2000,
+            'image_url' => 'https://example.com/update.jpg',
+            'elevation' => 2000,
+        ]);
+    }
+
+    #[Test]
+    public function update__キャンプ場情報に紐づくstatusを更新できる(): void
+    {
+        $models_camp_ground = $this->createUpdateTestData();
+
+        $this->repository->update(
+            new CampGround(
+                new CampGroundId($models_camp_ground->id),
+                new CampGroundName('更新後オートキャンプ場'),
+                new CampGroundAddress('更新後県更新後市更新後町000'),
+                new CampGroundPrice(2000),
+                new CampGroundImage('https://example.com/update.jpg'),
+                new CampGroundStatus('published'),
+                new CampGroundLocation('mountain'),
+                new CampGroundElevation(2000)
+            )
+        );
+
+        $this->assertEquals('published', $models_camp_ground->statuses->first()->name);
+    }
+
+    #[Test]
+    public function update__キャンプ場情報に紐づくlocationを更新できる(): void
+    {
+        $models_camp_ground = $this->createUpdateTestData();
+
+        $this->repository->update(
+            new CampGround(
+                new CampGroundId($models_camp_ground->id),
+                new CampGroundName('更新後オートキャンプ場'),
+                new CampGroundAddress('更新後県更新後市更新後町000'),
+                new CampGroundPrice(2000),
+                new CampGroundImage('https://example.com/update.jpg'),
+                new CampGroundStatus('published'),
+                new CampGroundLocation('mountain'),
+                new CampGroundElevation(2000)
+            )
+        );
+
+        $this->assertEquals('mountain', $models_camp_ground->locations->first()->name);
+    }
+
+    private function createUpdateTestData(): ModelsCampGround
     {
         $statuses = Status::factory()
             ->count(3)
@@ -124,36 +198,7 @@ class CampGroundRepositoryTest extends TestCase
                 'image_url' => 'https://example.com/test.jpg',
                 'elevation' => 1000,
             ]);
-        $repository = new CampGroundRepository();
 
-        $repository->update(
-            new CampGround(
-                new CampGroundId($models_camp_ground->id),
-                new CampGroundName('更新後オートキャンプ場'),
-                new CampGroundAddress('更新後県更新後市更新後町000'),
-                new CampGroundPrice(2000),
-                new CampGroundImage('https://example.com/update.jpg'),
-                new CampGroundStatus('published'),
-                new CampGroundLocation('mountain'),
-                new CampGroundElevation(2000)
-            )
-        );
-
-        $this->assertDatabaseHas('camp_grounds', [
-            'id' => $models_camp_ground->id,
-            'name' => '更新後オートキャンプ場',
-            'address' => '更新後県更新後市更新後町000',
-            'price' => 2000,
-            'image_url' => 'https://example.com/update.jpg',
-            'elevation' => 2000,
-        ]);
-        $this->assertDatabaseHas('camp_ground_status', [
-            'camp_ground_id' => $models_camp_ground->id,
-            'status_id' => Status::where('name', 'published')->first()->id,
-        ]);
-        $this->assertDatabaseHas('camp_ground_location', [
-            'camp_ground_id' => $models_camp_ground->id,
-            'location_id' => Location::where('name', 'mountain')->first()->id,
-        ]);
+        return $models_camp_ground;
     }
 }
