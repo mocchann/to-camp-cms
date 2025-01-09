@@ -102,6 +102,8 @@ class CampGroundRepository implements ICampGroundRepository
         );
     }
 
+    // todo: returnの型なんとかする
+    // todo: createと併用するか考える
     public function update(CampGround $camp_ground): CampGround
     {
         return DB::transaction(function () use ($camp_ground) {
