@@ -201,4 +201,53 @@ class CampGroundRepositoryTest extends TestCase
 
         return $models_camp_ground;
     }
+
+    #[Test]
+    public function delete__キャンプ場情報を削除できる(): void
+    {
+        $models_camp_ground = ModelsCampGround::factory()->create();
+
+        $this->repository->delete(new CampGroundId($models_camp_ground->id));
+
+        $this->assertDatabaseMissing('camp_grounds', ['id' => $models_camp_ground->id]);
+    }
+
+    #[Test]
+    public function delete__キャンプ場に紐づくstatusのリレーションを削除できる(): void
+    {
+        $models_camp_ground = ModelsCampGround::factory()
+            ->has(Status::factory()->state(['name' => 'published']))
+            ->create();
+        $camp_ground_id = new CampGroundId($models_camp_ground->id);
+
+        $this->repository->delete($camp_ground_id);
+
+        $this->assertEmpty($models_camp_ground->statuses);
+    }
+
+    #[Test]
+    public function delete__status自体は削除されない(): void
+    {
+        $models_camp_ground = ModelsCampGround::factory()
+            ->has(Status::factory()->state(['name' => 'published']))
+            ->create();
+        $camp_ground_id = new CampGroundId($models_camp_ground->id);
+
+        $this->repository->delete($camp_ground_id);
+
+        $this->assertDatabaseCount('statuses', 1);
+    }
+
+    #[Test]
+    public function delete__キャンプ場に紐づくlocationのリレーションを削除できる(): void
+    {
+        $models_camp_ground = ModelsCampGround::factory()
+            ->has(Location::factory()->state(['name' => 'mountain']))
+            ->create();
+        $camp_ground_id = new CampGroundId($models_camp_ground->id);
+
+        $this->repository->delete($camp_ground_id);
+
+        $this->assertEmpty($models_camp_ground->locations);
+    }
 }
