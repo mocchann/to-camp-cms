@@ -146,9 +146,6 @@ class CampGroundRepository implements ICampGroundRepository
                 'elevation' => $camp_ground->getElevation()->getValue(),
             ]);
 
-            // 中間テーブル更新後の値をリレーションから取得するため再ロードする
-            $models_camp_ground->load('statuses', 'locations');
-
             return new CampGround(
                 new CampGroundId($models_camp_ground->id),
                 new CampGroundName($models_camp_ground->name),
