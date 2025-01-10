@@ -152,11 +152,7 @@ class CampGroundRepository implements ICampGroundRepository
 
     public function delete(CampGroundId $id): void
     {
-        $models_camp_ground = ModelsCampGround::find($id->getValue());
-
-        if (is_null($models_camp_ground)) {
-            throw new RuntimeException('CampGround not found.');
-        }
+        $models_camp_ground = ModelsCampGround::findOrFail($id->getValue());
 
         $models_camp_ground->delete();
     }
