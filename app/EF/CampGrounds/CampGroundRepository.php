@@ -17,7 +17,6 @@ use App\Models\CampGround as ModelsCampGround;
 use App\Models\Location;
 use App\Models\Status;
 use Illuminate\Support\Facades\DB;
-use RuntimeException;
 
 class CampGroundRepository implements ICampGroundRepository
 {
