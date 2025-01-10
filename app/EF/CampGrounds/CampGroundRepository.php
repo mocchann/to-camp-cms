@@ -103,50 +103,40 @@ class CampGroundRepository implements ICampGroundRepository
     }
 
     // todo: returnの型なんとかする
-    // todo: createと併用するか考える
     public function update(CampGround $camp_ground): CampGround
     {
         return DB::transaction(function () use ($camp_ground) {
             $models_camp_ground = ModelsCampGround::with('statuses', 'locations')
-                ->find($camp_ground->getId()->getValue());
-
-            if (is_null($models_camp_ground)) {
-                throw new RuntimeException('CampGround not found.');
-            }
-
-            $status = $models_camp_ground->statuses->first();
-
-            if (!$status) {
-                throw new RuntimeException('Status not found.');
-            }
+                ->updateOrCreate(
+                    ['id' => $camp_ground->getId()->getValue()],
+                    [
+                        'name' => $camp_ground->getName()->getValue(),
+                        'address' => $camp_ground->getAddress()->getValue(),
+                        'price' => $camp_ground->getPrice()->getValue(),
+                        'image_url' => $camp_ground->getImage()->getValue(),
+                        'elevation' => $camp_ground->getElevation()->getValue(),
+                    ]
+                );
 
             $camp_ground_status_value = $camp_ground->getStatus()->getValue()->value;
-
+            $status_id = Status::where('name', $camp_ground_status_value)->first()->id;
+            $status = $models_camp_ground->statuses->first();
+            if (is_null($status)) {
+                $models_camp_ground->statuses()->attach($status_id);
+            }
             if ($status->name !== $camp_ground_status_value) {
-                $status_id = Status::where('name', $camp_ground_status_value)->first()->id;
                 $models_camp_ground->statuses()->updateExistingPivot($status->id, ['status_id' => $status_id]);
             }
 
-            $location = $models_camp_ground->locations->first();
-
-            if (!$location) {
-                throw new RuntimeException('Location not found.');
-            }
-
             $camp_ground_location_value = $camp_ground->getLocation()->getValue()->value;
-
+            $location_id = Location::where('name', $camp_ground_location_value)->first()->id;
+            $location = $models_camp_ground->locations->first();
+            if (is_null($location)) {
+                $models_camp_ground->locations()->attach($location_id);
+            }
             if ($location->name !== $camp_ground_location_value) {
-                $location_id = Location::where('name', $camp_ground_location_value)->first()->id;
                 $models_camp_ground->locations()->updateExistingPivot($location->id, ['location_id' => $location_id]);
             }
-
-            $models_camp_ground->update([
-                'name' => $camp_ground->getName()->getValue(),
-                'address' => $camp_ground->getAddress()->getValue(),
-                'price' => $camp_ground->getPrice()->getValue(),
-                'image_url' => $camp_ground->getImage()->getValue(),
-                'elevation' => $camp_ground->getElevation()->getValue(),
-            ]);
 
             return new CampGround(
                 new CampGroundId($models_camp_ground->id),
