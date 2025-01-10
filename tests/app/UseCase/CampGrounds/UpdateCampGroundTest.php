@@ -2,8 +2,6 @@
 
 namespace Tests\App\UseCase\CampGrounds;
 
-use App\Domain\Enums\CampGroundLocations;
-use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
 use App\Domain\Models\CampGrounds\CampGroundElevation;
@@ -31,8 +29,8 @@ class UpdateCampGroundTest extends TestCase
             new CampGroundAddress('沖縄県晴海町1-12-89'),
             new CampGroundPrice(3000),
             new CampGroundImage('https://example.com/image.jpg'),
-            new CampGroundStatus(EnumsCampGroundStatus::DRAFT),
-            new CampGroundLocation(CampGroundLocations::SEA),
+            new CampGroundStatus('published'),
+            new CampGroundLocation('sea'),
             new CampGroundElevation(100)
         );
         $repository = Mockery::mock(ICampGroundRepository::class);
@@ -45,7 +43,7 @@ class UpdateCampGroundTest extends TestCase
             '沖縄県晴海町1-12-89',
             3000,
             'https://example.com/image.jpg',
-            'draft',
+            'published',
             'sea',
             100
         );
@@ -57,8 +55,8 @@ class UpdateCampGroundTest extends TestCase
             'address' => '沖縄県晴海町1-12-89',
             'price' => 3000,
             'image' => 'https://example.com/image.jpg',
-            'status' => '下書き',
-            'location' => '海',
+            'status' => 'published',
+            'location' => 'sea',
             'elevation' => 100,
         ], [
             'id' => $result->getId()->getValue(),
@@ -66,8 +64,8 @@ class UpdateCampGroundTest extends TestCase
             'address' => $result->getAddress()->getValue(),
             'price' => $result->getPrice()->getValue(),
             'image' => $result->getImage()->getValue(),
-            'status' => $result->getStatus()->getValue()->status(),
-            'location' => $result->getLocation()->getValue()->location(),
+            'status' => $result->getStatus()->getValue()->value,
+            'location' => $result->getLocation()->getValue()->value,
             'elevation' => $result->getElevation()->getValue(),
         ]);
     }
@@ -76,32 +74,31 @@ class UpdateCampGroundTest extends TestCase
     public function キャンプ場情報を更新できる(): void
     {
         $initial_camp_ground = new CampGround(
-            new CampGroundId(1),
+            new CampGroundId('1'),
             new CampGroundName('テストオートキャンプ場'),
             new CampGroundAddress('沖縄県晴海町1-12-89'),
             new CampGroundPrice(3000),
             new CampGroundImage('https://example.com/image.jpg'),
-            new CampGroundStatus(EnumsCampGroundStatus::DRAFT),
-            new CampGroundLocation(CampGroundLocations::SEA),
+            new CampGroundStatus('draft'),
+            new CampGroundLocation('sea'),
             new CampGroundElevation(100)
         );
         $updated_camp_ground = new CampGround(
-            new CampGroundId(1),
+            new CampGroundId('1'),
             new CampGroundName('テストオートキャンプ場'),
             new CampGroundAddress('沖縄県晴海町1-12-89'),
             new CampGroundPrice(2000),
             new CampGroundImage('https://example.com/image.jpg'),
-            new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
-            new CampGroundLocation(CampGroundLocations::SEA),
+            new CampGroundStatus('published'),
+            new CampGroundLocation('sea'),
             new CampGroundElevation(100)
         );
         $repository = Mockery::mock(ICampGroundRepository::class);
-        $repository->shouldReceive('save')->andReturn($initial_camp_ground);
-        $repository->shouldReceive('update')->andReturn($updated_camp_ground);
+        $repository->shouldReceive('update')->andReturn($initial_camp_ground, $updated_camp_ground);
         /** @var ICampGroundRepository $repository */
         $use_case = new UpdateCampGround($repository);
         $initial_command = new UpdateCampGroundCommand(
-            1,
+            '1',
             'テストオートキャンプ場',
             '沖縄県晴海町1-12-89',
             3000,
@@ -111,7 +108,7 @@ class UpdateCampGroundTest extends TestCase
             100
         );
         $update_command = new UpdateCampGroundCommand(
-            1,
+            '1',
             'テストオートキャンプ場',
             '沖縄県晴海町1-12-89',
             2000,
@@ -124,13 +121,13 @@ class UpdateCampGroundTest extends TestCase
         $result = $use_case->execute($update_command);
 
         $this->assertEquals([
-            'id' => 1,
+            'id' => '1',
             'name' => 'テストオートキャンプ場',
             'address' => '沖縄県晴海町1-12-89',
             'price' => 2000,
             'image' => 'https://example.com/image.jpg',
-            'status' => '公開',
-            'location' => '海',
+            'status' => 'published',
+            'location' => 'sea',
             'elevation' => 100,
         ], [
             'id' => $result->getId()->getValue(),
@@ -138,8 +135,8 @@ class UpdateCampGroundTest extends TestCase
             'address' => $result->getAddress()->getValue(),
             'price' => $result->getPrice()->getValue(),
             'image' => $result->getImage()->getValue(),
-            'status' => $result->getStatus()->getValue()->status(),
-            'location' => $result->getLocation()->getValue()->location(),
+            'status' => $result->getStatus()->getValue()->value,
+            'location' => $result->getLocation()->getValue()->value,
             'elevation' => $result->getElevation()->getValue(),
         ]);
     }

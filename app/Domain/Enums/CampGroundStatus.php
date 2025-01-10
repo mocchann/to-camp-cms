@@ -8,7 +8,7 @@ enum CampGroundStatus: string
     case PUBLISHED = 'published';
     case ARCHIVED = 'archived';
 
-    public function status(): string
+    public function label(): string
     {
         return match ($this) {
             self::DRAFT => '下書き',

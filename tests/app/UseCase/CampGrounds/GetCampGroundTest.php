@@ -3,7 +3,6 @@
 namespace Tests\App\UseCase\CampGrounds;
 
 use App\Domain\Enums\CampGroundLocations;
-use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
 use App\Domain\Models\CampGrounds\CampGroundElevation;
@@ -30,8 +29,8 @@ class GetCampGroundTest extends TestCase
             new CampGroundAddress('沖縄県晴海町1-12-89'),
             new CampGroundPrice(3000),
             new CampGroundImage('https://example.com/image.jpg'),
-            new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
-            new CampGroundLocation(CampGroundLocations::SEA),
+            new CampGroundStatus('published'),
+            new CampGroundLocation('sea'),
             new CampGroundElevation(100)
         );
         $repository = Mockery::mock(ICampGroundRepository::class);
@@ -48,8 +47,8 @@ class GetCampGroundTest extends TestCase
                 'address' => '沖縄県晴海町1-12-89',
                 'price' => 3000,
                 'image' => 'https://example.com/image.jpg',
-                'status' => '公開',
-                'location' => '海',
+                'status' => 'published',
+                'location' => 'sea',
                 'elevation' => 100,
             ],
             [
@@ -58,8 +57,8 @@ class GetCampGroundTest extends TestCase
                 'address' => $result->getAddress()->getValue(),
                 'price' => $result->getPrice()->getValue(),
                 'image' => $result->getImage()->getValue(),
-                'status' => $result->getStatus()->getValue()->status(),
-                'location' => $result->getLocation()->getValue()->location(),
+                'status' => $result->getStatus()->getValue()->value,
+                'location' => $result->getLocation()->getValue()->value,
                 'elevation' => $result->getElevation()->getValue(),
             ]
         );

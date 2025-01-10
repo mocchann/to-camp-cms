@@ -3,7 +3,6 @@
 namespace Tests\App\UseCase\CampGrounds;
 
 use App\Domain\Enums\CampGroundLocations;
-use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
 use App\Domain\Models\CampGrounds\CampGroundElevation;
@@ -31,8 +30,8 @@ class DeleteCampGroundTest extends TestCase
             new CampGroundAddress('沖縄県晴海町1-12-89'),
             new CampGroundPrice(3000),
             new CampGroundImage('https://example.com/image.jpg'),
-            new CampGroundStatus(EnumsCampGroundStatus::PUBLISHED),
-            new CampGroundLocation(CampGroundLocations::SEA),
+            new CampGroundStatus('published'),
+            new CampGroundLocation('sea'),
             new CampGroundElevation(100)
         );
         $repository = Mockery::mock(ICampGroundRepository::class);

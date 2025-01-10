@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('camp_ground_locations', function (Blueprint $table) {
+        Schema::create('camp_ground_location', function (Blueprint $table) {
             $table->id();
             $table->foreignUlid('camp_ground_id')
                 ->constrained()
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('camp_ground_locations');
+        Schema::dropIfExists('camp_ground_location');
     }
 };
