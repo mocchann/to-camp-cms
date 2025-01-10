@@ -96,8 +96,8 @@ class CampGroundRepository implements ICampGroundRepository
             new CampGroundAddress($camp_ground->address),
             new CampGroundPrice($camp_ground->price),
             new CampGroundImage($camp_ground->image_url),
-            new CampGroundStatus($camp_ground->statuses[0]->name),
-            new CampGroundLocation($camp_ground->locations[0]->name),
+            new CampGroundStatus($camp_ground->statuses->first()->name),
+            new CampGroundLocation($camp_ground->locations->first()->name),
             new CampGroundElevation($camp_ground->elevation)
         );
     }
