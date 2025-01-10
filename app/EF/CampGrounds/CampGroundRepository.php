@@ -102,7 +102,6 @@ class CampGroundRepository implements ICampGroundRepository
         );
     }
 
-    // todo: returnの型なんとかする
     public function update(CampGround $camp_ground): CampGround
     {
         return DB::transaction(function () use ($camp_ground) {
@@ -124,7 +123,7 @@ class CampGroundRepository implements ICampGroundRepository
             if (is_null($status)) {
                 $models_camp_ground->statuses()->attach($status_id);
             }
-            if ($status->name !== $camp_ground_status_value) {
+            if ($status && $status->name !== $camp_ground_status_value) {
                 $models_camp_ground->statuses()->updateExistingPivot($status->id, ['status_id' => $status_id]);
             }
 
@@ -134,7 +133,7 @@ class CampGroundRepository implements ICampGroundRepository
             if (is_null($location)) {
                 $models_camp_ground->locations()->attach($location_id);
             }
-            if ($location->name !== $camp_ground_location_value) {
+            if ($location && $location->name !== $camp_ground_location_value) {
                 $models_camp_ground->locations()->updateExistingPivot($location->id, ['location_id' => $location_id]);
             }
 
