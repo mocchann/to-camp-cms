@@ -16,7 +16,10 @@
     "moduleDetection": "force",
     "noUnusedLocals": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "paths": {
+        "@/*": ["./resources/js/*"]
+    },
   },
   "include": [
     "resources/js/**/*.ts",
