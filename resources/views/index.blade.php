@@ -9,6 +9,7 @@
 
 <body>
     index
+    <!-- ここにshadcn/uiのテーブルコンポーネントを表示する -->
 </body>
 
 </html>
