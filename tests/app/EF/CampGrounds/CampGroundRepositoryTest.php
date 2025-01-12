@@ -78,7 +78,6 @@ class CampGroundRepositoryTest extends TestCase
                 'elevation' => 1000,
             ]);
 
-
         $this->assertEquals(
             new CampGround(
                 new CampGroundId($models_camp_ground->id),
