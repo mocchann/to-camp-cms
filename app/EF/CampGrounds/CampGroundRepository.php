@@ -81,7 +81,7 @@ class CampGroundRepository implements ICampGroundRepository
         )->toArray();
     }
 
-    public function findById(CampGroundId $id): ?CampGround
+    public function findById(CampGroundId $id): CampGround | null
     {
         $camp_ground = ModelsCampGround::with('statuses', 'locations')->find($id->getValue());
 
