@@ -8,7 +8,8 @@ export default defineConfig({
       input: [
         'resources/css/app.css',
         'resources/js/app.js',
-        'resources/js/components/ui/table.tsx',
+        'resources/js/pages/top/index.tsx',
+        'resources/js/pages/top/page.tsx',
       ],
       refresh: true,
     }),
