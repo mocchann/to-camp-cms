@@ -14,14 +14,50 @@ import {
   useReactTable,
   type ColumnDef,
 } from '@tanstack/react-table';
-import type { Payment } from '.';
 
-type Props = {
-  columns: ColumnDef<Payment>[];
-  data: Payment[];
+export type Payment = {
+  id: string;
+  amount: number;
+  status: 'pending' | 'processing' | 'success' | 'failded';
+  email: string;
 };
 
-export const Page = ({ columns, data }: Props): JSX.Element => {
+export const data: Payment[] = [
+  {
+    id: '728ed52f',
+    amount: 100,
+    status: 'pending',
+    email: 'm@example.com',
+  },
+  {
+    id: '489e1d42',
+    amount: 125,
+    status: 'processing',
+    email: 'example@gmail.com',
+  },
+];
+
+const columns: ColumnDef<Payment>[] = [
+  {
+    accessorKey: 'status',
+    header: 'Status',
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email',
+  },
+  {
+    accessorKey: 'amount',
+    header: 'Amount',
+  },
+];
+
+// type Props = {
+//   columns: ColumnDef<Payment>[];
+//   data: Payment[];
+// };
+
+export const Page = (): JSX.Element => {
   const table = useReactTable({
     columns,
     data,
