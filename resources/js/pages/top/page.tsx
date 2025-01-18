@@ -18,7 +18,7 @@ import {
 export type Payment = {
   id: string;
   amount: number;
-  status: 'pending' | 'processing' | 'success' | 'failded';
+  status: 'pending' | 'processing' | 'success' | 'failed';
   email: string;
 };
 
@@ -48,7 +48,16 @@ const columns: ColumnDef<Payment>[] = [
   },
   {
     accessorKey: 'amount',
-    header: 'Amount',
+    header: () => <div className="text-right">Amount</div>,
+    cell: ({ row }) => {
+      const amount = Number.parseFloat(row.getValue('amount'));
+      const formatted = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(amount);
+
+      return <div className="text-right font-medium">{formatted}</div>;
+    },
   },
 ];
 
