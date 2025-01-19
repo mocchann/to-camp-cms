@@ -5,18 +5,37 @@ import { Anchor, AppShell, Button, Flex, rem, Table } from '@mantine/core';
 export const Page = (): JSX.Element => {
   const pinned = useHeadroom({ fixedAt: 120 });
   const elements = [
-    { position: 6, mass: 12.011, symbol: 'C', name: 'Carbon' },
-    { position: 7, mass: 14.007, symbol: 'N', name: 'Nitrogen' },
-    { position: 39, mass: 88.906, symbol: 'Y', name: 'Yttrium' },
-    { position: 56, mass: 137.33, symbol: 'Ba', name: 'Barium' },
-    { position: 58, mass: 140.12, symbol: 'Ce', name: 'Cerium' },
+    {
+      id: 6,
+      name: 'agl',
+      address: 'street1',
+      price: 1234,
+      image: 'example.png',
+      status: 'open',
+      location: 'tokyo',
+      elevation: 123,
+    },
+    {
+      id: 7,
+      name: 'ane',
+      address: 'street2',
+      price: 5678,
+      image: 'example.png',
+      status: 'open',
+      location: 'tokyo',
+      elevation: 123,
+    },
   ];
   const rows = elements.map((element) => (
     <Table.Tr key={element.name}>
-      <Table.Td>{element.position}</Table.Td>
+      <Table.Td>{element.id}</Table.Td>
       <Table.Td>{element.name}</Table.Td>
-      <Table.Td>{element.symbol}</Table.Td>
-      <Table.Td>{element.mass}</Table.Td>
+      <Table.Td>{element.address}</Table.Td>
+      <Table.Td>{element.price}</Table.Td>
+      <Table.Td>{element.image}</Table.Td>
+      <Table.Td>{element.status}</Table.Td>
+      <Table.Td>{element.location}</Table.Td>
+      <Table.Td>{element.elevation}</Table.Td>
     </Table.Tr>
   ));
 
@@ -39,10 +58,14 @@ export const Page = (): JSX.Element => {
           <Table>
             <Table.Thead>
               <Table.Tr>
-                <Table.Th>Element position</Table.Th>
-                <Table.Th>Element name</Table.Th>
-                <Table.Th>Symbol</Table.Th>
-                <Table.Th>Atomic mass</Table.Th>
+                <Table.Th>ID</Table.Th>
+                <Table.Th>name</Table.Th>
+                <Table.Th>address</Table.Th>
+                <Table.Th>price</Table.Th>
+                <Table.Th>image</Table.Th>
+                <Table.Th>status</Table.Th>
+                <Table.Th>location</Table.Th>
+                <Table.Th>elevation</Table.Th>
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>{rows}</Table.Tbody>
