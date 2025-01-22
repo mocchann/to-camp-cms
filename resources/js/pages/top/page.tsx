@@ -26,18 +26,20 @@ export const Page = (): JSX.Element => {
       elevation: 123,
     },
   ];
-  const rows = elements.map((element) => (
-    <Table.Tr key={element.name}>
-      <Table.Td>{element.id}</Table.Td>
-      <Table.Td>{element.name}</Table.Td>
-      <Table.Td>{element.address}</Table.Td>
-      <Table.Td>{element.price}</Table.Td>
-      <Table.Td>{element.image}</Table.Td>
-      <Table.Td>{element.status}</Table.Td>
-      <Table.Td>{element.location}</Table.Td>
-      <Table.Td>{element.elevation}</Table.Td>
-    </Table.Tr>
-  ));
+  const rows = elements.map(
+    (element): JSX.Element => (
+      <Table.Tr key={element.name}>
+        <Table.Td>{element.id}</Table.Td>
+        <Table.Td>{element.name}</Table.Td>
+        <Table.Td>{element.address}</Table.Td>
+        <Table.Td>{element.price}</Table.Td>
+        <Table.Td>{element.image}</Table.Td>
+        <Table.Td>{element.status}</Table.Td>
+        <Table.Td>{element.location}</Table.Td>
+        <Table.Td>{element.elevation}</Table.Td>
+      </Table.Tr>
+    ),
+  );
 
   return (
     <>
