@@ -1,6 +1,16 @@
 import type { JSX } from 'react';
 import { useHeadroom } from '@mantine/hooks';
-import { Anchor, AppShell, Button, Flex, rem, Table } from '@mantine/core';
+import {
+  Anchor,
+  AppShell,
+  Button,
+  Flex,
+  Group,
+  rem,
+  Table,
+  TextInput,
+} from '@mantine/core';
+import { useForm } from '@mantine/form';
 
 export const Page = (): JSX.Element => {
   const pinned = useHeadroom({ fixedAt: 120 });
@@ -40,6 +50,17 @@ export const Page = (): JSX.Element => {
       </Table.Tr>
     ),
   );
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues: {
+      name: '',
+      termsOfService: false,
+    },
+
+    validate: {
+      name: (value) => value === '' && 'This field is required',
+    },
+  });
 
   return (
     <>
@@ -57,6 +78,18 @@ export const Page = (): JSX.Element => {
           </Flex>
         </AppShell.Header>
         <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
+          <form onSubmit={form.onSubmit((values) => console.log(values))}>
+            <TextInput
+              withAsterisk
+              label="Name"
+              placeholder="Search CampGround"
+              key={form.key('name')}
+              {...form.getInputProps('name')}
+            />
+            <Group justify="flex-end" mt="md">
+              <Button type="submit">Submit</Button>
+            </Group>
+          </form>
           <Table>
             <Table.Thead>
               <Table.Tr>
