@@ -56,7 +56,6 @@ export const Page = (): JSX.Element => {
       name: '',
       termsOfService: false,
     },
-
     validate: {
       name: (value) => value === '' && 'This field is required',
     },
