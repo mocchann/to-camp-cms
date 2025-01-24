@@ -2,23 +2,20 @@
 
 namespace App\Domain\Models\CampGrounds;
 
-use App\Domain\Enums\CampGroundLocations;
-use App\Domain\Enums\CampGroundStatus;
-
 /**
  * 検索条件を表現するオブジェクト
  */
 class GetCampGroundsFilter
 {
     public function __construct(
-        private ?int $id = null,
-        private ?string $name = null,
-        private ?string $address = null,
-        private ?int $price = null,
-        private ?string $image = null,
-        private ?string $status = null,
-        private ?string $location = null,
-        private ?int $elevation = null
+        private int | null $id = null,
+        private string | null $name = null,
+        private string | null $address = null,
+        private int | null $price = null,
+        private string | null $image = null,
+        private string | null $status = null,
+        private string | null $location = null,
+        private int | null $elevation = null
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -30,42 +27,42 @@ class GetCampGroundsFilter
         $this->elevation = $elevation;
     }
 
-    public function getId(): ?int
+    public function getId(): int | null
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string | null
     {
         return $this->name;
     }
 
-    public function getAddress(): ?string
+    public function getAddress(): string | null
     {
         return $this->address;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): int | null
     {
         return $this->price;
     }
 
-    public function getImage(): ?string
+    public function getImage(): string | null
     {
         return $this->image;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): string | null
     {
         return $this->status;
     }
 
-    public function getLocation(): ?string
+    public function getLocation(): string | null
     {
         return $this->location;
     }
 
-    public function getElevation(): ?int
+    public function getElevation(): int | null
     {
         return $this->elevation;
     }
