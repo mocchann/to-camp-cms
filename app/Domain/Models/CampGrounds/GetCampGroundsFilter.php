@@ -2,9 +2,6 @@
 
 namespace App\Domain\Models\CampGrounds;
 
-use App\Domain\Enums\CampGroundLocations;
-use App\Domain\Enums\CampGroundStatus;
-
 /**
  * 検索条件を表現するオブジェクト
  */
