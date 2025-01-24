@@ -12,41 +12,34 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-export const Page = (): JSX.Element => {
+type CampGrounds = {
+  id: string;
+  name: string;
+  address: string;
+  price: number;
+  image: string;
+  status: string;
+  location: string;
+  elevation: number;
+};
+
+type Props = {
+  campGrounds: CampGrounds[];
+};
+
+export const Page = ({ campGrounds }: Props): JSX.Element => {
   const pinned = useHeadroom({ fixedAt: 120 });
-  const elements = [
-    {
-      id: 6,
-      name: 'agl',
-      address: 'street1',
-      price: 1234,
-      image: 'example.png',
-      status: 'open',
-      location: 'tokyo',
-      elevation: 123,
-    },
-    {
-      id: 7,
-      name: 'ane',
-      address: 'street2',
-      price: 5678,
-      image: 'example.png',
-      status: 'open',
-      location: 'tokyo',
-      elevation: 123,
-    },
-  ];
-  const rows = elements.map(
-    (element): JSX.Element => (
-      <Table.Tr key={element.name}>
-        <Table.Td>{element.id}</Table.Td>
-        <Table.Td>{element.name}</Table.Td>
-        <Table.Td>{element.address}</Table.Td>
-        <Table.Td>{element.price}</Table.Td>
-        <Table.Td>{element.image}</Table.Td>
-        <Table.Td>{element.status}</Table.Td>
-        <Table.Td>{element.location}</Table.Td>
-        <Table.Td>{element.elevation}</Table.Td>
+  const rows = campGrounds?.map(
+    (campGround): JSX.Element => (
+      <Table.Tr key={campGround.name}>
+        <Table.Td>{campGround.id}</Table.Td>
+        <Table.Td>{campGround.name}</Table.Td>
+        <Table.Td>{campGround.address}</Table.Td>
+        <Table.Td>{campGround.price}</Table.Td>
+        <Table.Td>{campGround.image}</Table.Td>
+        <Table.Td>{campGround.status}</Table.Td>
+        <Table.Td>{campGround.location}</Table.Td>
+        <Table.Td>{campGround.elevation}</Table.Td>
       </Table.Tr>
     ),
   );
