@@ -12,9 +12,12 @@ const theme = createTheme({
 
 if (domNode) {
   const root = createRoot(domNode);
+  const campGroundsJson = document.getElementById('top')?.dataset.campGrounds;
+  const campGrounds = campGroundsJson ? JSON.parse(campGroundsJson) : [];
+
   root.render(
     <MantineProvider theme={theme}>
-      <Page />
+      <Page campGrounds={campGrounds} />
     </MantineProvider>,
   );
 }
