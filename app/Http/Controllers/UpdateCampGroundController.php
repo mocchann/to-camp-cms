@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class UpdateCampGroundController extends Controller
 {
+    public function index()
+    {
+        return view('update_camp_ground.index');
+    }
+
     public function update(Request $request, UpdateCampGround $use_case)
     {
         $command = new UpdateCampGroundCommand(
