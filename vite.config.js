@@ -12,6 +12,7 @@ export default defineConfig({
         'resources/css/app.css',
         'resources/js/app.js',
         'resources/js/pages/top/index.tsx',
+        'resources/js/pages/update/index.tsx',
       ],
       refresh: true,
     }),
