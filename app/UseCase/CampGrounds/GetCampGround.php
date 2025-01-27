@@ -14,7 +14,7 @@ class GetCampGround
         $this->repository = $repository;
     }
 
-    public function execute(int $id): ?CampGround
+    public function execute(string $id): ?CampGround
     {
         $camp_ground_id = new CampGroundId($id);
 
