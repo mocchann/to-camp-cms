@@ -1,4 +1,3 @@
-import { Checkbox } from '@mantine/core';
 import type { JSX } from 'react';
 import {
   Anchor,
@@ -16,12 +15,14 @@ export const Page = (): JSX.Element => {
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
-      email: '',
-      termsOfService: false,
-    },
-
-    validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      id: '',
+      name: '',
+      address: '',
+      price: 0,
+      image: '',
+      status: '',
+      location: '',
+      elevation: 0,
     },
   });
 
@@ -45,17 +46,51 @@ export const Page = (): JSX.Element => {
         <form onSubmit={form.onSubmit((values) => console.log(values))}>
           <TextInput
             withAsterisk
-            label="Email"
-            placeholder="your@email.com"
-            key={form.key('email')}
-            {...form.getInputProps('email')}
+            label="Id"
+            key={form.key('id')}
+            {...form.getInputProps('id')}
           />
-
-          <Checkbox
-            mt="md"
-            label="I agree to sell my privacy"
-            key={form.key('termsOfService')}
-            {...form.getInputProps('termsOfService', { type: 'checkbox' })}
+          <TextInput
+            withAsterisk
+            label="Name"
+            key={form.key('name')}
+            {...form.getInputProps('name')}
+          />
+          <TextInput
+            withAsterisk
+            label="Address"
+            key={form.key('address')}
+            {...form.getInputProps('address')}
+          />
+          <TextInput
+            withAsterisk
+            label="price"
+            key={form.key('price')}
+            {...form.getInputProps('price')}
+          />
+          <TextInput
+            withAsterisk
+            label="Image"
+            key={form.key('image')}
+            {...form.getInputProps('image')}
+          />
+          <TextInput
+            withAsterisk
+            label="Status"
+            key={form.key('status')}
+            {...form.getInputProps('status')}
+          />
+          <TextInput
+            withAsterisk
+            label="Location"
+            key={form.key('location')}
+            {...form.getInputProps('location')}
+          />
+          <TextInput
+            withAsterisk
+            label="Elevation"
+            key={form.key('elevation')}
+            {...form.getInputProps('elevation')}
           />
 
           <Group justify="flex-end" mt="md">
