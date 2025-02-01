@@ -8,14 +8,14 @@ import {
   rem,
   TextInput,
 } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, zodResolver } from '@mantine/form';
 import { useHeadroom } from '@mantine/hooks';
+import { CampGroundSchema } from '@/schemas/campGroundSchema';
 
 export const Page = (): JSX.Element => {
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
-      id: '',
       name: '',
       address: '',
       price: 0,
@@ -24,6 +24,7 @@ export const Page = (): JSX.Element => {
       location: '',
       elevation: 0,
     },
+    validate: zodResolver(CampGroundSchema),
   });
 
   const pinned = useHeadroom({ fixedAt: 120 });
@@ -44,12 +45,6 @@ export const Page = (): JSX.Element => {
       </AppShell.Header>
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
         <form onSubmit={form.onSubmit((values) => console.log(values))}>
-          <TextInput
-            withAsterisk
-            label="Id"
-            key={form.key('id')}
-            {...form.getInputProps('id')}
-          />
           <TextInput
             withAsterisk
             label="Name"
