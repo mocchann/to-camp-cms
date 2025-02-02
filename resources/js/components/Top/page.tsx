@@ -49,9 +49,6 @@ export const Page = ({ campGrounds }: Props): JSX.Element => {
       name: '',
       termsOfService: false,
     },
-    validate: {
-      name: (value) => value === '' && 'This field is required',
-    },
   });
 
   return (
