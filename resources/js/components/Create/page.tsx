@@ -15,11 +15,18 @@ import {
 import { useForm, zodResolver } from '@mantine/form';
 import { useHeadroom } from '@mantine/hooks';
 import { CampGroundSchema } from '@/schemas/campGroundSchema';
+import { ulid } from 'ulid';
 
-export const Page = (): JSX.Element => {
+type Props = {
+  action: string;
+  csrfToken: string;
+};
+
+export const Page = ({ action, csrfToken }: Props): JSX.Element => {
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
+      id: ulid(),
       name: '',
       address: '',
       price: 0,
@@ -48,22 +55,27 @@ export const Page = (): JSX.Element => {
         </Flex>
       </AppShell.Header>
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <form action={action} method="post" encType="multipart/form-data">
+          <input type="hidden" name="_token" value={csrfToken} />
+          <input type="hidden" name="id" value={form.values.id} />
           <TextInput
             withAsterisk
             label="Name"
+            name="name"
             key={form.key('name')}
             {...form.getInputProps('name')}
           />
           <TextInput
             withAsterisk
             label="Address"
+            name="address"
             key={form.key('address')}
             {...form.getInputProps('address')}
           />
           <NumberInput
             withAsterisk
             label="price"
+            name="price"
             key={form.key('price')}
             {...form.getInputProps('price')}
           />
@@ -71,12 +83,14 @@ export const Page = (): JSX.Element => {
             withAsterisk
             accept="image/png,image/jpeg"
             label="Upload files"
+            name="image"
             placeholder="Upload file"
             key={form.key('image')}
             {...form.getInputProps('image')}
           />
           <RadioGroup
             label="Status"
+            name="status"
             description="Select Status"
             required
             {...form.getInputProps('status')}
@@ -87,6 +101,7 @@ export const Page = (): JSX.Element => {
           </RadioGroup>
           <RadioGroup
             label="Location"
+            name="location"
             description="Select Location"
             required
             {...form.getInputProps('location')}
@@ -101,6 +116,7 @@ export const Page = (): JSX.Element => {
           <NumberInput
             withAsterisk
             label="Elevation"
+            name="elevation"
             key={form.key('elevation')}
             {...form.getInputProps('elevation')}
           />
