@@ -3,8 +3,12 @@ import {
   Anchor,
   AppShell,
   Button,
+  FileInput,
   Flex,
   Group,
+  NumberInput,
+  Radio,
+  RadioGroup,
   rem,
   TextInput,
 } from '@mantine/core';
@@ -19,7 +23,7 @@ export const Page = (): JSX.Element => {
       name: '',
       address: '',
       price: 0,
-      image: '',
+      image: null,
       status: '',
       location: '',
       elevation: 0,
@@ -57,37 +61,49 @@ export const Page = (): JSX.Element => {
             key={form.key('address')}
             {...form.getInputProps('address')}
           />
-          <TextInput
+          <NumberInput
             withAsterisk
             label="price"
             key={form.key('price')}
             {...form.getInputProps('price')}
           />
-          <TextInput
+          <FileInput
             withAsterisk
-            label="Image"
+            accept="image/png,image/jpeg"
+            label="Upload files"
+            placeholder="Upload file"
             key={form.key('image')}
             {...form.getInputProps('image')}
           />
-          <TextInput
-            withAsterisk
+          <RadioGroup
             label="Status"
-            key={form.key('status')}
+            description="Select Status"
+            required
             {...form.getInputProps('status')}
-          />
-          <TextInput
-            withAsterisk
+          >
+            <Radio value="draft" label="Draft" />
+            <Radio value="published" label="Published" />
+            <Radio value="archived" label="archived" />
+          </RadioGroup>
+          <RadioGroup
             label="Location"
-            key={form.key('location')}
+            description="Select Location"
+            required
             {...form.getInputProps('location')}
-          />
-          <TextInput
+          >
+            <Radio value="sea" label="Sea" />
+            <Radio value="mountain" label="Mountain" />
+            <Radio value="river" label="River" />
+            <Radio value="lake" label="Lake" />
+            <Radio value="woods" label="Woods" />
+            <Radio value="highland" label="Highland" />
+          </RadioGroup>
+          <NumberInput
             withAsterisk
             label="Elevation"
             key={form.key('elevation')}
             {...form.getInputProps('elevation')}
           />
-
           <Group justify="flex-end" mt="md">
             <Button type="submit">Submit</Button>
           </Group>
