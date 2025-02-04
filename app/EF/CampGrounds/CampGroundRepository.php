@@ -104,23 +104,23 @@ class CampGroundRepository implements ICampGroundRepository
     public function update(CampGround $camp_ground): CampGround
     {
         return DB::transaction(function () use ($camp_ground) {
-            $models_camp_ground = ModelsCampGround::with('statuses', 'locations')
-                ->updateOrCreate(
-                    ['id' => $camp_ground->getId()->getValue()],
-                    [
-                        'name' => $camp_ground->getName()->getValue(),
-                        'address' => $camp_ground->getAddress()->getValue(),
-                        'price' => $camp_ground->getPrice()->getValue(),
-                        'image_url' => $camp_ground->getImage()->getValue(),
-                        'elevation' => $camp_ground->getElevation()->getValue(),
-                    ]
-                );
+            $models_camp_ground = ModelsCampGround::updateOrCreate(
+                ['id' => $camp_ground->getId()->getValue()],
+                [
+                    'name' => $camp_ground->getName()->getValue(),
+                    'address' => $camp_ground->getAddress()->getValue(),
+                    'price' => $camp_ground->getPrice()->getValue(),
+                    'image_url' => $camp_ground->getImage()->getValue(),
+                    'elevation' => $camp_ground->getElevation()->getValue(),
+                ]
+            );
 
             $camp_ground_status_value = $camp_ground->getStatus()->getValue()->value;
             $status_id = Status::where('name', $camp_ground_status_value)->first()->id;
             $status = $models_camp_ground->statuses->first();
             if (is_null($status)) {
                 $models_camp_ground->statuses()->attach($status_id);
+                $models_camp_ground->load('statuses');
             }
             if ($status && $status->name !== $camp_ground_status_value) {
                 $models_camp_ground->statuses()->updateExistingPivot($status->id, ['status_id' => $status_id]);
