@@ -124,6 +124,7 @@ class CampGroundRepository implements ICampGroundRepository
             }
             if ($status && $status->name !== $camp_ground_status_value) {
                 $models_camp_ground->statuses()->updateExistingPivot($status->id, ['status_id' => $status_id]);
+                $models_camp_ground->load('statuses');
             }
 
             $camp_ground_location_value = $camp_ground->getLocation()->getValue()->value;
@@ -131,9 +132,11 @@ class CampGroundRepository implements ICampGroundRepository
             $location = $models_camp_ground->locations->first();
             if (is_null($location)) {
                 $models_camp_ground->locations()->attach($location_id);
+                $models_camp_ground->load('locations');
             }
             if ($location && $location->name !== $camp_ground_location_value) {
                 $models_camp_ground->locations()->updateExistingPivot($location->id, ['location_id' => $location_id]);
+                $models_camp_ground->load('locations');
             }
 
             return new CampGround(
