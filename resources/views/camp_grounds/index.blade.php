@@ -6,14 +6,14 @@
 data-camp-grounds="{{ json_encode(
     array_map(
         fn($camp_ground) => [
-            'id'=> $camp_ground->id,
-            'name' => $camp_ground->name,
-            'address' => $camp_ground->address,
-            'price' => $camp_ground->price,
-            'image' => $camp_ground->image,
-            'status' => $camp_ground->status,
-            'location' => $camp_ground->location,
-            'elevation' => $camp_ground->elevation,
+            'id'=> $camp_ground->getId()->getValue(),
+            'name' => $camp_ground->getName()->getValue(),
+            'address' => $camp_ground->getAddress()->getValue(),
+            'price' => $camp_ground->getPrice()->getValue(),
+            'image' => $camp_ground->getImage()->getValue(),
+            'status' => $camp_ground->getStatus()->getValue(),
+            'location' => $camp_ground->getLocation()->getValue(),
+            'elevation' => $camp_ground->getElevation()->getValue(),
         ],
         $camp_grounds
     ),
