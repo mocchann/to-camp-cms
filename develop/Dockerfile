@@ -16,4 +16,6 @@ WORKDIR /var/www/html
 
 RUN a2enconf 000-default
 
+RUN a2enmod rewrite
+
 EXPOSE 80

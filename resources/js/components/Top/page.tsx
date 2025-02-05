@@ -12,7 +12,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-type CampGrounds = {
+type CampGround = {
   id: string;
   name: string;
   address: string;
@@ -24,7 +24,7 @@ type CampGrounds = {
 };
 
 type Props = {
-  campGrounds: CampGrounds[];
+  campGrounds: CampGround[];
 };
 
 export const Page = ({ campGrounds }: Props): JSX.Element => {
@@ -48,9 +48,6 @@ export const Page = ({ campGrounds }: Props): JSX.Element => {
     initialValues: {
       name: '',
       termsOfService: false,
-    },
-    validate: {
-      name: (value) => value === '' && 'This field is required',
     },
   });
 

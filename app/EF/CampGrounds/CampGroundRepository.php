@@ -67,15 +67,15 @@ class CampGroundRepository implements ICampGroundRepository
         $camp_grounds = $query->with('statuses', 'locations')->get();
 
         return $camp_grounds->map(
-            fn($camp_ground, $index) =>
+            fn($camp_ground) =>
             new CampGround(
                 new CampGroundId($camp_ground->id),
                 new CampGroundName($camp_ground->name),
                 new CampGroundAddress($camp_ground->address),
                 new CampGroundPrice($camp_ground->price),
                 new CampGroundImage($camp_ground->image_url),
-                new CampGroundStatus($camp_ground->statuses[$index]->name),
-                new CampGroundLocation($camp_ground->locations[$index]->name),
+                new CampGroundStatus($camp_ground->statuses->first()->name),
+                new CampGroundLocation($camp_ground->locations->first()->name),
                 new CampGroundElevation($camp_ground->elevation)
             )
         )->toArray();
@@ -104,26 +104,27 @@ class CampGroundRepository implements ICampGroundRepository
     public function update(CampGround $camp_ground): CampGround
     {
         return DB::transaction(function () use ($camp_ground) {
-            $models_camp_ground = ModelsCampGround::with('statuses', 'locations')
-                ->updateOrCreate(
-                    ['id' => $camp_ground->getId()->getValue()],
-                    [
-                        'name' => $camp_ground->getName()->getValue(),
-                        'address' => $camp_ground->getAddress()->getValue(),
-                        'price' => $camp_ground->getPrice()->getValue(),
-                        'image_url' => $camp_ground->getImage()->getValue(),
-                        'elevation' => $camp_ground->getElevation()->getValue(),
-                    ]
-                );
+            $models_camp_ground = ModelsCampGround::updateOrCreate(
+                ['id' => $camp_ground->getId()->getValue()],
+                [
+                    'name' => $camp_ground->getName()->getValue(),
+                    'address' => $camp_ground->getAddress()->getValue(),
+                    'price' => $camp_ground->getPrice()->getValue(),
+                    'image_url' => $camp_ground->getImage()->getValue(),
+                    'elevation' => $camp_ground->getElevation()->getValue(),
+                ]
+            );
 
             $camp_ground_status_value = $camp_ground->getStatus()->getValue()->value;
             $status_id = Status::where('name', $camp_ground_status_value)->first()->id;
             $status = $models_camp_ground->statuses->first();
             if (is_null($status)) {
                 $models_camp_ground->statuses()->attach($status_id);
+                $models_camp_ground->load('statuses');
             }
             if ($status && $status->name !== $camp_ground_status_value) {
                 $models_camp_ground->statuses()->updateExistingPivot($status->id, ['status_id' => $status_id]);
+                $models_camp_ground->load('statuses');
             }
 
             $camp_ground_location_value = $camp_ground->getLocation()->getValue()->value;
@@ -131,9 +132,11 @@ class CampGroundRepository implements ICampGroundRepository
             $location = $models_camp_ground->locations->first();
             if (is_null($location)) {
                 $models_camp_ground->locations()->attach($location_id);
+                $models_camp_ground->load('locations');
             }
             if ($location && $location->name !== $camp_ground_location_value) {
                 $models_camp_ground->locations()->updateExistingPivot($location->id, ['location_id' => $location_id]);
+                $models_camp_ground->load('locations');
             }
 
             return new CampGround(
