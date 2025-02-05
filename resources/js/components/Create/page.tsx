@@ -12,9 +12,8 @@ import {
   rem,
   TextInput,
 } from '@mantine/core';
-import { useForm, zodResolver } from '@mantine/form';
+import { useForm } from '@mantine/form';
 import { useHeadroom } from '@mantine/hooks';
-import { CampGroundSchema } from '@/schemas/campGroundSchema';
 import { ulid } from 'ulid';
 
 type Props = {
@@ -35,7 +34,6 @@ export const Page = ({ action, csrfToken }: Props): JSX.Element => {
       location: '',
       elevation: 0,
     },
-    validate: zodResolver(CampGroundSchema),
   });
 
   const pinned = useHeadroom({ fixedAt: 120 });
