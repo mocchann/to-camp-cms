@@ -70,7 +70,6 @@ export const Page = ({ campGrounds }: Props): JSX.Element => {
         <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
           <form onSubmit={form.onSubmit((values) => console.log(values))}>
             <TextInput
-              withAsterisk
               label="Search"
               placeholder="Search CampGround Name"
               key={form.key('name')}
