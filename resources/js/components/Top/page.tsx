@@ -1,7 +1,6 @@
 import type { JSX } from 'react';
 import { useHeadroom } from '@mantine/hooks';
 import {
-  Anchor,
   AppShell,
   Button,
   Flex,
@@ -12,17 +11,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { Link } from 'react-router-dom';
-
-type CampGround = {
-  id: string;
-  name: string;
-  address: string;
-  price: number;
-  image: string;
-  status: string;
-  location: string;
-  elevation: number;
-};
+import type { CampGround } from '@/types/CampGround';
 
 type Props = {
   campGrounds: CampGround[];
