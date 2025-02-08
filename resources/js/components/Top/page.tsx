@@ -71,7 +71,7 @@ export const Page = ({ campGrounds }: Props): JSX.Element => {
           <form onSubmit={form.onSubmit((values) => console.log(values))}>
             <TextInput
               withAsterisk
-              label="Name"
+              label="Search"
               placeholder="Search CampGround Name"
               key={form.key('name')}
               {...form.getInputProps('name')}
