@@ -12,7 +12,7 @@ class DeleteCampGround
         $this->repository = $repository;
     }
 
-    public function execute(int $id): void
+    public function execute(string $id): void
     {
         $camp_ground_id = new CampGroundId($id);
 
