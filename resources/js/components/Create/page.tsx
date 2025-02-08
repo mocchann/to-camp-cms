@@ -15,6 +15,7 @@ import {
 import { useForm } from '@mantine/form';
 import { useHeadroom } from '@mantine/hooks';
 import { ulid } from 'ulid';
+import { Link } from 'react-router-dom';
 
 type Props = {
   action: string;
@@ -48,7 +49,7 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
     >
       <AppShell.Header>
         <Flex justify="space-between" align="center" my={12} mx={12}>
-          <Anchor>TO-CAMP-CMS</Anchor>
+          <Link to="/">TO-CAMP-CMS</Link>
           <div>
             <Button>SignUp</Button>
             <Button ml={12}>Login</Button>

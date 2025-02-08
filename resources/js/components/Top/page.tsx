@@ -11,6 +11,7 @@ import {
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { Link } from 'react-router-dom';
 
 type CampGround = {
   id: string;
@@ -59,7 +60,7 @@ export const Page = ({ campGrounds }: Props): JSX.Element => {
       >
         <AppShell.Header>
           <Flex justify="space-between" align="center" my={12} mx={12}>
-            <Anchor>TO-CAMP-CMS</Anchor>
+            <Link to="/">TO-CAMP-CMS</Link>
             <div>
               <Button>SignUp</Button>
               <Button ml={12}>Login</Button>
@@ -70,15 +71,17 @@ export const Page = ({ campGrounds }: Props): JSX.Element => {
           <form onSubmit={form.onSubmit((values) => console.log(values))}>
             <TextInput
               withAsterisk
-              label="Name"
-              placeholder="Search CampGround"
+              label="Search"
+              placeholder="Search CampGround Name"
               key={form.key('name')}
               {...form.getInputProps('name')}
             />
-            <Group justify="flex-end" mt="md">
-              <Button type="submit">Submit</Button>
-            </Group>
           </form>
+          <Group justify="flex-end" my={12}>
+            <Link to="/create">
+              <Button type="button">Create</Button>
+            </Link>
+          </Group>
           <Table>
             <Table.Thead>
               <Table.Tr>
