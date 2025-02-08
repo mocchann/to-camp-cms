@@ -43,14 +43,16 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
         <Table.Td>{campGround.status}</Table.Td>
         <Table.Td>{campGround.location}</Table.Td>
         <Table.Td>{campGround.elevation}</Table.Td>
-        <Group justify="flex-end" my={12}>
-          <form action={`/delete/${campGround.id}`} method="post">
-            <input type="hidden" name="_token" value={csrfToken} />
-            <Button color="red" type="submit">
-              Delete
-            </Button>
-          </form>
-        </Group>
+        <Table.Td>
+          <Group justify="flex-end" my={12}>
+            <form action={`/delete/${campGround.id}`} method="post">
+              <input type="hidden" name="_token" value={csrfToken} />
+              <Button color="red" type="submit">
+                Delete
+              </Button>
+            </form>
+          </Group>
+        </Table.Td>
       </Table.Tr>
     ),
   );
