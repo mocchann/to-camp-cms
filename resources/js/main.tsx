@@ -18,7 +18,7 @@ const Main = (): JSX.Element => (
       <Routes>
         <Route path="/" element={<Top />} />
         <Route path="/create" element={<Create />} />
-        <Route path="/update" element={<Update />} />
+        <Route path="/update/:id" element={<Update />} />
       </Routes>
     </BrowserRouter>
   </MantineProvider>
