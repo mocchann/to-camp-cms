@@ -1,6 +1,5 @@
 import type { JSX } from 'react';
 import {
-  Anchor,
   AppShell,
   Button,
   FileInput,
