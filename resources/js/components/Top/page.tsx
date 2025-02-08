@@ -26,10 +26,12 @@ type CampGround = {
 
 type Props = {
   campGrounds: CampGround[];
+  csrfToken: string;
 };
 
-export const Page = ({ campGrounds }: Props): JSX.Element => {
+export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
   const pinned = useHeadroom({ fixedAt: 120 });
+
   const rows = campGrounds?.map(
     (campGround): JSX.Element => (
       <Table.Tr key={campGround.name}>
@@ -41,9 +43,18 @@ export const Page = ({ campGrounds }: Props): JSX.Element => {
         <Table.Td>{campGround.status}</Table.Td>
         <Table.Td>{campGround.location}</Table.Td>
         <Table.Td>{campGround.elevation}</Table.Td>
+        <Group justify="flex-end" my={12}>
+          <form action={`/delete/${campGround.id}`} method="post">
+            <input type="hidden" name="_token" value={csrfToken} />
+            <Button color="red" type="submit">
+              Delete
+            </Button>
+          </form>
+        </Group>
       </Table.Tr>
     ),
   );
+
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
