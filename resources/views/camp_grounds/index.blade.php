@@ -18,4 +18,5 @@ data-camp-grounds="{{ json_encode(
         $camp_grounds
     ),
 ) }}"
+data-csrf-token="{{ csrf_token() }}"
 @endsection
