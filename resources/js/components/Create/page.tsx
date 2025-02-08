@@ -19,9 +19,12 @@ import { ulid } from 'ulid';
 type Props = {
   action: string;
   csrfToken: string;
+  errors?: string | null;
 };
 
-export const Page = ({ action, csrfToken }: Props): JSX.Element => {
+export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
+  const errorMessages = errors ? JSON.parse(errors) : {};
+
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
@@ -62,6 +65,7 @@ export const Page = ({ action, csrfToken }: Props): JSX.Element => {
             name="name"
             key={form.key('name')}
             {...form.getInputProps('name')}
+            error={errorMessages.name?.join('\n') || undefined}
           />
           <TextInput
             withAsterisk
@@ -69,6 +73,7 @@ export const Page = ({ action, csrfToken }: Props): JSX.Element => {
             name="address"
             key={form.key('address')}
             {...form.getInputProps('address')}
+            error={errorMessages.address?.join('\n') || undefined}
           />
           <NumberInput
             withAsterisk
@@ -76,6 +81,7 @@ export const Page = ({ action, csrfToken }: Props): JSX.Element => {
             name="price"
             key={form.key('price')}
             {...form.getInputProps('price')}
+            error={errorMessages.price?.join('\n') || undefined}
           />
           <FileInput
             withAsterisk
@@ -85,6 +91,7 @@ export const Page = ({ action, csrfToken }: Props): JSX.Element => {
             placeholder="Upload file"
             key={form.key('image')}
             {...form.getInputProps('image')}
+            error={errorMessages.image?.join('\n') || undefined}
           />
           <RadioGroup
             label="Status"
@@ -92,6 +99,7 @@ export const Page = ({ action, csrfToken }: Props): JSX.Element => {
             description="Select Status"
             required
             {...form.getInputProps('status')}
+            error={errorMessages.status?.join('\n') || undefined}
           >
             <Radio value="draft" label="Draft" />
             <Radio value="published" label="Published" />
@@ -103,6 +111,7 @@ export const Page = ({ action, csrfToken }: Props): JSX.Element => {
             description="Select Location"
             required
             {...form.getInputProps('location')}
+            error={errorMessages.location?.join('\n') || undefined}
           >
             <Radio value="sea" label="Sea" />
             <Radio value="mountain" label="Mountain" />
@@ -117,6 +126,7 @@ export const Page = ({ action, csrfToken }: Props): JSX.Element => {
             name="elevation"
             key={form.key('elevation')}
             {...form.getInputProps('elevation')}
+            error={errorMessages.elevation?.join('\n') || undefined}
           />
           <Group justify="flex-end" mt="md">
             <Button type="submit">Submit</Button>

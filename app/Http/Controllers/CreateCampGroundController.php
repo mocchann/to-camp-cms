@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateCampGroundRequest;
 use App\UseCase\CampGrounds\UpdateCampGround;
 use App\UseCase\CampGrounds\UpdateCampGroundCommand;
-use Illuminate\Http\Request;
 
 class CreateCampGroundController extends Controller
 {
@@ -13,7 +13,7 @@ class CreateCampGroundController extends Controller
         return view('create_camp_ground.index');
     }
 
-    public function create(Request $request, UpdateCampGround $use_case)
+    public function create(CreateCampGroundRequest $request, UpdateCampGround $use_case)
     {
         $command = new UpdateCampGroundCommand(
             $request->id,
