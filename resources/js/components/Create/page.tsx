@@ -88,7 +88,6 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
             accept="image/png,image/jpeg"
             label="Upload files"
             name="image"
-            placeholder="Upload file"
             key={form.key('image')}
             {...form.getInputProps('image')}
             error={errorMessages.image?.join('\n') || undefined}
