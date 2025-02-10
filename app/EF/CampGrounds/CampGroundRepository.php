@@ -105,7 +105,7 @@ class CampGroundRepository implements ICampGroundRepository
 
     public function uploadImage(UploadedFile $image_file): string
     {
-        return Storage::disk('local')->put('/', $image_file);
+        return Storage::put($image_file->getPathname(), $image_file);
     }
 
     public function update(CampGround $camp_ground): CampGround
