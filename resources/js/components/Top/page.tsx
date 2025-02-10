@@ -24,18 +24,18 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
   const rows = campGrounds?.map(
     (campGround): JSX.Element => (
       <Table.Tr key={campGround.name}>
-        <Table.Td>{campGround.id}</Table.Td>
-        <Table.Td>{campGround.name}</Table.Td>
-        <Table.Td>{campGround.address}</Table.Td>
-        <Table.Td>{campGround.price}</Table.Td>
         <Table.Td>
           <img
             src={campGround.image}
             alt={campGround.image}
-            width={30}
-            height={30}
+            width={100}
+            height={100}
           />
         </Table.Td>
+        <Table.Td>{campGround.id}</Table.Td>
+        <Table.Td>{campGround.name}</Table.Td>
+        <Table.Td>{campGround.address}</Table.Td>
+        <Table.Td>{campGround.price}</Table.Td>
         <Table.Td>{campGround.status}</Table.Td>
         <Table.Td>{campGround.location}</Table.Td>
         <Table.Td>{campGround.elevation}</Table.Td>
@@ -93,11 +93,11 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
           <Table>
             <Table.Thead>
               <Table.Tr>
+                <Table.Th>image</Table.Th>
                 <Table.Th>ID</Table.Th>
                 <Table.Th>name</Table.Th>
                 <Table.Th>address</Table.Th>
                 <Table.Th>price</Table.Th>
-                <Table.Th>image</Table.Th>
                 <Table.Th>status</Table.Th>
                 <Table.Th>location</Table.Th>
                 <Table.Th>elevation</Table.Th>
