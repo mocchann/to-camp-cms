@@ -5,9 +5,11 @@ import {
   Button,
   Flex,
   Group,
+  Image,
   rem,
   Table,
   TextInput,
+  Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { Link } from 'react-router-dom';
@@ -25,14 +27,17 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
     (campGround): JSX.Element => (
       <Table.Tr key={campGround.name}>
         <Table.Td>
-          <img
+          <Image
             src={campGround.image}
-            alt={campGround.image}
-            width={100}
-            height={100}
+            alt={campGround.name}
+            w={100}
+            h={100}
+            fit="contain"
           />
         </Table.Td>
-        <Table.Td>{campGround.id}</Table.Td>
+        <Table.Td>
+          <Link to={`/update/${campGround.id}`}>{campGround.id}</Link>
+        </Table.Td>
         <Table.Td>{campGround.name}</Table.Td>
         <Table.Td>{campGround.address}</Table.Td>
         <Table.Td>{campGround.price}</Table.Td>
@@ -77,9 +82,11 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
           </Flex>
         </AppShell.Header>
         <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
+          <Title order={2} my={8}>
+            CampGround Index
+          </Title>
           <form onSubmit={form.onSubmit((values) => console.log(values))}>
             <TextInput
-              label="Search"
               placeholder="Search CampGround Name"
               key={form.key('name')}
               {...form.getInputProps('name')}

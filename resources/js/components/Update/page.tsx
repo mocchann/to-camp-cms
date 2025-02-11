@@ -5,11 +5,13 @@ import {
   FileInput,
   Flex,
   Group,
+  Image,
   NumberInput,
   Radio,
   RadioGroup,
   rem,
   TextInput,
+  Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useHeadroom } from '@mantine/hooks';
@@ -62,6 +64,9 @@ export const Page = ({
         </Flex>
       </AppShell.Header>
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
+        <Title order={2} my={8}>
+          CampGround Update
+        </Title>
         <form action={action} method="post" encType="multipart/form-data">
           <input type="hidden" name="_token" value={csrfToken} />
           <input type="hidden" name="id" value={form.values.id} />
@@ -89,6 +94,17 @@ export const Page = ({
             {...form.getInputProps('price')}
             error={errorMessages.price?.join('\n') || undefined}
           />
+          {campGround.image && (
+            <Image
+              src={campGround.image}
+              alt={campGround.name}
+              w={180}
+              h={180}
+              my={8}
+              fit="contain"
+              radius="md"
+            />
+          )}
           <FileInput
             withAsterisk
             accept="image/png,image/jpeg"
