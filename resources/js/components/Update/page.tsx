@@ -34,7 +34,6 @@ export const Page = ({
   const errorMessages = errors ? JSON.parse(errors) : {};
 
   const form = useForm({
-    mode: 'uncontrolled',
     initialValues: {
       id: campGround.id,
       name: campGround.name,
@@ -124,7 +123,7 @@ export const Page = ({
           >
             <Radio value="draft" label="Draft" />
             <Radio value="published" label="Published" />
-            <Radio value="archived" label="archived" />
+            <Radio value="archived" label="Archived" />
           </RadioGroup>
           <RadioGroup
             label="Location"
