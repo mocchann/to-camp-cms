@@ -121,6 +121,7 @@ export const Page = ({
             {...form.getInputProps('status')}
             error={errorMessages.status?.join('\n') || undefined}
           >
+            {/* todo: 既存データを表示するラジオボタンと画像 */}
             <Radio value="draft" label="Draft" />
             <Radio value="published" label="Published" />
             <Radio value="archived" label="Archived" />
