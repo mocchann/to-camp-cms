@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\CampGround;
+use Closure;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCampGroundRequest extends FormRequest
@@ -15,7 +17,17 @@ class UpdateCampGroundRequest extends FormRequest
     {
         return [
             'id' => 'required|ulid',
-            'name' => 'required|unique:camp_grounds,name|string',
+            'name' => [
+                'required',
+                'string',
+                function (string $attribute, mixed $value, Closure $fail) {
+                    $camp_ground = CampGround::where('name', $value)->first();
+
+                    if (!is_null($camp_ground) && $camp_ground->id !== $this->input('id')) {
+                        $fail('Name must be a unique');
+                    }
+                }
+            ],
             'address' => 'required|string',
             'price' => 'required|numeric|min:0',
             'image' => 'required|file|mimes:jpeg,png,jpg',
@@ -36,7 +48,6 @@ class UpdateCampGroundRequest extends FormRequest
             'id.required' => 'ID is required',
             'id.ulid' => 'ID must be a ulid',
             'name.required' => 'Name is required',
-            'name.unique' => "Name must be a unique",
             'name.string' => 'Name must be a string',
             'address.required' => 'Address is required',
             'address.string' => 'Address must be a string',
