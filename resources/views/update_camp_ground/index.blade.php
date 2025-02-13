@@ -11,8 +11,8 @@ data-camp-ground="{{ json_encode(
         'address' => $camp_ground->getAddress()->getValue(),
         'price' => $camp_ground->getPrice()->getValue(),
         'image' => asset('storage/' . $camp_ground->getImage()->getValue()),
-        'status' => $camp_ground->getStatus()->getValue()->label(),
-        'location' => $camp_ground->getLocation()->getValue()->label(),
+        'status' => $camp_ground->getStatus()->getValue(),
+        'location' => $camp_ground->getLocation()->getValue(),
         'elevation' => $camp_ground->getElevation()->getValue(),
     ]
   )
