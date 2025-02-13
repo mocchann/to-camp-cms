@@ -1,6 +1,5 @@
 import type { JSX } from 'react';
 import {
-  Anchor,
   AppShell,
   Button,
   FileInput,
@@ -11,6 +10,7 @@ import {
   RadioGroup,
   rem,
   TextInput,
+  Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useHeadroom } from '@mantine/hooks';
@@ -57,6 +57,9 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
         </Flex>
       </AppShell.Header>
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
+        <Title order={2} my={8}>
+          CampGround Create
+        </Title>
         <form action={action} method="post" encType="multipart/form-data">
           <input type="hidden" name="_token" value={csrfToken} />
           <input type="hidden" name="id" value={form.values.id} />
@@ -89,7 +92,6 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
             accept="image/png,image/jpeg"
             label="Upload files"
             name="image"
-            placeholder="Upload file"
             key={form.key('image')}
             {...form.getInputProps('image')}
             error={errorMessages.image?.join('\n') || undefined}
