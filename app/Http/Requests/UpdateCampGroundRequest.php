@@ -30,7 +30,7 @@ class UpdateCampGroundRequest extends FormRequest
             ],
             'address' => 'required|string',
             'price' => 'required|numeric|min:0',
-            'image' => 'required|file|mimes:jpeg,png,jpg',
+            'image' => 'file|mimes:jpeg,png,jpg',
             'status' => 'required|string',
             'location' => 'required|string',
             'elevation' => 'required|numeric',

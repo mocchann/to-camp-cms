@@ -17,9 +17,13 @@ class UpdateCampGroundController extends Controller
         return view('update_camp_ground.index', ['camp_ground' => $camp_ground]);
     }
 
-    public function update(UpdateCampGroundRequest $request, UpdateCampGround $update_use_case, UploadCampGroundImage $upload_use_case)
-    {
-        $image_path = $upload_use_case->execute($request->image);
+    public function update(
+        UpdateCampGroundRequest $request,
+        UpdateCampGround $update_use_case,
+        UploadCampGroundImage $upload_use_case
+    ) {
+        $image_path = $request->image ? $upload_use_case->execute($request->image) : $request->image_file_path;
+
         $command = new UpdateCampGroundCommand(
             $request->id,
             $request->name,

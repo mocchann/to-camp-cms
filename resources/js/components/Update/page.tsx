@@ -93,17 +93,15 @@ export const Page = ({
             {...form.getInputProps('price')}
             error={errorMessages.price?.join('\n') || undefined}
           />
-          {campGround.image && (
-            <Image
-              src={campGround.image}
-              alt={campGround.name}
-              w={180}
-              h={180}
-              my={8}
-              fit="contain"
-              radius="md"
-            />
-          )}
+          <Image
+            src={campGround.image}
+            alt={campGround.name}
+            w={180}
+            h={180}
+            my={8}
+            fit="contain"
+            radius="md"
+          />
           <FileInput
             withAsterisk
             accept="image/png,image/jpeg"
@@ -112,6 +110,14 @@ export const Page = ({
             key={form.key('image')}
             {...form.getInputProps('image')}
             error={errorMessages.image?.join('\n') || undefined}
+          />
+          <input
+            type="hidden"
+            name="image_file_path"
+            value={new URL(form.values.image).pathname.replace(
+              /^\/storage\//,
+              '',
+            )}
           />
           <RadioGroup
             label="Status"
