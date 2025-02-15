@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import { useRef, type JSX } from 'react';
 import { useHeadroom } from '@mantine/hooks';
 import {
   AppShell,
@@ -8,12 +8,14 @@ import {
   Image,
   rem,
   Table,
+  Text,
   TextInput,
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { Link } from 'react-router-dom';
 import type { CampGround } from '@/types/CampGround';
+import { modals, ModalsProvider } from '@mantine/modals';
 
 type Props = {
   campGrounds: CampGround[];
@@ -22,6 +24,25 @@ type Props = {
 
 export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
   const pinned = useHeadroom({ fixedAt: 120 });
+  const deleteFormRef = useRef<HTMLFormElement | null>(null);
+
+  const openDeleteModal = () =>
+    modals.openConfirmModal({
+      title: 'Delete CampGround',
+      centered: true,
+      children: (
+        <Text size="sm">
+          Are you sure you want to delete camp ground? This action is
+          destructive and you will have to contact support to restore your data.
+        </Text>
+      ),
+      labels: { confirm: 'Delete Camp Ground', cancel: "No don't delete it" },
+      confirmProps: { color: 'red' },
+      onCancel: () => console.log('Cancel'),
+      onConfirm: () => {
+        deleteFormRef.current?.submit();
+      },
+    });
 
   const rows = campGrounds?.map(
     (campGround): JSX.Element => (
@@ -46,11 +67,17 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
         <Table.Td>{campGround.elevation}</Table.Td>
         <Table.Td>
           <Group justify="flex-end" my={12}>
-            <form action={`/delete/${campGround.id}`} method="post">
+            <form
+              ref={deleteFormRef}
+              action={`/delete/${campGround.id}`}
+              method="post"
+            >
               <input type="hidden" name="_token" value={csrfToken} />
-              <Button color="red" type="submit">
-                Delete
-              </Button>
+              <ModalsProvider>
+                <Button color="red" onClick={openDeleteModal} type="button">
+                  Delete
+                </Button>
+              </ModalsProvider>
             </form>
           </Group>
         </Table.Td>
