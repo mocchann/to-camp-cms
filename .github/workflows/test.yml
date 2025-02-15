@@ -1,13 +1,10 @@
 name: Test
 
 on:
-  # pull_request:
-  #   types:
-  #     - opened
-  #     - synchronize
-  push:
-    branches:
-      - feature/*
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 permissions:
   contents: read
@@ -34,7 +31,6 @@ jobs:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      - run: echo ${{ github.event.pull_request.number }}
       - uses: actions/checkout@v4
 
       - name: Setup PHP
