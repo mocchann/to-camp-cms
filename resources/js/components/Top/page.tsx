@@ -1,6 +1,7 @@
 import { useRef, type JSX } from 'react';
 import { useHeadroom } from '@mantine/hooks';
 import {
+  Anchor,
   AppShell,
   Button,
   Flex,
@@ -13,10 +14,10 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { Link } from 'react-router-dom';
 import type { CampGround } from '@/types/CampGround';
 import { modals, ModalsProvider } from '@mantine/modals';
 import { BiPlusMedical } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 type Props = {
   campGrounds: CampGround[];
@@ -58,7 +59,7 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
           />
         </Table.Td>
         <Table.Td>
-          <Link to={`/update/${campGround.id}`}>{campGround.id}</Link>
+          <Anchor href={`/update/${campGround.id}`}>{campGround.id}</Anchor>
         </Table.Td>
         <Table.Td>{campGround.name}</Table.Td>
         <Table.Td>{campGround.address}</Table.Td>

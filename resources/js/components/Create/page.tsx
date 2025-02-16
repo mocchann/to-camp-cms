@@ -1,5 +1,6 @@
 import type { JSX } from 'react';
 import {
+  Anchor,
   AppShell,
   Button,
   FileInput,
@@ -49,7 +50,7 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
     >
       <AppShell.Header>
         <Flex justify="space-between" align="center" my={12} mx={12}>
-          <Link to="/">TO-CAMP-CMS</Link>
+          <Anchor href="/">TO-CAMP-CMS</Anchor>
           <div>
             <Button>SignUp</Button>
             <Button ml={12}>Login</Button>
