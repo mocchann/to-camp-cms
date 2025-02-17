@@ -17,7 +17,6 @@ import { useForm } from '@mantine/form';
 import type { CampGround } from '@/types/CampGround';
 import { modals, ModalsProvider } from '@mantine/modals';
 import { BiPlusMedical } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
 
 type Props = {
   campGrounds: CampGround[];
@@ -103,7 +102,7 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
       >
         <AppShell.Header>
           <Flex justify="space-between" align="center" my={12} mx={12}>
-            <Link to="/">TO-CAMP-CMS</Link>
+            <Anchor href="/">TO-CAMP-CMS</Anchor>
             <div>
               <Button>SignUp</Button>
               <Button ml={12}>Login</Button>
@@ -113,12 +112,12 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
         <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
           <Title order={2}>CampGround Index</Title>
           <Group justify="flex-end" my={32}>
-            <Link to="/create">
+            <Anchor href="/create">
               <Button type="button">
                 <BiPlusMedical />
                 Create
               </Button>
-            </Link>
+            </Anchor>
           </Group>
           <form action={'/'} method="GET">
             <TextInput
