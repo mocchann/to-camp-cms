@@ -17,6 +17,7 @@ import {
 import { useForm } from '@mantine/form';
 import { useHeadroom } from '@mantine/hooks';
 import type { CampGround } from '@/types/CampGround';
+import { Link } from 'react-router-dom';
 
 type Props = {
   action: string;
@@ -55,7 +56,9 @@ export const Page = ({
     >
       <AppShell.Header>
         <Flex justify="space-between" align="center" my={12} mx={12}>
-          <Anchor href="/">TO-CAMP-CMS</Anchor>
+          <Anchor component={Link} to="/">
+            TO-CAMP-CMS
+          </Anchor>
           <div>
             <Button>SignUp</Button>
             <Button ml={12}>Login</Button>
