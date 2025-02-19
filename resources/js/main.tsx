@@ -6,6 +6,8 @@ import type { JSX } from 'react';
 import { Top } from './components/Top';
 import { Create } from './components/Create';
 import { Update } from './components/Update';
+import { Register } from './components/Register';
+import { Login } from './components/Login';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
@@ -17,6 +19,8 @@ const Main = (): JSX.Element => (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Top />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/create" element={<Create />} />
         <Route path="/update/:id" element={<Update />} />
       </Routes>
