@@ -9,9 +9,18 @@ on:
 permissions:
   contents: read
 
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.pull_request.number}}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-22.04
+    timeout-minutes: 5
     services:
       mysql:
         image: mysql:8.0

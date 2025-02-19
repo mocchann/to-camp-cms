@@ -13,7 +13,6 @@ class CampGroundsController extends Controller
         $command = new GetCampGroundsCommand(
             $request->input('id') ?? null,
             $request->input('name') ?? null,
-            $request->input('name') ?? null,
             $request->input('address') ?? null,
             $request->input('price') ?? null,
             $request->input('image') ?? null,

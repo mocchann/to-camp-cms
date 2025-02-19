@@ -1,6 +1,7 @@
 import { useRef, type JSX } from 'react';
 import { useHeadroom } from '@mantine/hooks';
 import {
+  Anchor,
   AppShell,
   Button,
   Flex,
@@ -13,9 +14,10 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { Link } from 'react-router-dom';
 import type { CampGround } from '@/types/CampGround';
 import { modals, ModalsProvider } from '@mantine/modals';
+import { BiPlusMedical } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 type Props = {
   campGrounds: CampGround[];
@@ -57,7 +59,9 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
           />
         </Table.Td>
         <Table.Td>
-          <Link to={`/update/${campGround.id}`}>{campGround.id}</Link>
+          <Anchor component={Link} to={`/update/${campGround.id}`}>
+            {campGround.id}
+          </Anchor>
         </Table.Td>
         <Table.Td>{campGround.name}</Table.Td>
         <Table.Td>{campGround.address}</Table.Td>
@@ -70,7 +74,7 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
             <form
               ref={deleteFormRef}
               action={`/delete/${campGround.id}`}
-              method="post"
+              method="POST"
             >
               <input type="hidden" name="_token" value={csrfToken} />
               <ModalsProvider>
@@ -101,7 +105,9 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
       >
         <AppShell.Header>
           <Flex justify="space-between" align="center" my={12} mx={12}>
-            <Link to="/">TO-CAMP-CMS</Link>
+            <Anchor component={Link} to="/">
+              TO-CAMP-CMS
+            </Anchor>
             <div>
               <Button>SignUp</Button>
               <Button ml={12}>Login</Button>
@@ -109,22 +115,24 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
           </Flex>
         </AppShell.Header>
         <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
-          <Title order={2} my={8}>
-            CampGround Index
-          </Title>
-          <form onSubmit={form.onSubmit((values) => console.log(values))}>
+          <Title order={2}>CampGround Index</Title>
+          <Group justify="flex-end" my={32}>
+            <Anchor component={Link} to="/create">
+              <Button type="button">
+                <BiPlusMedical />
+                Create
+              </Button>
+            </Anchor>
+          </Group>
+          <form action={'/'} method="GET">
             <TextInput
+              name="name"
               placeholder="Search CampGround Name"
               key={form.key('name')}
               {...form.getInputProps('name')}
             />
           </form>
-          <Group justify="flex-end" my={12}>
-            <Link to="/create">
-              <Button type="button">Create</Button>
-            </Link>
-          </Group>
-          <Table>
+          <Table my={40}>
             <Table.Thead>
               <Table.Tr>
                 <Table.Th>image</Table.Th>

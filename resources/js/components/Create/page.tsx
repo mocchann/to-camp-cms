@@ -1,5 +1,6 @@
 import type { JSX } from 'react';
 import {
+  Anchor,
   AppShell,
   Button,
   FileInput,
@@ -49,7 +50,9 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
     >
       <AppShell.Header>
         <Flex justify="space-between" align="center" my={12} mx={12}>
-          <Link to="/">TO-CAMP-CMS</Link>
+          <Anchor component={Link} to="/">
+            TO-CAMP-CMS
+          </Anchor>
           <div>
             <Button>SignUp</Button>
             <Button ml={12}>Login</Button>
@@ -60,7 +63,7 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
         <Title order={2} my={8}>
           CampGround Create
         </Title>
-        <form action={action} method="post" encType="multipart/form-data">
+        <form action={action} method="POST" encType="multipart/form-data">
           <input type="hidden" name="_token" value={csrfToken} />
           <input type="hidden" name="id" value={form.values.id} />
           <TextInput
