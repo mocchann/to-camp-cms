@@ -52,7 +52,7 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
         <Title order={2} my={8}>
           Login
         </Title>
-        <form action={'/login'} method="POST" encType="multipart/form-data">
+        <form action={action} method="POST" encType="multipart/form-data">
           <input type="hidden" name="_token" value={csrfToken} />
           <TextInput
             withAsterisk
