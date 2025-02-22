@@ -4,6 +4,7 @@ import {
   Button,
   Flex,
   Group,
+  PasswordInput,
   rem,
   TextInput,
   Title,
@@ -60,19 +61,19 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
           <input type="hidden" name="_token" value={csrfToken} />
           <TextInput
             withAsterisk
+            required
             label="Email"
             name="email"
             key={form.key('email')}
             {...form.getInputProps('email')}
             error={errorMessages.name?.join('\n') || undefined}
           />
-          <TextInput
+          <PasswordInput
             withAsterisk
-            label="Address"
-            name="address"
-            key={form.key('address')}
-            {...form.getInputProps('address')}
-            error={errorMessages.address?.join('\n') || undefined}
+            required
+            label="Password"
+            name="password"
+            error={errorMessages.password?.join('\n') || undefined}
           />
           <Group justify="flex-end" mt="md">
             <Button type="submit">Submit</Button>
