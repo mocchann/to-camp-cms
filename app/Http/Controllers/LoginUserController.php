@@ -20,6 +20,6 @@ class LoginUserController
             return redirect()->route('camp_grounds.index');
         }
 
-        return redirect()->route('user_login.index');
+        return redirect()->route('login');
     }
 }

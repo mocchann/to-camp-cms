@@ -38,5 +38,7 @@ class UserRegister
         }
 
         $this->repository->save($user);
+
+        return $user;
     }
 }
