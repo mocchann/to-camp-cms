@@ -25,7 +25,7 @@ class UserRegister
         string $name,
         string $email,
         string $password
-    ): void {
+    ) {
         $user_id = new UserId($id);
         $user_name = new UserName($name);
         $user_email = new UserEmail($email);
@@ -34,7 +34,7 @@ class UserRegister
 
         if ($this->user_service->exists($user)) {
             Log::info('User already exists');
-            return;
+            return false;
         }
 
         $this->repository->save($user);
