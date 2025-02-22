@@ -60,8 +60,12 @@ export const Page = ({
             TO-CAMP-CMS
           </Anchor>
           <div>
-            <Button>SignUp</Button>
-            <Button ml={12}>Login</Button>
+            <Anchor component={Link} to="/register">
+              <Button>SignUp</Button>
+            </Anchor>
+            <Anchor component={Link} to="/login">
+              <Button ml={12}>Login</Button>
+            </Anchor>
           </div>
         </Flex>
       </AppShell.Header>
