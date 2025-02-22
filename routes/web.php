@@ -9,8 +9,10 @@ use App\Http\Controllers\UpdateCampGroundController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [CampGroundsController::class, 'index'])->name('camp_grounds.index');
-Route::get('/register', [RegisterUserController::class, 'index']);
-Route::get('/login', [LoginUserController::class, 'index']);
+Route::get('/register', [RegisterUserController::class, 'index'])->name('user_register.index');
+Route::post('/register', [RegisterUserController::class, 'store']);
+Route::get('/login', [LoginUserController::class, 'index'])->name('user_login.index');
+Route::post('/login', [LoginUserController::class, 'store']);
 Route::get('/create', [CreateCampGroundController::class, 'index']);
 Route::post('/create', [CreateCampGroundController::class, 'create']);
 Route::get('/update/{id}', [UpdateCampGroundController::class, 'index']);
