@@ -1,8 +1,6 @@
 import {
-  Anchor,
   AppShell,
   Button,
-  Flex,
   Group,
   PasswordInput,
   rem,
@@ -12,7 +10,7 @@ import {
 import { useForm } from '@mantine/form';
 import { useHeadroom } from '@mantine/hooks';
 import type { JSX } from 'react';
-import { Link } from 'react-router-dom';
+import { Header } from '../Header';
 
 type Props = {
   action: string;
@@ -38,21 +36,7 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
       header={{ height: 60, collapsed: !pinned, offset: false }}
       padding="md"
     >
-      <AppShell.Header>
-        <Flex justify="space-between" align="center" my={12} mx={12}>
-          <Anchor component={Link} to="/">
-            TO-CAMP-CMS
-          </Anchor>
-          <div>
-            <Anchor component={Link} to="/register">
-              <Button>SignUp</Button>
-            </Anchor>
-            <Anchor component={Link} to="/login">
-              <Button ml={12}>Login</Button>
-            </Anchor>
-          </div>
-        </Flex>
-      </AppShell.Header>
+      <Header />
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
         <Title order={2} my={8}>
           Login
