@@ -4,7 +4,6 @@ import {
   Anchor,
   AppShell,
   Button,
-  Flex,
   Group,
   Image,
   rem,
@@ -18,6 +17,7 @@ import type { CampGround } from '@/types/CampGround';
 import { modals, ModalsProvider } from '@mantine/modals';
 import { BiPlusMedical } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
+import { Header } from '../Header';
 
 type Props = {
   campGrounds: CampGround[];
@@ -103,17 +103,7 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
         header={{ height: 60, collapsed: !pinned, offset: false }}
         padding="md"
       >
-        <AppShell.Header>
-          <Flex justify="space-between" align="center" my={12} mx={12}>
-            <Anchor component={Link} to="/">
-              TO-CAMP-CMS
-            </Anchor>
-            <div>
-              <Button>SignUp</Button>
-              <Button ml={12}>Login</Button>
-            </div>
-          </Flex>
-        </AppShell.Header>
+        <Header />
         <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
           <Title order={2}>CampGround Index</Title>
           <Group justify="flex-end" my={32}>

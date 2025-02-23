@@ -1,10 +1,8 @@
 import type { JSX } from 'react';
 import {
-  Anchor,
   AppShell,
   Button,
   FileInput,
-  Flex,
   Group,
   NumberInput,
   Radio,
@@ -16,7 +14,7 @@ import {
 import { useForm } from '@mantine/form';
 import { useHeadroom } from '@mantine/hooks';
 import { ulid } from 'ulid';
-import { Link } from 'react-router-dom';
+import { Header } from '../Header';
 
 type Props = {
   action: string;
@@ -48,17 +46,7 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
       header={{ height: 60, collapsed: !pinned, offset: false }}
       padding="md"
     >
-      <AppShell.Header>
-        <Flex justify="space-between" align="center" my={12} mx={12}>
-          <Anchor component={Link} to="/">
-            TO-CAMP-CMS
-          </Anchor>
-          <div>
-            <Button>SignUp</Button>
-            <Button ml={12}>Login</Button>
-          </div>
-        </Flex>
-      </AppShell.Header>
+      <Header />
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
         <Title order={2} my={8}>
           CampGround Create

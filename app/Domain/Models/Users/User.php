@@ -6,8 +6,9 @@ use App\Domain\Models\Users\UserEmail;
 use App\Domain\Models\Users\UserId;
 use App\Domain\Models\Users\UserName;
 use App\Domain\Models\Users\UserPassword;
+use Illuminate\Contracts\Auth\Authenticatable;
 
-class User
+class User implements Authenticatable
 {
     public function __construct(
         private UserId $id,
@@ -40,4 +41,30 @@ class User
     {
         return $this->password;
     }
+
+    public function getAuthIdentifierName(): string
+    {
+        return $this->email->getValue();
+    }
+
+    public function getAuthIdentifier(): string
+    {
+        return $this->id->getValue();
+    }
+
+    public function getAuthPasswordName(): string
+    {
+        return 'password';
+    }
+
+    public function getAuthPassword(): string
+    {
+        return $this->password->getValue();
+    }
+
+    public function getRememberToken() {}
+
+    public function setRememberToken($value) {}
+
+    public function getRememberTokenName() {}
 }

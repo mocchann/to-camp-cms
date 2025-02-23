@@ -9,6 +9,7 @@ use App\Domain\Models\Users\UserId;
 use App\Domain\Models\Users\UserName;
 use App\Domain\Models\Users\UserPassword;
 use App\UseCase\Users\UserLogin;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Mockery;
 use PHPUnit\Framework\Attributes\Test;
@@ -23,14 +24,21 @@ class UserLoginTest extends TestCase
             new UserId(1),
             new UserName('test_user'),
             new UserEmail('test_user@example.com'),
-            new UserPassword(Hash::make('password'))
+            new UserPassword('password')
         );
-
+        Auth::shouldReceive('attempt')
+            ->once()
+            ->with([
+                'email' => 'test_user@example.com',
+                'password' => 'password'
+            ])
+            ->andReturn(true);
         $repository = Mockery::mock(IUserRepository::class);
         $repository->shouldReceive('findByEmail')
             ->andReturnUsing(function () use ($user) {
                 return $user;
             });
+
         /**
          * @var IUserRepository $repository
          */
