@@ -22,6 +22,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/create', [CreateCampGroundController::class, 'create']);
     Route::get('/update/{id}', [UpdateCampGroundController::class, 'index']);
     Route::post('/update/{id}', [UpdateCampGroundController::class, 'update']);
-    Route::post('/delete/{id}', [DeleteCampGroundController::class, 'delete']);
+    Route::delete('/delete/{id}', [DeleteCampGroundController::class, 'delete']);
     Route::post('/logout', [LogoutUserController::class, 'store']);
 });

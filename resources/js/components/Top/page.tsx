@@ -84,6 +84,7 @@ export const Page = ({
               method="POST"
             >
               <input type="hidden" name="_token" value={csrfToken} />
+              <input type="hidden" name="_method" value="DELETE" />
               <ModalsProvider>
                 <Button color="red" onClick={openDeleteModal} type="button">
                   Delete
