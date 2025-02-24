@@ -5,6 +5,15 @@ export const Top = (): JSX.Element => {
   const campGroundsJson = document.getElementById('root')?.dataset.campGrounds;
   const campGrounds = campGroundsJson ? JSON.parse(campGroundsJson) : [];
   const csrfToken = document.getElementById('root')?.dataset.csrfToken || '';
+  const authCheck = Boolean(
+    document.getElementById('root')?.dataset.authCheck || false,
+  );
 
-  return <Page campGrounds={campGrounds} csrfToken={csrfToken} />;
+  return (
+    <Page
+      campGrounds={campGrounds}
+      csrfToken={csrfToken}
+      authCheck={authCheck}
+    />
+  );
 };

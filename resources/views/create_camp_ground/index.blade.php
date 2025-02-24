@@ -14,4 +14,5 @@ data-errors="{{ $errors->any() ? json_encode([
     'location' => $errors->get('location') ?? null,
     'elevation' => $errors->get('elevation') ?? null,
   ]) : '' }}"
+data-auth-check="{{ Auth::check() }}"
 @endsection

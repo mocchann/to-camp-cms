@@ -7,6 +7,9 @@ export const Update = (): JSX.Element => {
   const errors = document.getElementById('root')?.dataset.errors || undefined;
   const campGroundJson = document.getElementById('root')?.dataset.campGround;
   const campGround = campGroundJson ? JSON.parse(campGroundJson) : [];
+  const authCheck = Boolean(
+    document.getElementById('root')?.dataset.authCheck || false,
+  );
 
   return (
     <Page
@@ -14,6 +17,7 @@ export const Update = (): JSX.Element => {
       csrfToken={csrfToken}
       errors={errors}
       campGround={campGround}
+      authCheck={authCheck}
     />
   );
 };

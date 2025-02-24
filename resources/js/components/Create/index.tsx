@@ -5,6 +5,16 @@ export const Create = (): JSX.Element => {
   const action = document.getElementById('root')?.dataset.action || '';
   const csrfToken = document.getElementById('root')?.dataset.csrfToken || '';
   const errors = document.getElementById('root')?.dataset.errors || undefined;
+  const authCheck = Boolean(
+    document.getElementById('root')?.dataset.authCheck || false,
+  );
 
-  return <Page action={action} csrfToken={csrfToken} errors={errors} />;
+  return (
+    <Page
+      action={action}
+      csrfToken={csrfToken}
+      errors={errors}
+      authCheck={authCheck}
+    />
+  );
 };

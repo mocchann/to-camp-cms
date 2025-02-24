@@ -18,6 +18,7 @@ type Props = {
   csrfToken: string;
   errors?: string | null;
   sessionErrors?: string | null;
+  authCheck: boolean;
 };
 
 export const Page = ({
@@ -25,6 +26,7 @@ export const Page = ({
   csrfToken,
   errors,
   sessionErrors,
+  authCheck,
 }: Props): JSX.Element => {
   const errorMessages = errors ? JSON.parse(errors) : {};
   const sessionErrorMessages = sessionErrors ? JSON.parse(sessionErrors) : {};
@@ -46,7 +48,7 @@ export const Page = ({
       header={{ height: 60, collapsed: !pinned, offset: false }}
       padding="md"
     >
-      <Header />
+      <Header authCheck={authCheck} />
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
         <Title order={2} my={8}>
           Register
