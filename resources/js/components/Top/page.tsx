@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import type { CampGround } from '@/types/CampGround';
-import { modals, ModalsProvider } from '@mantine/modals';
+import { modals } from '@mantine/modals';
 import { BiPlusMedical } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { Header } from '../Header';
