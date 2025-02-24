@@ -5,9 +5,14 @@ import { Link } from 'react-router-dom';
 type Props = {
   authCheck: boolean;
   userName?: string;
+  csrfToken?: string;
 };
 
-export const Header = ({ authCheck, userName }: Props): JSX.Element => {
+export const Header = ({
+  authCheck,
+  userName,
+  csrfToken,
+}: Props): JSX.Element => {
   return (
     <AppShell.Header>
       <Flex justify="space-between" align="center" my={12} mx={12}>
@@ -22,7 +27,12 @@ export const Header = ({ authCheck, userName }: Props): JSX.Element => {
               </Menu.Target>
               <Menu.Dropdown>
                 <Menu.Label>Application</Menu.Label>
-                <Menu.Item>Logout</Menu.Item>
+                <form action="/logout" method="POST">
+                  <input type="hidden" name="_token" value={csrfToken} />
+                  <Menu.Item component="button" type="submit">
+                    Logout
+                  </Menu.Item>
+                </form>
                 <Menu.Divider />
                 <Menu.Label>Danger zone</Menu.Label>
                 <Menu.Item color="red">Delete my account</Menu.Item>

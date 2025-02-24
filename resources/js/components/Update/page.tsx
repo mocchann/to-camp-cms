@@ -56,7 +56,7 @@ export const Page = ({
       header={{ height: 60, collapsed: !pinned, offset: false }}
       padding="md"
     >
-      <Header authCheck={authCheck} userName={userName} />
+      <Header authCheck={authCheck} userName={userName} csrfToken={csrfToken} />
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
         <Title order={2} my={8}>
           CampGround Update
