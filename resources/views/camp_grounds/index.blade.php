@@ -20,4 +20,5 @@ data-camp-grounds="{{ json_encode(
 ) }}"
 data-csrf-token="{{ csrf_token() }}"
 data-auth-check="{{ Auth::check() }}"
+data-user-name="{{ Auth::check() ? Auth::user()->name : '' }}"
 @endsection

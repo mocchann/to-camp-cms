@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 
 type Props = {
   authCheck: boolean;
+  userName?: string;
 };
 
-export const Header = ({ authCheck }: Props): JSX.Element => {
+export const Header = ({ authCheck, userName }: Props): JSX.Element => {
   return (
     <AppShell.Header>
       <Flex justify="space-between" align="center" my={12} mx={12}>
@@ -15,7 +16,7 @@ export const Header = ({ authCheck }: Props): JSX.Element => {
         </Anchor>
         <div>
           {authCheck ? (
-            <Button>user name</Button>
+            <Button>{userName}</Button>
           ) : (
             <>
               <Anchor component={Link} to="/register">

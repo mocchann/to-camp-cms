@@ -23,12 +23,14 @@ type Props = {
   campGrounds: CampGround[];
   csrfToken: string;
   authCheck: boolean;
+  userName: string;
 };
 
 export const Page = ({
   campGrounds,
   csrfToken,
   authCheck,
+  userName,
 }: Props): JSX.Element => {
   const pinned = useHeadroom({ fixedAt: 120 });
   const deleteFormRef = useRef<HTMLFormElement | null>(null);
@@ -108,7 +110,7 @@ export const Page = ({
         header={{ height: 60, collapsed: !pinned, offset: false }}
         padding="md"
       >
-        <Header authCheck={authCheck} />
+        <Header authCheck={authCheck} userName={userName} />
         <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
           <Title order={2}>CampGround Index</Title>
           <Group justify="flex-end" my={32}>

@@ -8,7 +8,6 @@ export const Login = (): JSX.Element => {
   const authCheck = Boolean(
     document.getElementById('root')?.dataset.authCheck || false,
   );
-  console.log(document.getElementById('root')?.dataset.authCheck || false);
 
   return (
     <Page

@@ -23,6 +23,7 @@ type Props = {
   errors?: string | null;
   campGround: CampGround;
   authCheck: boolean;
+  userName: string;
 };
 
 export const Page = ({
@@ -31,6 +32,7 @@ export const Page = ({
   errors,
   campGround,
   authCheck,
+  userName,
 }: Props): JSX.Element => {
   const errorMessages = errors ? JSON.parse(errors) : {};
 
@@ -54,7 +56,7 @@ export const Page = ({
       header={{ height: 60, collapsed: !pinned, offset: false }}
       padding="md"
     >
-      <Header authCheck={authCheck} />
+      <Header authCheck={authCheck} userName={userName} />
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
         <Title order={2} my={8}>
           CampGround Update

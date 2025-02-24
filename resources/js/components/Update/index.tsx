@@ -10,6 +10,7 @@ export const Update = (): JSX.Element => {
   const authCheck = Boolean(
     document.getElementById('root')?.dataset.authCheck || false,
   );
+  const userName = document.getElementById('root')?.dataset.userName || '';
 
   return (
     <Page
@@ -18,6 +19,7 @@ export const Update = (): JSX.Element => {
       errors={errors}
       campGround={campGround}
       authCheck={authCheck}
+      userName={userName}
     />
   );
 };

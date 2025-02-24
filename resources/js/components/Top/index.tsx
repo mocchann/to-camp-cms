@@ -8,12 +8,14 @@ export const Top = (): JSX.Element => {
   const authCheck = Boolean(
     document.getElementById('root')?.dataset.authCheck || false,
   );
+  const userName = document.getElementById('root')?.dataset.userName || '';
 
   return (
     <Page
       campGrounds={campGrounds}
       csrfToken={csrfToken}
       authCheck={authCheck}
+      userName={userName}
     />
   );
 };
