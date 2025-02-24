@@ -1,4 +1,4 @@
-import { Anchor, AppShell, Button, Flex } from '@mantine/core';
+import { Anchor, AppShell, Button, Flex, Menu, Text } from '@mantine/core';
 import type { JSX } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +16,18 @@ export const Header = ({ authCheck, userName }: Props): JSX.Element => {
         </Anchor>
         <div>
           {authCheck ? (
-            <Button>{userName}</Button>
+            <Menu shadow="md" width={200}>
+              <Menu.Target>
+                <Button>{userName}</Button>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Label>Application</Menu.Label>
+                <Menu.Item>Logout</Menu.Item>
+                <Menu.Divider />
+                <Menu.Label>Danger zone</Menu.Label>
+                <Menu.Item color="red">Delete my account</Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
           ) : (
             <>
               <Anchor component={Link} to="/register">
