@@ -20,9 +20,17 @@ type Props = {
   action: string;
   csrfToken: string;
   errors?: string | null;
+  authCheck: boolean;
+  userName: string;
 };
 
-export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
+export const Page = ({
+  action,
+  csrfToken,
+  errors,
+  authCheck,
+  userName,
+}: Props): JSX.Element => {
   const errorMessages = errors ? JSON.parse(errors) : {};
 
   const form = useForm({
@@ -46,7 +54,7 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
       header={{ height: 60, collapsed: !pinned, offset: false }}
       padding="md"
     >
-      <Header />
+      <Header authCheck={authCheck} userName={userName} csrfToken={csrfToken} />
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
         <Title order={2} my={8}>
           CampGround Create

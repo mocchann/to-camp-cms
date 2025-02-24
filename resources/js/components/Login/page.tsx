@@ -16,9 +16,15 @@ type Props = {
   action: string;
   csrfToken: string;
   errors?: string | null;
+  authCheck: boolean;
 };
 
-export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
+export const Page = ({
+  action,
+  csrfToken,
+  errors,
+  authCheck,
+}: Props): JSX.Element => {
   const errorMessages = errors ? JSON.parse(errors) : {};
 
   const form = useForm({
@@ -36,7 +42,7 @@ export const Page = ({ action, csrfToken, errors }: Props): JSX.Element => {
       header={{ height: 60, collapsed: !pinned, offset: false }}
       padding="md"
     >
-      <Header />
+      <Header authCheck={authCheck} />
       <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
         <Title order={2} my={8}>
           Login

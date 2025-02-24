@@ -7,6 +7,9 @@ export const Register = (): JSX.Element => {
   const errors = document.getElementById('root')?.dataset.errors || undefined;
   const sessionErrors =
     document.getElementById('root')?.dataset.sessionErrors || undefined;
+  const authCheck = Boolean(
+    document.getElementById('root')?.dataset.authCheck || false,
+  );
 
   return (
     <Page
@@ -14,6 +17,7 @@ export const Register = (): JSX.Element => {
       csrfToken={csrfToken}
       errors={errors}
       sessionErrors={sessionErrors}
+      authCheck={authCheck}
     />
   );
 };

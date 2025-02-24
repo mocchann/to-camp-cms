@@ -14,7 +14,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import type { CampGround } from '@/types/CampGround';
-import { modals, ModalsProvider } from '@mantine/modals';
+import { modals } from '@mantine/modals';
 import { BiPlusMedical } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { Header } from '../Header';
@@ -22,9 +22,16 @@ import { Header } from '../Header';
 type Props = {
   campGrounds: CampGround[];
   csrfToken: string;
+  authCheck: boolean;
+  userName: string;
 };
 
-export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
+export const Page = ({
+  campGrounds,
+  csrfToken,
+  authCheck,
+  userName,
+}: Props): JSX.Element => {
   const pinned = useHeadroom({ fixedAt: 120 });
   const deleteFormRef = useRef<HTMLFormElement | null>(null);
 
@@ -77,11 +84,10 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
               method="POST"
             >
               <input type="hidden" name="_token" value={csrfToken} />
-              <ModalsProvider>
-                <Button color="red" onClick={openDeleteModal} type="button">
-                  Delete
-                </Button>
-              </ModalsProvider>
+              <input type="hidden" name="_method" value="DELETE" />
+              <Button color="red" onClick={openDeleteModal} type="button">
+                Delete
+              </Button>
             </form>
           </Group>
         </Table.Td>
@@ -103,7 +109,11 @@ export const Page = ({ campGrounds, csrfToken }: Props): JSX.Element => {
         header={{ height: 60, collapsed: !pinned, offset: false }}
         padding="md"
       >
-        <Header />
+        <Header
+          authCheck={authCheck}
+          userName={userName}
+          csrfToken={csrfToken}
+        />
         <AppShell.Main pt={`calc(${rem(60)} + var(--mantine-spacing-md))`}>
           <Title order={2}>CampGround Index</Title>
           <Group justify="flex-end" my={32}>

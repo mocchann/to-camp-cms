@@ -6,7 +6,6 @@ use App\Domain\Models\Users\IUserRepository;
 use App\Domain\Models\Users\UserEmail;
 use App\Domain\Models\Users\UserPassword;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class UserLogin
 {
