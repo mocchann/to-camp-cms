@@ -8,6 +8,7 @@ import { Create } from './components/Create';
 import { Update } from './components/Update';
 import { Register } from './components/Register';
 import { Login } from './components/Login';
+import { ModalsProvider } from '@mantine/modals';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
@@ -16,15 +17,17 @@ const theme = createTheme({
 
 const Main = (): JSX.Element => (
   <MantineProvider theme={theme}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Top />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/create" element={<Create />} />
-        <Route path="/update/:id" element={<Update />} />
-      </Routes>
-    </BrowserRouter>
+    <ModalsProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Top />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/create" element={<Create />} />
+          <Route path="/update/:id" element={<Update />} />
+        </Routes>
+      </BrowserRouter>
+    </ModalsProvider>
   </MantineProvider>
 );
 
