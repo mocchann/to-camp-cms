@@ -1,4 +1,4 @@
-import { Anchor, AppShell, Button, Flex, Menu, Text } from '@mantine/core';
+import { Anchor, AppShell, Button, Flex, Menu } from '@mantine/core';
 import type { JSX } from 'react';
 import { Link } from 'react-router-dom';
 
