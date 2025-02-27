@@ -27,15 +27,9 @@ class UserLogin
             return false;
         }
 
-        if (
-            Auth::attempt([
-                'email' => $user_email->getValue(),
-                'password' => $user_password->getValue()
-            ])
-        ) {
-            return true;
-        }
-
-        return false;
+        return Auth::attempt([
+            'email' => $user_email->getValue(),
+            'password' => $user_password->getValue()
+        ]);
     }
 }

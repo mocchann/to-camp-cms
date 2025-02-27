@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\UseCase\CampGrounds\GetCampGrounds;
 use App\UseCase\CampGrounds\GetCampGroundsCommand;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CampGroundsController extends Controller
 {
