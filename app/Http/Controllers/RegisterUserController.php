@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\UseCase\Users\UserRegister;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RegisterUserController
 {
@@ -25,8 +24,6 @@ class RegisterUserController
         if ($result === false) {
             return redirect()->route('register')->with('error', 'User already exists');
         }
-
-        Auth::login($result);
 
         return redirect()->route('camp_grounds.index');
     }

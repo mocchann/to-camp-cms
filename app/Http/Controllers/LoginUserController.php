@@ -16,10 +16,10 @@ class LoginUserController
     {
         $result = $use_case->execute($request->email, $request->password);
 
-        if ($result) {
-            return redirect()->route('camp_grounds.index');
+        if ($result === false) {
+            return redirect()->route('login');
         }
 
-        return redirect()->route('login');
+        return redirect()->route('camp_grounds.index');
     }
 }

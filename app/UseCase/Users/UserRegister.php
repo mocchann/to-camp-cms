@@ -9,6 +9,7 @@ use App\Domain\Models\Users\UserId;
 use App\Domain\Models\Users\UserName;
 use App\Domain\Models\Users\UserPassword;
 use App\Domain\Models\Users\UserService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class UserRegister
@@ -38,6 +39,8 @@ class UserRegister
         }
 
         $this->repository->save($user);
+
+        Auth::login($user);
 
         return $user;
     }
