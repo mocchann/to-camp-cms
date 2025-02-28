@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\UseCase\CampGrounds\GetCampGrounds;
 use App\UseCase\CampGrounds\GetCampGroundsCommand;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CampGroundsController extends Controller
 {
-    public function index(Request $request, GetCampGrounds $use_case)
+    public function index(Request $request, GetCampGrounds $use_case): View
     {
         $command = new GetCampGroundsCommand(
             $request->input('id') ?? null,
