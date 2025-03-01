@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EF\CampGrounds;
+namespace App\Repositories\CampGrounds;
 
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Storage;
 class CampGroundRepository implements ICampGroundRepository
 {
     /**
-     * @param GetCampGroundsFilter $filter
      * @return array<CampGround>
      */
     public function get(GetCampGroundsFilter $filter): array
@@ -69,8 +68,7 @@ class CampGroundRepository implements ICampGroundRepository
         $camp_grounds = $query->with('statuses', 'locations')->get();
 
         return $camp_grounds->map(
-            fn($camp_ground) =>
-            new CampGround(
+            fn($camp_ground) => new CampGround(
                 new CampGroundId($camp_ground->id),
                 new CampGroundName($camp_ground->name),
                 new CampGroundAddress($camp_ground->address),
@@ -83,7 +81,7 @@ class CampGroundRepository implements ICampGroundRepository
         )->toArray();
     }
 
-    public function findById(CampGroundId $id): CampGround | null
+    public function findById(CampGroundId $id): ?CampGround
     {
         $camp_ground = ModelsCampGround::with('statuses', 'locations')->find($id->getValue());
 

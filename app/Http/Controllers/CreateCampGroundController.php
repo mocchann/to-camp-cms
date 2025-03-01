@@ -6,10 +6,12 @@ use App\Http\Requests\CreateCampGroundRequest;
 use App\UseCase\CampGrounds\UpdateCampGround;
 use App\UseCase\CampGrounds\UpdateCampGroundCommand;
 use App\UseCase\CampGrounds\UploadCampGroundImage;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class CreateCampGroundController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         return view('create_camp_ground.index');
     }
@@ -18,7 +20,7 @@ class CreateCampGroundController extends Controller
         CreateCampGroundRequest $request,
         UpdateCampGround $update_use_case,
         UploadCampGroundImage $upload_use_case
-    ) {
+    ): RedirectResponse {
         $image_path = $upload_use_case->execute($request->image);
 
         $command = new UpdateCampGroundCommand(

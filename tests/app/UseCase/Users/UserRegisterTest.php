@@ -3,12 +3,12 @@
 namespace Tests\App\UseCase\Users;
 
 use App\Domain\Models\Users\IUserRepository;
-use App\Domain\Models\Users\UserService;
 use App\Domain\Models\Users\User;
 use App\Domain\Models\Users\UserEmail;
 use App\Domain\Models\Users\UserId;
 use App\Domain\Models\Users\UserName;
 use App\Domain\Models\Users\UserPassword;
+use App\Domain\Models\Users\UserService;
 use App\Models\User as ModelsUser;
 use App\UseCase\Users\UserRegister;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -33,7 +33,7 @@ class UserRegisterTest extends TestCase
                     'id' => $user->getId()->getValue(),
                     'name' => $user->getName()->getValue(),
                     'email' => $user->getEmail()->getValue(),
-                    'password' => Hash::make($user->getPassword()->getValue())
+                    'password' => Hash::make($user->getPassword()->getValue()),
                 ]);
             });
         /**
@@ -49,7 +49,7 @@ class UserRegisterTest extends TestCase
         $use_case->execute($id, $name, $email, $password);
 
         $this->assertDatabaseHas('users', [
-            'name' => 'test_user'
+            'name' => 'test_user',
         ]);
     }
 
@@ -59,7 +59,7 @@ class UserRegisterTest extends TestCase
         $models_user = ModelsUser::create([
             'name' => 'test_user',
             'email' => 'test_user@example.com',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
         ]);
         $user = new User(
             new UserId($models_user->id),
@@ -76,7 +76,7 @@ class UserRegisterTest extends TestCase
                     'id' => $user->getId()->getValue(),
                     'name' => $user->getName()->getValue(),
                     'email' => $user->getEmail()->getValue(),
-                    'password' => Hash::make($user->getPassword()->getValue())
+                    'password' => Hash::make($user->getPassword()->getValue()),
                 ]);
             });
         /**
@@ -92,7 +92,7 @@ class UserRegisterTest extends TestCase
         $use_case->execute($id, $name, $email, $password);
 
         $this->assertDatabaseMissing('users', [
-            'name' => 'test_user2'
+            'name' => 'test_user2',
         ]);
     }
 }

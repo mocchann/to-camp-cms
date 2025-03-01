@@ -2,7 +2,6 @@
 
 namespace Tests\App\UseCase\CampGrounds;
 
-use App\Domain\Enums\CampGroundLocations;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
 use App\Domain\Models\CampGrounds\CampGroundElevation;
@@ -86,8 +85,7 @@ class GetCampGroundsTest extends TestCase
                     'elevation' => 1000,
                 ],
             ],
-            array_map(fn(CampGround $camp_ground) =>
-            [
+            array_map(fn (CampGround $camp_ground) => [
                 'id' => $camp_ground->getId()->getValue(),
                 'name' => $camp_ground->getName()->getValue(),
                 'address' => $camp_ground->getAddress()->getValue(),

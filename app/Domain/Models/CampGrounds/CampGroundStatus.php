@@ -4,6 +4,7 @@ namespace App\Domain\Models\CampGrounds;
 
 use App\Domain\Enums\CampGroundStatus as EnumsCampGroundStatus;
 use InvalidArgumentException;
+use ValueError;
 
 class CampGroundStatus
 {
@@ -12,17 +13,11 @@ class CampGroundStatus
     public function __construct(
         private string $status
     ) {
-        $this->camp_ground_status = $this->convert($status);
-    }
-
-    private function convert(string $status): EnumsCampGroundStatus
-    {
-        return match ($status) {
-            'draft' => EnumsCampGroundStatus::DRAFT,
-            'published' => EnumsCampGroundStatus::PUBLISHED,
-            'archived' => EnumsCampGroundStatus::ARCHIVED,
-            default => throw new InvalidArgumentException('Invalid status'),
-        };
+        try {
+            $this->camp_ground_status = EnumsCampGroundStatus::from($status);
+        } catch (ValueError $e) {
+            throw new InvalidArgumentException('Invalid status', $e->getMessage());
+        }
     }
 
     public function getValue(): EnumsCampGroundStatus

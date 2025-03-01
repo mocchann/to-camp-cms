@@ -19,7 +19,7 @@ class CampGroundFactory extends Factory
         $faker = \Faker\Factory::create('ja_JP');
 
         return [
-            'name' => $faker->streetName() . 'オートキャンプ場',
+            'name' => $faker->streetName().'オートキャンプ場',
             'address' => $faker->address(),
             'price' => $faker->numberBetween(1000, 10000),
             'image_url' => $faker->imageUrl(),
