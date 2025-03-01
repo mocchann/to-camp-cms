@@ -109,10 +109,10 @@ export const Page = ({
           <input
             type="hidden"
             name="image_file_path"
-            value={new URL(form.values.image).pathname.replace(
-              /^\/storage\//,
-              '',
-            )}
+            value={new URL(
+              form.values.image,
+              window.location.origin,
+            ).pathname.replace(/^\/storage\//, '')}
           />
           <RadioGroup
             label="Status"
