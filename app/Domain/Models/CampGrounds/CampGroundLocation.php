@@ -2,33 +2,25 @@
 
 namespace App\Domain\Models\CampGrounds;
 
-use App\Domain\Enums\CampGroundLocations;
+use App\Domain\Enums\CampGroundLocations as EnumsCampGroundLocations;
 use InvalidArgumentException;
+use ValueError;
 
 class CampGroundLocation
 {
-    private CampGroundLocations $camp_ground_location;
+    private EnumsCampGroundLocations $camp_ground_location;
 
     public function __construct(
         private string $location
     ) {
-        $this->camp_ground_location = $this->convert($location);
+        try {
+            $this->camp_ground_location = EnumsCampGroundLocations::from($location);
+        } catch (ValueError $e) {
+            throw new InvalidArgumentException('Invalid location', $e->getMessage());
+        }
     }
 
-    private function convert(string $location)
-    {
-        return match ($location) {
-            'sea' => CampGroundLocations::SEA,
-            'mountain' => CampGroundLocations::MOUNTAIN,
-            'river' => CampGroundLocations::RIVER,
-            'lake' => CampGroundLocations::LAKE,
-            'woods' => CampGroundLocations::WOODS,
-            'highland' => CampGroundLocations::HIGHLAND,
-            default => throw new InvalidArgumentException("Invalid location: $location"),
-        };
-    }
-
-    public function getValue(): CampGroundLocations
+    public function getValue(): EnumsCampGroundLocations
     {
         return $this->camp_ground_location;
     }

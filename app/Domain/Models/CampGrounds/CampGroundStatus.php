@@ -16,7 +16,7 @@ class CampGroundStatus
         try {
             $this->camp_ground_status = EnumsCampGroundStatus::from($status);
         } catch (ValueError $e) {
-            throw new InvalidArgumentException('Invalid status');
+            throw new InvalidArgumentException('Invalid status', $e->getMessage());
         }
     }
 
