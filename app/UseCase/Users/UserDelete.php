@@ -3,6 +3,8 @@
 namespace App\UseCase\Users;
 
 use App\Domain\Models\Users\IUserRepository;
+use App\Domain\Models\Users\UserId;
+use Illuminate\Support\Facades\Auth;
 
 class UserDelete
 {
@@ -13,6 +15,8 @@ class UserDelete
 
     public function execute(): void
     {
-        $this->repository->delete();
+        $id = new UserId(Auth::user()->id);
+
+        $this->repository->delete($id);
     }
 }

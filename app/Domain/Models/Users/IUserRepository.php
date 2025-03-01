@@ -10,5 +10,5 @@ interface IUserRepository
 
     public function save(User $user): void;
 
-    public function delete(): void;
+    public function delete(UserId $id): void;
 }
