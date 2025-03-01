@@ -9,4 +9,6 @@ interface IUserRepository
     public function findByEmail(UserEmail $email): ?User;
 
     public function save(User $user): void;
+
+    public function delete(): void;
 }

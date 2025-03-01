@@ -9,6 +9,7 @@ use App\Domain\Models\Users\UserId;
 use App\Domain\Models\Users\UserName;
 use App\Domain\Models\Users\UserPassword;
 use App\Models\User as ModelsUser;
+use Illuminate\Support\Facades\Auth;
 
 class UserRepository implements IUserRepository
 {
@@ -52,5 +53,14 @@ class UserRepository implements IUserRepository
         $models_user->email = $user->getEmail()->getValue();
         $models_user->password = $user->getPassword()->getValue();
         $models_user->save();
+    }
+
+    public function delete(): void
+    {
+        $user_id = Auth::user()->id;
+
+        $models_user = ModelsUser::find($user_id);
+
+        $models_user->delete();
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CampGroundsController;
 use App\Http\Controllers\CreateCampGroundController;
 use App\Http\Controllers\DeleteCampGroundController;
+use App\Http\Controllers\DeleteUserController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\LogoutUserController;
 use App\Http\Controllers\RegisterUserController;
@@ -23,5 +24,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/update/{id}', [UpdateCampGroundController::class, 'index']);
     Route::post('/update/{id}', [UpdateCampGroundController::class, 'update']);
     Route::delete('/delete/{id}', [DeleteCampGroundController::class, 'delete']);
-    Route::post('/logout', [LogoutUserController::class, 'store']);
+    Route::group(['prefix' => 'user'], function () {
+        Route::post('/logout', [LogoutUserController::class, 'store']);
+        Route::delete('/delete', [DeleteUserController::class, 'delete']);
+    });
 });
