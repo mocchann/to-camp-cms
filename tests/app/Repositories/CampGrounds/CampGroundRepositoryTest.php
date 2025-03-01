@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\App\EF\CampGrounds;
+namespace Tests\App\Repositories\CampGrounds;
 
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
@@ -12,7 +12,7 @@ use App\Domain\Models\CampGrounds\CampGroundName;
 use App\Domain\Models\CampGrounds\CampGroundPrice;
 use App\Domain\Models\CampGrounds\CampGroundStatus;
 use App\Domain\Models\CampGrounds\GetCampGroundsFilter;
-use App\EF\CampGrounds\CampGroundRepository;
+use App\Repositories\CampGrounds\CampGroundRepository;
 use App\Models\CampGround as ModelsCampGround;
 use App\Models\Location;
 use App\Models\Status;

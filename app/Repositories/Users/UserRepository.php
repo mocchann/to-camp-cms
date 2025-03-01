@@ -1,6 +1,6 @@
 <?php
 
-namespace App\EF\Users;
+namespace App\Repositories\Users;
 
 use App\Domain\Models\Users\IUserRepository;
 use App\Domain\Models\Users\User;

@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\App\EF\Users;
+namespace Tests\App\Repositories\Users;
 
 use App\Domain\Models\Users\User;
 use App\Domain\Models\Users\UserEmail;
 use App\Domain\Models\Users\UserId;
 use App\Domain\Models\Users\UserName;
 use App\Domain\Models\Users\UserPassword;
-use App\EF\Users\UserRepository;
+use App\Repositories\Users\UserRepository;
 use App\Models\User as ModelsUser;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Hash;

@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App\Domain\Models\CampGrounds\ICampGroundRepository;
 use App\Domain\Models\Users\IUserRepository;
-use App\EF\CampGrounds\CampGroundRepository;
-use App\EF\Users\UserRepository;
+use App\Repositories\CampGrounds\CampGroundRepository;
+use App\Repositories\Users\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
