@@ -15,6 +15,7 @@ class UserRepository implements IUserRepository
     public function findById(UserId $id): ?User
     {
         $user = ModelsUser::find($id->getValue());
+
         if (is_null($user)) {
             return null;
         }
@@ -30,6 +31,7 @@ class UserRepository implements IUserRepository
     public function findByEmail(UserEmail $email): ?User
     {
         $user = ModelsUser::where('email', $email->getValue())->first();
+
         if (is_null($user)) {
             return null;
         }
