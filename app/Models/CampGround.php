@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class CampGround extends Model
 {
-    use HasUlids;
     use HasFactory;
+    use HasUlids;
 
     protected $fillable = [
         'name',

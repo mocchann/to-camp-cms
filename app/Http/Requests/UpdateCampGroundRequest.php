@@ -23,10 +23,10 @@ class UpdateCampGroundRequest extends FormRequest
                 function (string $attribute, mixed $value, Closure $fail) {
                     $camp_ground = CampGround::where('name', $value)->first();
 
-                    if (!is_null($camp_ground) && $camp_ground->id !== $this->input('id')) {
+                    if (! is_null($camp_ground) && $camp_ground->id !== $this->input('id')) {
                         $fail('Name must be a unique');
                     }
-                }
+                },
             ],
             'address' => 'required|string',
             'price' => 'required|numeric|min:0',

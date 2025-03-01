@@ -29,7 +29,7 @@ class CampGroundRepositoryTest extends TestCase
     public function setup(): void
     {
         parent::setUp();
-        $this->repository = new CampGroundRepository();
+        $this->repository = new CampGroundRepository;
     }
 
     #[Test]
@@ -45,7 +45,7 @@ class CampGroundRepositoryTest extends TestCase
                 'image_url' => 'https://example.com/test.jpg',
                 'elevation' => 1000,
             ]);
-        $filter = new GetCampGroundsFilter();
+        $filter = new GetCampGroundsFilter;
 
         $this->assertEquals(
             [

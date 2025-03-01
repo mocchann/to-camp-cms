@@ -25,7 +25,7 @@ class UserRepositoryTest extends TestCase
         $models_user = ModelsUser::create([
             'name' => 'test_user',
             'email' => 'test_user@example.com',
-            'password' => $password
+            'password' => $password,
         ]);
         $expected = new User(
             new UserId($models_user->id),
@@ -33,7 +33,7 @@ class UserRepositoryTest extends TestCase
             new UserEmail('test_user@example.com'),
             new UserPassword($password)
         );
-        $repository = new UserRepository();
+        $repository = new UserRepository;
 
         $user = $repository->findById(new UserId($models_user->id));
 
@@ -47,7 +47,7 @@ class UserRepositoryTest extends TestCase
         $models_user = ModelsUser::create([
             'name' => 'test_user',
             'email' => 'test_user@example.com',
-            'password' => $password
+            'password' => $password,
         ]);
         $expected = new User(
             new UserId($models_user->id),
@@ -55,7 +55,7 @@ class UserRepositoryTest extends TestCase
             new UserEmail('test_user@example.com'),
             new UserPassword($password)
         );
-        $repository = new UserRepository();
+        $repository = new UserRepository;
 
         $user = $repository->findByEmail(new UserEmail('test_user@example.com'));
 
@@ -66,7 +66,7 @@ class UserRepositoryTest extends TestCase
     public function save__ユーザーを登録できる(): void
     {
         $password = Hash::make('password');
-        $repository = new UserRepository();
+        $repository = new UserRepository;
 
         $repository->save(new User(
             new UserId(1),
@@ -79,7 +79,7 @@ class UserRepositoryTest extends TestCase
             'id' => 1,
             'name' => 'test_user',
             'email' => 'test_user@example.com',
-            'password' => $password
+            'password' => $password,
         ]);
     }
 }

@@ -20,7 +20,7 @@ class StatusFactory extends Factory
             'name' => $this->faker->randomElement([
                 'draft',
                 'published',
-                'archived'
+                'archived',
             ]),
         ];
     }

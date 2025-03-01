@@ -36,7 +36,7 @@ class CreateCampGroundRequest extends FormRequest
             'id.required' => 'ID is required',
             'id.ulid' => 'ID must be a ulid',
             'name.required' => 'Name is required',
-            'name.unique' => "Name must be a unique",
+            'name.unique' => 'Name must be a unique',
             'name.string' => 'Name must be a string',
             'address.required' => 'Address is required',
             'address.string' => 'Address must be a string',
