@@ -56,7 +56,7 @@ class UserRepository implements IUserRepository
 
     public function delete(UserId $id): void
     {
-        $models_user = ModelsUser::find($id->getValue());
+        $models_user = ModelsUser::findOrFail($id->getValue());
 
         $models_user->delete();
     }
