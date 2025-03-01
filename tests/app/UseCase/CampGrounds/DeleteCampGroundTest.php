@@ -2,7 +2,6 @@
 
 namespace Tests\App\UseCase\CampGrounds;
 
-use App\Domain\Enums\CampGroundLocations;
 use App\Domain\Models\CampGrounds\CampGround;
 use App\Domain\Models\CampGrounds\CampGroundAddress;
 use App\Domain\Models\CampGrounds\CampGroundElevation;

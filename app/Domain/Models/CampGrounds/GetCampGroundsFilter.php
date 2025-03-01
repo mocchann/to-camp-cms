@@ -8,14 +8,14 @@ namespace App\Domain\Models\CampGrounds;
 class GetCampGroundsFilter
 {
     public function __construct(
-        private int | null $id = null,
-        private string | null $name = null,
-        private string | null $address = null,
-        private int | null $price = null,
-        private string | null $image = null,
-        private string | null $status = null,
-        private string | null $location = null,
-        private int | null $elevation = null
+        private ?int $id = null,
+        private ?string $name = null,
+        private ?string $address = null,
+        private ?int $price = null,
+        private ?string $image = null,
+        private ?string $status = null,
+        private ?string $location = null,
+        private ?int $elevation = null
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -27,42 +27,42 @@ class GetCampGroundsFilter
         $this->elevation = $elevation;
     }
 
-    public function getId(): int | null
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): string | null
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getAddress(): string | null
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
-    public function getPrice(): int | null
+    public function getPrice(): ?int
     {
         return $this->price;
     }
 
-    public function getImage(): string | null
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function getStatus(): string | null
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function getLocation(): string | null
+    public function getLocation(): ?string
     {
         return $this->location;
     }
 
-    public function getElevation(): int | null
+    public function getElevation(): ?int
     {
         return $this->elevation;
     }

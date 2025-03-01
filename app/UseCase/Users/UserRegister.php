@@ -35,6 +35,7 @@ class UserRegister
 
         if ($this->user_service->exists($user)) {
             Log::info('User already exists');
+
             return false;
         }
 

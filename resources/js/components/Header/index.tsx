@@ -27,7 +27,7 @@ export const Header = ({
               </Menu.Target>
               <Menu.Dropdown>
                 <Menu.Label>Application</Menu.Label>
-                <form action="/logout" method="POST">
+                <form action="/user/logout" method="POST">
                   <input type="hidden" name="_token" value={csrfToken} />
                   <Menu.Item component="button" type="submit">
                     Logout
@@ -35,7 +35,13 @@ export const Header = ({
                 </form>
                 <Menu.Divider />
                 <Menu.Label>Danger zone</Menu.Label>
-                <Menu.Item color="red">Delete my account</Menu.Item>
+                <form action="/user/delete" method="POST">
+                  <input type="hidden" name="_token" value={csrfToken} />
+                  <input type="hidden" name="_method" value="DELETE" />
+                  <Menu.Item color="red" type="submit">
+                    Delete my account
+                  </Menu.Item>
+                </form>
               </Menu.Dropdown>
             </Menu>
           ) : (

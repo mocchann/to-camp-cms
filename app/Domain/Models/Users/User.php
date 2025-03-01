@@ -2,10 +2,6 @@
 
 namespace App\Domain\Models\Users;
 
-use App\Domain\Models\Users\UserEmail;
-use App\Domain\Models\Users\UserId;
-use App\Domain\Models\Users\UserName;
-use App\Domain\Models\Users\UserPassword;
 use Illuminate\Contracts\Auth\Authenticatable;
 
 class User implements Authenticatable

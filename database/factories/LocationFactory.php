@@ -23,7 +23,7 @@ class LocationFactory extends Factory
                 'river',
                 'lake',
                 'woods',
-                'highland'
+                'highland',
             ]),
         ];
     }

@@ -29,7 +29,7 @@ class UserLogin
 
         return Auth::attempt([
             'email' => $user_email->getValue(),
-            'password' => $user_password->getValue()
+            'password' => $user_password->getValue(),
         ]);
     }
 }

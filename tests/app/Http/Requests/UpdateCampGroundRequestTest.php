@@ -51,7 +51,7 @@ class UpdateCampGroundRequestTest extends TestCase
             'image_url' => 'images/test.png',
             'elevation' => 1000,
         ]);
-        $request = new UpdateCampGroundRequest();
+        $request = new UpdateCampGroundRequest;
         $request->merge($values);
         $rules = $request->rules();
         $validator = Validator::make($request->all(), $rules);
@@ -75,7 +75,7 @@ class UpdateCampGroundRequestTest extends TestCase
                     'location' => 'river',
                     'elevation' => 10,
                 ],
-                'expected' => true
+                'expected' => true,
             ],
             'キャンプ場データを更新するとき、他のキャンプ場名と同じ名前での更新はinvalid' => [
                 'values' => [
@@ -88,7 +88,7 @@ class UpdateCampGroundRequestTest extends TestCase
                     'location' => 'river',
                     'elevation' => 10,
                 ],
-                'expected' => false
+                'expected' => false,
             ],
         ];
     }
