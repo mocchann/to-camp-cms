@@ -19,7 +19,7 @@ class LoginUserController
         $result = $use_case->execute($request->email, $request->password);
 
         if ($result === false) {
-            return redirect()->route('login');
+            return redirect()->route('login')->with('error', 'email or password is incorrect');
         }
 
         return redirect()->route('camp_grounds.index');
