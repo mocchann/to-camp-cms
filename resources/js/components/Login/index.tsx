@@ -8,6 +8,7 @@ export const Login = (): JSX.Element => {
   const authCheck = Boolean(
     document.getElementById('root')?.dataset.authCheck || false,
   );
+  const sessionMessage = document.getElementById('root')?.dataset.sessionMessage || undefined;
 
   return (
     <Page
@@ -15,6 +16,7 @@ export const Login = (): JSX.Element => {
       csrfToken={csrfToken}
       errors={errors}
       authCheck={authCheck}
+      sessionMessage={sessionMessage}
     />
   );
 };
