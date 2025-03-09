@@ -17,6 +17,7 @@ type Props = {
   csrfToken: string;
   errors?: string | null;
   authCheck: boolean;
+  sessionMessage?: string;
 };
 
 export const Page = ({
@@ -24,8 +25,10 @@ export const Page = ({
   csrfToken,
   errors,
   authCheck,
+  sessionMessage,
 }: Props): JSX.Element => {
   const errorMessages = errors ? JSON.parse(errors) : {};
+  const sessionError = sessionMessage ? JSON.parse(sessionMessage) : "";
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -56,7 +59,7 @@ export const Page = ({
             name="email"
             key={form.key('email')}
             {...form.getInputProps('email')}
-            error={errorMessages.name?.join('\n') || undefined}
+            error={errorMessages.name?.join('\n') || sessionError || undefined}
           />
           <PasswordInput
             withAsterisk
