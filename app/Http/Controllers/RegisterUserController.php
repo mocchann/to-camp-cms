@@ -24,7 +24,7 @@ class RegisterUserController
         );
 
         if ($result === false) {
-            return redirect()->route('register')->with('error', 'User already exists');
+            return redirect()->route('register')->with('error', 'user registration failed');
         }
 
         return redirect()->route('camp_grounds.index');
