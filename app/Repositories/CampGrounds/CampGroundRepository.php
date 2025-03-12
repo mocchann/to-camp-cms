@@ -68,7 +68,7 @@ class CampGroundRepository implements ICampGroundRepository
         $camp_grounds = $query->with('statuses', 'locations')->get();
 
         return $camp_grounds->map(
-            fn($camp_ground) => new CampGround(
+            fn ($camp_ground) => new CampGround(
                 new CampGroundId($camp_ground->id),
                 new CampGroundName($camp_ground->name),
                 new CampGroundAddress($camp_ground->address),
