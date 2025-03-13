@@ -7,5 +7,4 @@ data-action="{{ action([App\Http\Controllers\RegisterUserController::class, 'sto
 data-csrf-token="{{ csrf_token() }}"
 data-session-errors="{{ json_encode(session('error')) }}"
 data-auth-check="{{ Auth::check() }}"
-data-session-message="{{ json_encode(session('error') ?? '') }}"
 @endsection
