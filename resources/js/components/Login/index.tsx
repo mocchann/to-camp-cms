@@ -8,7 +8,7 @@ export const Login = (): JSX.Element => {
   const authCheck = Boolean(
     document.getElementById('root')?.dataset.authCheck || false,
   );
-  const sessionErrors = document.getElementById('root')?.dataset.sessionErrors || '';
+  const sessionErrors = document.getElementById('root')?.dataset.sessionErrors || undefined;
 
   return (
     <Page
