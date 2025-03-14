@@ -1,4 +1,5 @@
 import {
+  Alert,
   AppShell,
   Button,
   Group,
@@ -17,7 +18,7 @@ type Props = {
   csrfToken: string;
   errors?: string | null;
   authCheck: boolean;
-  sessionMessage?: string;
+  sessionErrors?: string | null;
 };
 
 export const Page = ({
@@ -25,10 +26,10 @@ export const Page = ({
   csrfToken,
   errors,
   authCheck,
-  sessionMessage,
+  sessionErrors,
 }: Props): JSX.Element => {
   const errorMessages = errors ? JSON.parse(errors) : {};
-  const sessionError = sessionMessage ? JSON.parse(sessionMessage) : "";
+  const sessionErrorMessages = sessionErrors ? JSON.parse(sessionErrors) : {};
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -50,6 +51,12 @@ export const Page = ({
         <Title order={2} my={8}>
           Login
         </Title>
+        {sessionErrorMessages !== null &&
+          Object.keys(sessionErrorMessages).length > 0 && (
+            <Alert title="Error" color="red" mb="md">
+              {Object.values(sessionErrorMessages)}
+            </Alert>
+          )}
         <form action={action} method="POST" encType="multipart/form-data">
           <input type="hidden" name="_token" value={csrfToken} />
           <TextInput
@@ -59,7 +66,7 @@ export const Page = ({
             name="email"
             key={form.key('email')}
             {...form.getInputProps('email')}
-            error={errorMessages.name?.join('\n') || sessionError || undefined}
+            error={errorMessages.name?.join('\n') || undefined}
           />
           <PasswordInput
             withAsterisk
