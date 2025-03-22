@@ -19,7 +19,7 @@ import { Header } from '../Header';
 type Props = {
   action: string;
   csrfToken: string;
-  errors?: string | null;
+  errors?: string;
   authCheck: boolean;
   userName: string;
 };
