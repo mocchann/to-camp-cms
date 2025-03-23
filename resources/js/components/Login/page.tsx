@@ -16,9 +16,9 @@ import { Header } from '../Header';
 type Props = {
   action: string;
   csrfToken: string;
-  errors?: string | null;
+  errors?: string;
   authCheck: boolean;
-  sessionErrors?: string | null;
+  sessionErrors?: string;
 };
 
 export const Page = ({
