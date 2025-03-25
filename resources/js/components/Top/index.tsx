@@ -9,6 +9,7 @@ export const Top = (): JSX.Element => {
     document.getElementById('root')?.dataset.authCheck || false,
   );
   const userName = document.getElementById('root')?.dataset.userName || '';
+  const errors = document.getElementById('root')?.dataset.errors || undefined;
 
   return (
     <Page
@@ -16,6 +17,7 @@ export const Top = (): JSX.Element => {
       csrfToken={csrfToken}
       authCheck={authCheck}
       userName={userName}
+      errors={errors}
     />
   );
 };
