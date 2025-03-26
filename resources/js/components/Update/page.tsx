@@ -20,7 +20,7 @@ import { Header } from '../Header';
 type Props = {
   action: string;
   csrfToken: string;
-  errors?: string | null;
+  errors?: string;
   campGround: CampGround;
   authCheck: boolean;
   userName: string;
