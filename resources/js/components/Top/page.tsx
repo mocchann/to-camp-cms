@@ -24,6 +24,7 @@ type Props = {
   csrfToken: string;
   authCheck: boolean;
   userName: string;
+  errors?: string;
 };
 
 export const Page = ({

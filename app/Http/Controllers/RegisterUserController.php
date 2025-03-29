@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterUserRequest;
 use App\UseCase\Users\UserRegister;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class RegisterUserController
@@ -14,7 +14,7 @@ class RegisterUserController
         return view('user_register.index');
     }
 
-    public function store(Request $request, UserRegister $use_case): RedirectResponse
+    public function store(RegisterUserRequest $request, UserRegister $use_case): RedirectResponse
     {
         $result = $use_case->execute(
             $request->id,
@@ -24,7 +24,7 @@ class RegisterUserController
         );
 
         if ($result === false) {
-            return redirect()->route('register')->with('error', 'User already exists');
+            return redirect()->route('register')->with('error', 'user registration failed');
         }
 
         return redirect()->route('camp_grounds.index');

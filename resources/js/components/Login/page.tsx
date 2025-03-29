@@ -1,4 +1,5 @@
 import {
+  Alert,
   AppShell,
   Button,
   Group,
@@ -15,8 +16,9 @@ import { Header } from '../Header';
 type Props = {
   action: string;
   csrfToken: string;
-  errors?: string | null;
+  errors?: string;
   authCheck: boolean;
+  sessionErrors?: string;
 };
 
 export const Page = ({
@@ -24,8 +26,10 @@ export const Page = ({
   csrfToken,
   errors,
   authCheck,
+  sessionErrors,
 }: Props): JSX.Element => {
   const errorMessages = errors ? JSON.parse(errors) : {};
+  const sessionErrorMessages = sessionErrors ? JSON.parse(sessionErrors) : {};
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -47,6 +51,12 @@ export const Page = ({
         <Title order={2} my={8}>
           Login
         </Title>
+        {sessionErrorMessages !== null &&
+          Object.keys(sessionErrorMessages).length > 0 && (
+            <Alert title="Error" color="red" mb="md">
+              {Object.values(sessionErrorMessages)}
+            </Alert>
+          )}
         <form action={action} method="POST" encType="multipart/form-data">
           <input type="hidden" name="_token" value={csrfToken} />
           <TextInput
