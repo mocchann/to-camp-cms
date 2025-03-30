@@ -16,9 +16,7 @@ use App\Domain\Models\CampGrounds\ICampGroundRepository;
 use App\Models\CampGround as ModelsCampGround;
 use App\Models\Location;
 use App\Models\Status;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class CampGroundRepository implements ICampGroundRepository
 {
@@ -68,7 +66,7 @@ class CampGroundRepository implements ICampGroundRepository
         $camp_grounds = $query->with('statuses', 'locations')->get();
 
         return $camp_grounds->map(
-            fn ($camp_ground) => new CampGround(
+            fn($camp_ground) => new CampGround(
                 new CampGroundId($camp_ground->id),
                 new CampGroundName($camp_ground->name),
                 new CampGroundAddress($camp_ground->address),
@@ -99,11 +97,6 @@ class CampGroundRepository implements ICampGroundRepository
             new CampGroundLocation($camp_ground->locations->first()->name),
             new CampGroundElevation($camp_ground->elevation)
         );
-    }
-
-    public function uploadImage(UploadedFile $image_file): string
-    {
-        return Storage::disk('public')->put($image_file->getPathname(), $image_file);
     }
 
     public function update(CampGround $camp_ground): CampGround
