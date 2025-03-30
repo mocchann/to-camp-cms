@@ -2,12 +2,12 @@
 
 namespace App\UseCase\CampGrounds;
 
-use App\Domain\Models\CampGrounds\ICampGroundRepository;
+use App\Domain\Models\CampGrounds\ICampGroundFileRepository;
 use Illuminate\Http\UploadedFile;
 
 class UploadCampGroundImage
 {
-    public function __construct(private ICampGroundRepository $repository)
+    public function __construct(private ICampGroundFileRepository $repository)
     {
         $this->repository = $repository;
     }
